@@ -15,13 +15,17 @@ endif
 INC += -I.
 INC += -I$(TOP)
 INC += -I$(BUILD)
+INC += -ILibraries/XMCLib/inc
+INC += -ILibraries/CMSIS/Include
+INC += -ILibraries/CMSIS/Infineon/XMC4500_series/Include
 
 ifeq ($(CROSS), 1)
+LD = $(CROSS_COMPILE)g++
 DFU = $(TOP)/tools/dfu.py
 PYDFU = $(TOP)/tools/pydfu.py
-CFLAGS_CORTEX_M4 = -mthumb -mtune=cortex-m4 -mcpu=cortex-m4 -msoft-float -fsingle-precision-constant -Wdouble-promotion
-CFLAGS = $(INC) -Wall -Werror -std=c99 -nostdlib $(CFLAGS_CORTEX_M4) $(COPT)
-LDFLAGS = -nostdlib -T startup/XMC4500x1024.ld -Map=$@.map --cref --gc-sections
+CFLAGS_CORTEX_M4 = -DXMC4500_F144x1024 -mthumb -mcpu=cortex-m4 -g -gdwarf-2 -pipe -c -fmessage-length=0 -mfpu=fpv4-sp-d16 -O0 -ffunction-sections -fdata-sections -mfloat-abi=softfp -Wa,-adhlns="$@.lst"
+CFLAGS = $(INC) -Wall -Werror -std=gnu99 -nostdlib $(CFLAGS_CORTEX_M4) $(COPT)
+LDFLAGS = -nostartfiles -T startup/XMC4500x1024.ld -Xlinker --gc-sections -specs=nosys.specs #--cref --gc-sections #-Wl,-Map="$@.map"
 else
 LD = gcc
 CFLAGS = -m32 $(INC) -Wall -Werror -std=c99 $(COPT)
@@ -38,7 +42,7 @@ CFLAGS += -Os -DNDEBUG
 CFLAGS += -fdata-sections -ffunction-sections
 endif
 
-LIBS =
+LIBS = 
 
 SRC_C = \
 	main.c \
@@ -49,12 +53,14 @@ SRC_C = \
 	lib/libc/string0.c \
 	lib/mp-readline/readline.c \
 	$(BUILD)/_frozen_mpy.c \
+	startup/system_XMC4500.c \
+	Libraries/Newlib/syscalls.c \
 
 SRC_S = \
 	startup/startup_XMC4500.S \
-    gchelper.S \
+    gchelper.S
 
-OBJ = $(PY_CORE_O) $(addprefix $(BUILD)/, $(SRC_C:.c=.o)) $(SRC_S:.S=.o))
+OBJ = $(PY_CORE_O) $(addprefix $(BUILD)/, $(SRC_C:.c=.o) $(SRC_S:.S=.o))
 
 ifeq ($(CROSS), 1)
 all: $(BUILD)/firmware.dfu
