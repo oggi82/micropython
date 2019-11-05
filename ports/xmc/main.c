@@ -9,6 +9,8 @@
 #include "py/mperrno.h"
 #include "lib/utils/pyexec.h"
 
+#include "VirtualSerial.h"
+
 #if MICROPY_ENABLE_COMPILER
 void do_str(const char *src, mp_parse_input_kind_t input_kind) {
     nlr_buf_t nlr;
@@ -34,7 +36,8 @@ static char heap[2048];
 int main(int argc, char **argv) {
     int stack_dummy;
     stack_top = (char*)&stack_dummy;
-
+    USB_Init();
+soft_reset:
     #if MICROPY_ENABLE_GC
     gc_init(heap, heap + sizeof(heap));
     #endif
@@ -57,6 +60,7 @@ int main(int argc, char **argv) {
     pyexec_frozen_module("frozentest.py");
     #endif
     mp_deinit();
+    goto soft_reset;
     return 0;
 }
 

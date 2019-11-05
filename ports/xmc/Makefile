@@ -16,6 +16,8 @@ INC += -I.
 INC += -I$(TOP)
 INC += -I$(BUILD)
 INC += -ILibraries/XMCLib/inc
+INC += -ILibraries
+INC += -ILibraries/VirtualSerial
 INC += -ILibraries/CMSIS/Include
 INC += -ILibraries/CMSIS/Infineon/XMC4500_series/Include
 
@@ -55,6 +57,25 @@ SRC_C = \
 	$(BUILD)/_frozen_mpy.c \
 	startup/system_XMC4500.c \
 	Libraries/Newlib/syscalls.c \
+	Libraries/USB/Class/Device/CDCClassDevice.c \
+	Libraries/USB/Common/memcpy.c \
+	Libraries/USB/Core/ConfigDescriptors.c \
+	Libraries/USB/Core/Events.c \
+	Libraries/USB/Core/XMC4000/Endpoint_XMC4000.c \
+	Libraries/USB/Core/XMC4000/USBController_XMC4000.c \
+	Libraries/USB/Core/XMC4000/EndpointStream_XMC4000.c \
+	Libraries/USB/Core/HostStandardReq.c \
+	Libraries/USB/Core/USBTask.c \
+	Libraries/VirtualSerial/VirtualSerial.c \
+	Libraries/VirtualSerial/Descriptors.c \
+	Libraries/XMCLib/src/xmc_usbd.c \
+	Libraries/XMCLib/src/xmc_common.c \
+	Libraries/XMCLib/src/xmc_gpio.c \
+	Libraries/XMCLib/src/xmc_uart.c \
+	Libraries/XMCLib/src/xmc_usic.c \
+	Libraries/XMCLib/src/xmc4_scu.c \
+	Libraries/XMCLib/src/xmc4_gpio.c \
+
 
 SRC_S = \
 	startup/startup_XMC4500.S \
