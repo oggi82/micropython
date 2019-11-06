@@ -101,7 +101,7 @@ void USB_Init(void)
   NVIC_EnableIRQ(USB0_0_IRQn);
 
   /* LUFA Class Line Encoding*/
-  VirtualSerial_CDC_Interface.State.LineEncoding.BaudRateBPS = 9600;
+  VirtualSerial_CDC_Interface.State.LineEncoding.BaudRateBPS = 115200; // change to define
   VirtualSerial_CDC_Interface.State.LineEncoding.DataBits = 8;
 
   /* USB Connection*/

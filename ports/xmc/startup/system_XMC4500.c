@@ -307,7 +307,7 @@ extern uint32_t __Vectors;
 /*******************************************************************************
  * LOCAL FUNCTIONS
  *******************************************************************************/
-static void delay(uint32_t cycles)
+/*static void delay(uint32_t cycles)
 {
   volatile uint32_t i;
 
@@ -316,7 +316,7 @@ static void delay(uint32_t cycles)
     __NOP();
   }
 }
-
+*/
 /*******************************************************************************
  * API IMPLEMENTATION
  *******************************************************************************/
@@ -360,6 +360,7 @@ __WEAK void SystemCoreSetup(void)
   FLASH0->FCON = temp;
 }
 
+#if 0
 __WEAK void SystemCoreClockSetup(void)
 {
 #if FOFI_CALIBRATION_MODE == FOFI_CALIBRATION_MODE_FACTORY
@@ -630,7 +631,7 @@ __WEAK void SystemCoreClockSetup(void)
 
   SystemCoreClockUpdate();
 }
-
+#endif
 __WEAK void SystemCoreClockUpdate(void)
 {
   uint32_t pdiv;

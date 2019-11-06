@@ -49,6 +49,7 @@ LIBS =
 SRC_C = \
 	main.c \
 	uart_core.c \
+	help.c \
 	lib/utils/printf.c \
 	lib/utils/stdout_helpers.c \
 	lib/utils/pyexec.c \

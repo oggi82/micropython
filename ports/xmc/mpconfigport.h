@@ -32,6 +32,9 @@
 #define MICROPY_PY_BUILTINS_SLICE   (1)
 #define MICROPY_PY_BUILTINS_PROPERTY (1)
 #define MICROPY_PY_BUILTINS_MIN_MAX (1)
+#define MICROPY_PY_BUILTINS_HELP    (1)
+#define MICROPY_PY_BUILTINS_HELP_TEXT xmc_help_text
+#define MICROPY_PY_BUILTINS_HELP_MODULES (1)
 #define MICROPY_PY_GC               (1)
 #define MICROPY_PY_ARRAY            (1)
 #define MICROPY_PY_ATTRTUPLE        (1)
@@ -74,8 +77,8 @@ typedef long mp_off_t;
 // We need to provide a declaration/definition of alloca()
 #include <alloca.h>
 
-#define MICROPY_HW_BOARD_NAME "minimal"
-#define MICROPY_HW_MCU_NAME "unknown-cpu"
+#define MICROPY_HW_BOARD_NAME "Relax Lite-Kit"
+#define MICROPY_HW_MCU_NAME "XMC4500-1024"
 
 #define MP_STATE_PORT MP_STATE_VM
 
