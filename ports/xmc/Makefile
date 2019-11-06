@@ -27,7 +27,7 @@ DFU = $(TOP)/tools/dfu.py
 PYDFU = $(TOP)/tools/pydfu.py
 CFLAGS_CORTEX_M4 = -DXMC4500_F144x1024 -mthumb -mcpu=cortex-m4 -g -gdwarf-2 -pipe -c -fmessage-length=0 -mfpu=fpv4-sp-d16 -O0 -ffunction-sections -fdata-sections -mfloat-abi=softfp -Wa,-adhlns="$@.lst"
 CFLAGS = $(INC) -Wall -Werror -std=gnu99 -nostdlib $(CFLAGS_CORTEX_M4) $(COPT)
-LDFLAGS = -nostartfiles -T startup/XMC4500x1024.ld -Xlinker --gc-sections -specs=nosys.specs #--cref --gc-sections #-Wl,-Map="$@.map"
+LDFLAGS = -nostartfiles -T startup/XMC4500x1024.ld -Xlinker --gc-sections -specs=nosys.specs -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -mcpu=cortex-m4 -mthumb -g -gdwarf-2 #--cref --gc-sections #-Wl,-Map="$@.map"
 else
 LD = gcc
 CFLAGS = -m32 $(INC) -Wall -Werror -std=c99 $(COPT)
@@ -91,7 +91,7 @@ endif
 
 $(BUILD)/_frozen_mpy.c: frozentest.mpy $(BUILD)/genhdr/qstrdefs.generated.h
 	$(ECHO) "MISC freezing bytecode"
-	$(Q)$(TOP)/tools/mpy-tool.py -f -q $(BUILD)/genhdr/qstrdefs.preprocessed.h -mlongint-impl=none $< > $@
+	$(Q)$(TOP)/tools/mpy-tool.py -f -q $(BUILD)/genhdr/qstrdefs.preprocessed.h -mlongint-impl=mpz $< > $@
 
 $(BUILD)/firmware.elf: $(OBJ)
 	$(ECHO) "LINK $@"
