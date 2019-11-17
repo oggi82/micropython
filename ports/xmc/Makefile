@@ -76,7 +76,9 @@ SRC_C = \
 	Libraries/XMCLib/src/xmc_usic.c \
 	Libraries/XMCLib/src/xmc4_scu.c \
 	Libraries/XMCLib/src/xmc4_gpio.c \
-
+	pin.c \
+	pin_defs_xmc.c \
+	pin_named_pins.c \
 
 SRC_S = \
 	startup/startup_XMC4500.S \
