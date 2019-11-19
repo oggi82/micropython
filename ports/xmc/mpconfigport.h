@@ -76,6 +76,58 @@ typedef long mp_off_t;
 #define MICROPY_PORT_BUILTINS \
     { MP_ROM_QSTR(MP_QSTR_open), MP_ROM_PTR(&mp_builtin_open_obj) },
 
+// We have inlined IRQ functions for efficiency (they are generally
+// 1 machine instruction).
+//
+// Note on IRQ state: you should not need to know the specific
+// value of the state variable, but rather just pass the return
+// value from disable_irq back to enable_irq.  If you really need
+// to know the machine-specific values, see irq.h.
+
+static inline void enable_irq(mp_uint_t state) {
+    //__set_PRIMASK(state);
+    //#warning fix this, find the right include
+}
+
+static inline mp_uint_t disable_irq(void) {
+    //#warning fix this, find the right include
+    //mp_uint_t state = __get_PRIMASK();
+    //__disable_irq();
+    mp_uint_t state = 0;
+    return state;
+}
+
+#define MICROPY_BEGIN_ATOMIC_SECTION()     disable_irq()
+#define MICROPY_END_ATOMIC_SECTION(state)  enable_irq(state)
+
+#if MICROPY_PY_THREAD
+#define MICROPY_EVENT_POLL_HOOK \
+    do { \
+        extern void mp_handle_pending(void); \
+        mp_handle_pending(); \
+        if (pyb_thread_enabled) { \
+            MP_THREAD_GIL_EXIT(); \
+            pyb_thread_yield(); \
+            MP_THREAD_GIL_ENTER(); \
+        } else { \
+            __WFI(); \
+        } \
+    } while (0);
+
+#define MICROPY_THREAD_YIELD() pyb_thread_yield()
+#else
+#define MICROPY_EVENT_POLL_HOOK \
+    do { \
+        extern void mp_handle_pending(void); \
+        mp_handle_pending(); \
+        __WFI(); \
+    } while (0);
+
+#define MICROPY_THREAD_YIELD()
+#endif
+
+
+
 // We need to provide a declaration/definition of alloca()
 #include <alloca.h>
 

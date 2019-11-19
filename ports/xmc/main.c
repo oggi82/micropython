@@ -213,8 +213,8 @@ void gpio_init(periph_gpio_t *gpio, int pin, int mode, int pull, int alt) {
     gpio->OMR = (gpio->OMR & ~(3 << (2 * pin))) | (mode << (2 * pin));
     // OTYPER is left as default push-pull
     // OSPEEDR is left as default low speed
-    gpio->PUPDR = (gpio->PUPDR & ~(3 << (2 * pin))) | (pull << (2 * pin));
-    gpio->AFR[pin >> 3] = (gpio->AFR[pin >> 3] & ~(15 << (4 * (pin & 7)))) | (alt << (4 * (pin & 7)));
+    //gpio->PUPDR = (gpio->PUPDR & ~(3 << (2 * pin))) | (pull << (2 * pin));
+    //gpio->AFR[pin >> 3] = (gpio->AFR[pin >> 3] & ~(15 << (4 * (pin & 7)))) | (alt << (4 * (pin & 7)));
 
 }
 
