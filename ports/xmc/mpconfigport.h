@@ -50,6 +50,8 @@
 #define MICROPY_FLOAT_IMPL          (MICROPY_FLOAT_IMPL_FLOAT)
 
 // type definitions for the specific machine
+// Pin definition header file
+#define MICROPY_PIN_DEFS_PORT_H "pin_defs_xmc.h"
 
 #define BYTES_PER_WORD (4)
 

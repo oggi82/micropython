@@ -1,6 +1,18 @@
-include ../../py/mkenv.mk
+# Select the board to build for: if not given on the command line,
+# then default to PYBV10.
+BOARD ?= RELAX_LITE_KIT
 
-CROSS = 0
+# If the build directory is not given, make it reflect the board name.
+BUILD ?= build-$(BOARD)
+
+BOARD_DIR ?= boards/$(BOARD)
+ifeq ($(wildcard $(BOARD_DIR)/.),)
+$(error Invalid BOARD specified: $(BOARD_DIR))
+endif
+
+include ../../py/mkenv.mk
+# -include mpconfigport.mk # no used for so long, there is no ethernet nor wifi
+include $(BOARD_DIR)/mpconfigboard.mk
 
 # qstr definitions (must come before including py.mk)
 QSTR_DEFS = qstrdefsport.h
@@ -8,9 +20,13 @@ QSTR_DEFS = qstrdefsport.h
 # include py core make definitions
 include $(TOP)/py/py.mk
 
-ifeq ($(CROSS), 1)
-CROSS_COMPILE = arm-none-eabi-
-endif
+MCU_SERIES_UPPER = $(shell echo $(MCU_SERIES) | tr '[:lower:]' '[:upper:]')
+CMSIS_MCU_LOWER = $(shell echo $(CMSIS_MCU) | tr '[:upper:]' '[:lower:]')
+
+STARTUP_FILE ?= lib/xmclib/CMSIS/XMC$(MCU_SERIES_UPPER)xx/Source/Templates/gcc/startup_$(CMSIS_MCU_LOWER).o
+SYSTEM_FILE ?= lib/xmclib/CMSIS/XMC$(MCU_SERIES_UPPER)xx/Source/Templates/system_$(CMSIS_MCU_LOWER).o
+
+CROSS_COMPILE ?= arm-none-eabi-
 
 INC += -I.
 INC += -I$(TOP)
@@ -21,18 +37,12 @@ INC += -ILibraries/VirtualSerial
 INC += -ILibraries/CMSIS/Include
 INC += -ILibraries/CMSIS/Infineon/XMC4500_series/Include
 
-ifeq ($(CROSS), 1)
 LD = $(CROSS_COMPILE)g++
 DFU = $(TOP)/tools/dfu.py
 PYDFU = $(TOP)/tools/pydfu.py
 CFLAGS_CORTEX_M4 = -DXMC4500_F144x1024 -mthumb -mcpu=cortex-m4 -g -gdwarf-2 -pipe -c -fmessage-length=0 -mfpu=fpv4-sp-d16 -O0 -ffunction-sections -fdata-sections -mfloat-abi=softfp -Wa,-adhlns="$@.lst"
 CFLAGS = $(INC) -Wall -Werror -std=gnu99 -nostdlib $(CFLAGS_CORTEX_M4) $(COPT)
 LDFLAGS = -nostartfiles -T startup/XMC4500x1024.ld -Xlinker --gc-sections -specs=nosys.specs -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -mcpu=cortex-m4 -mthumb -g -gdwarf-2 #--cref --gc-sections #-Wl,-Map="$@.map"
-else
-LD = gcc
-CFLAGS = -m32 $(INC) -Wall -Werror -std=c99 $(COPT)
-LDFLAGS = -m32 -Wl,-Map=$@.map,--cref -Wl,--gc-sections
-endif
 
 CSUPEROPT = -Os # save some code space
 
@@ -56,7 +66,6 @@ SRC_C = \
 	lib/libc/string0.c \
 	lib/mp-readline/readline.c \
 	$(BUILD)/_frozen_mpy.c \
-	startup/system_XMC4500.c \
 	Libraries/Newlib/syscalls.c \
 	Libraries/USB/Class/Device/CDCClassDevice.c \
 	Libraries/USB/Common/memcpy.c \
@@ -76,21 +85,18 @@ SRC_C = \
 	Libraries/XMCLib/src/xmc_usic.c \
 	Libraries/XMCLib/src/xmc4_scu.c \
 	Libraries/XMCLib/src/xmc4_gpio.c \
-	pin.c \
-	pin_defs_xmc.c \
-	pin_named_pins.c \
 
-SRC_S = \
-	startup/startup_XMC4500.S \
-    gchelper.S
+SRC_O = \
+	$(STARTUP_FILE) \
+	$(SYSTEM_FILE) \
+	gchelper.o    
 
-OBJ = $(PY_CORE_O) $(addprefix $(BUILD)/, $(SRC_C:.c=.o) $(SRC_S:.S=.o))
+OBJ = 
+OBJ += $(PY_CORE_O)
+OBJ += $(addprefix $(BUILD)/, $(SRC_C:.c=.o))
+OBJ += $(addprefix $(BUILD)/, $(SRC_O))
 
-ifeq ($(CROSS), 1)
 all: $(BUILD)/firmware.dfu
-else
-all: $(BUILD)/firmware.elf
-endif
 
 $(BUILD)/_frozen_mpy.c: frozentest.mpy $(BUILD)/genhdr/qstrdefs.generated.h
 	$(ECHO) "MISC freezing bytecode"
