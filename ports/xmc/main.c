@@ -171,3 +171,54 @@ void MP_WEAK __assert_func(const char *file, int line, const char *func, const c
     __fatal_error("Assertion failed");
 }
 #endif
+
+
+
+typedef struct {
+    volatile uint32_t  OUT;			/**< The port output register determines the value of a GPIO pin when it is selected by
+  	  	  	  	  	  	  	  	  	  	  Pn_IOCRx as output */
+    volatile uint32_t  OMR;			/**< The port output modification register contains control bits that make it possible
+  	  	  	  	  	  	  	  	  	 to individually set, reset, or toggle the logic state of a single port line*/
+    volatile const uint32_t  RESERVED0[2];
+    volatile uint32_t  IOCR[4];		/**< The port input/output control registers select the digital output and input driver
+											functionality and characteristics of a GPIO port pin */
+    volatile const  uint32_t  RESERVED1;
+    volatile const  uint32_t  IN;			/**< The logic level of a GPIO pin can be read via the read-only port input register
+  	  	  	  	  	  	  	  	  	  Pn_IN */
+    volatile const  uint32_t  RESERVED2[6];
+    volatile uint32_t  PDR[2];		/**< Pad Driver Mode Registers */
+
+    volatile const  uint32_t  RESERVED3[6];
+    volatile uint32_t  PDISC;			/**< Pin Function Decision Control Register is to disable/enable the digital pad
+  	      	  	  	  	  	  	  	  	 structure in shared analog and digital ports*/
+    volatile const  uint32_t  RESERVED4[3];
+    volatile uint32_t  PPS;			/**< Pin Power Save Register */
+    volatile uint32_t  HWSEL;			/**< Pin Hardware Select Register */
+} periph_gpio_t;
+
+
+#define GPIOA  ((periph_gpio_t*) 0x48028000)
+#define GPIOB  ((periph_gpio_t*) 0x48028100)
+
+// simple GPIO interface
+#define GPIO_MODE_IN (0)
+#define GPIO_MODE_OUT (1)
+#define GPIO_MODE_ALT (2)
+#define GPIO_PULL_NONE (0)
+#define GPIO_PULL_UP (0)
+#define GPIO_PULL_DOWN (1)
+
+void gpio_init(periph_gpio_t *gpio, int pin, int mode, int pull, int alt) {
+
+    gpio->OMR = (gpio->OMR & ~(3 << (2 * pin))) | (mode << (2 * pin));
+    // OTYPER is left as default push-pull
+    // OSPEEDR is left as default low speed
+    gpio->PUPDR = (gpio->PUPDR & ~(3 << (2 * pin))) | (pull << (2 * pin));
+    gpio->AFR[pin >> 3] = (gpio->AFR[pin >> 3] & ~(15 << (4 * (pin & 7)))) | (alt << (4 * (pin & 7)));
+
+}
+
+#define gpio_get(gpio, pin) ((gpio->IN >> (pin)) & 1)
+#define gpio_set(gpio, pin, value) do { gpio->OUT = (gpio->OUT & ~(1 << (pin))) | (value << pin); } while (0)
+#define gpio_low(gpio, pin) do { gpio->BSRRH = (1 << (pin)); } while (0)
+#define gpio_high(gpio, pin) do { gpio->BSRRL = (1 << (pin)); } while (0)
