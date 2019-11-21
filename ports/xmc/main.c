@@ -44,6 +44,7 @@
 //#include "extmod/vfs_fat.h"
 
 #include "VirtualSerial.h"
+#include "pin.h"
 /* Clock configuration */
 /* fPLL = 120MHz */
 /* fSYS = 120MHz */

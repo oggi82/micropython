@@ -89,6 +89,8 @@ SRC_C = \
 	Libraries/XMCLib/src/xmc_usic.c \
 	Libraries/XMCLib/src/xmc4_scu.c \
 	Libraries/XMCLib/src/xmc4_gpio.c \
+	pin.c \
+	pin_defs_xmc.c \
 
 SRC_O = \
 	$(STARTUP_FILE) \
