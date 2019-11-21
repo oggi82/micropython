@@ -57,6 +57,9 @@ endif
 
 LIBS = 
 
+SRC_MOD = \
+	mod_example.c \
+
 SRC_C = \
 	main.c \
 	uart_core.c \
@@ -96,6 +99,7 @@ OBJ =
 OBJ += $(PY_CORE_O)
 OBJ += $(addprefix $(BUILD)/, $(SRC_C:.c=.o))
 OBJ += $(addprefix $(BUILD)/, $(SRC_O))
+OBJ += $(addprefix $(BUILD)/, $(SRC_MOD:.c=.o))
 
 all: $(BUILD)/firmware.dfu
 
