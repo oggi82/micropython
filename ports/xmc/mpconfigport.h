@@ -1,5 +1,4 @@
 #include <stdint.h>
-
 // options to control how Micro Python is built
 
 // memory allocation policies
@@ -75,7 +74,10 @@
 #define MICROPY_PY_SYS_STDFILES     (0)
 #define MICROPY_MODULE_FROZEN_MPY   (1)
 #define MICROPY_LONGINT_IMPL        (MICROPY_LONGINT_IMPL_MPZ)
+#define MICROPY_ENABLE_SOURCE_LINE  (1)
+#ifndef MICROPY_FLOAT_IMPL // can be configured by each board via mpconfigboard.mk
 #define MICROPY_FLOAT_IMPL          (MICROPY_FLOAT_IMPL_FLOAT)
+#endif
 
 // type definitions for the specific machine
 // Pin definition header file
@@ -83,12 +85,20 @@
 
 #define BYTES_PER_WORD (4)
 
+
+/**
+ * pin_class_mapper and pin_class_map_dict used
+ * in pin.c
+ * */
+#define MICROPY_PORT_ROOT_POINTERS \
+    const char *readline_hist[8]; \
+    mp_obj_t pin_class_mapper;  \
+    mp_obj_t pin_class_map_dict; \
+
 #define MICROPY_MAKE_POINTER_CALLABLE(p) ((void*)((mp_uint_t)(p) | 1))
 
-// This port is intended to be 32-bit, but unfortunately, int32_t for
-// different targets may be defined in different ways - either as int
-// or as long. This requires different printf formatting specifiers
-// to print such value. So, we avoid int32_t and use int directly.
+#define MP_SSIZE_MAX (0x7fffffff)
+
 #define UINT_FMT "%u"
 #define INT_FMT "%d"
 typedef int mp_int_t; // must be pointer size
@@ -154,15 +164,10 @@ static inline mp_uint_t disable_irq(void) {
 #define MICROPY_THREAD_YIELD()
 #endif
 
-
-
-// We need to provide a declaration/definition of alloca()
-#include <alloca.h>
-
 #define MICROPY_HW_BOARD_NAME "Relax Lite-Kit"
 #define MICROPY_HW_MCU_NAME "XMC4500-1024"
 
 #define MP_STATE_PORT MP_STATE_VM
 
-#define MICROPY_PORT_ROOT_POINTERS \
-    const char *readline_hist[8];
+// We need to provide a declaration/definition of alloca()
+#include <alloca.h>

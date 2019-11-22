@@ -91,6 +91,7 @@ SRC_C = \
 	Libraries/XMCLib/src/xmc4_gpio.c \
 	pin.c \
 	pin_defs_xmc.c \
+	modmachine.c \
 
 SRC_O = \
 	$(STARTUP_FILE) \

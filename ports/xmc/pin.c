@@ -100,19 +100,19 @@ void pin_init0(void) {
 }
 
 // C API used to convert a user-supplied pin name into an ordinal pin number.
-// const pin_obj_t *pin_find(mp_obj_t user_obj) {
-//     const pin_obj_t *pin_obj;
+const pin_obj_t *pin_find(mp_obj_t user_obj) {
+     const pin_obj_t *pin_obj;
 
-//     // // If a pin was provided, then use it
-//     // if (mp_obj_is_type(user_obj, &pin_type)) {
-//     //     pin_obj = MP_OBJ_TO_PTR(user_obj);
-//     //     if (pin_class_debug) {
-//     //         printf("Pin map passed pin ");
-//     //         mp_obj_print(MP_OBJ_FROM_PTR(pin_obj), PRINT_STR);
-//     //         printf("\n");
-//     //     }
-//     //     return pin_obj;
-//     // }
+     // If a pin was provided, then use it
+     if (mp_obj_is_type(user_obj, &pin_type)) {
+         pin_obj = MP_OBJ_TO_PTR(user_obj);
+         if (pin_class_debug) {
+             printf("Pin map passed pin ");
+             mp_obj_print(MP_OBJ_FROM_PTR(pin_obj), PRINT_STR);
+             printf("\n");
+         }
+         return pin_obj;
+     }
 
 //     // if (MP_STATE_PORT(pin_class_mapper) != mp_const_none) {
 //     //     mp_obj_t o = mp_call_function_1(MP_STATE_PORT(pin_class_mapper), user_obj);
@@ -176,13 +176,13 @@ void pin_init0(void) {
 //     // }
 
 //     // nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, "Pin(%s) doesn't exist", mp_obj_str_get_str(user_obj)));
-//     return 0;
-// }
+     return 0;
+}
 
-// /// \method __str__()
-// /// Return a string describing the pin object.
-// STATIC void pin_print(const mp_print_t *print, mp_obj_t self_in, mp_print_kind_t kind) {
-//     // pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
+/// \method __str__()
+/// Return a string describing the pin object.
+STATIC void pin_print(const mp_print_t *print, mp_obj_t self_in, mp_print_kind_t kind) {
+    //pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
 
 //     // // pin name
 //     // mp_printf(print, "Pin(Pin.cpu.%q, mode=Pin.", self->name);
@@ -238,7 +238,7 @@ void pin_init0(void) {
 //     //         mp_print_str(print, ")");
 //     //     }
 //     // }
-// }
+}
 
 // STATIC mp_obj_t pin_obj_init_helper(const pin_obj_t *pin, size_t n_args, const mp_obj_t *args, mp_map_t *kw_args);
 
@@ -262,20 +262,19 @@ void pin_init0(void) {
 //     return 0;
 // }
 
-// // fast method for getting/setting pin value
-// STATIC mp_obj_t pin_call(mp_obj_t self_in, size_t n_args, size_t n_kw, const mp_obj_t *args) {
-//     // mp_arg_check_num(n_args, n_kw, 0, 1, false);
-//     // pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
-//     // if (n_args == 0) {
-//     //     // get pin
-//     //     return MP_OBJ_NEW_SMALL_INT(mp_hal_pin_read(self));
-//     // } else {
-//     //     // set pin
-//     //     mp_hal_pin_write(self, mp_obj_is_true(args[0]));
-//     //     return mp_const_none;
-//     // }
-//     return 0;
-// }
+// fast method for getting/setting pin value
+STATIC mp_obj_t pin_call(mp_obj_t self_in, size_t n_args, size_t n_kw, const mp_obj_t *args) {
+    mp_arg_check_num(n_args, n_kw, 0, 1, false);
+    pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
+    if (n_args == 0) {
+        // get pin
+        return MP_OBJ_NEW_SMALL_INT(mp_hal_pin_read(self));
+    } else {
+        // set pin
+        mp_hal_pin_write(self, mp_obj_is_true(args[0]));
+        return mp_const_none;
+    }
+}
 
 // /// \classmethod mapper([fun])
 // /// Get or set the pin mapper function.
@@ -531,7 +530,7 @@ void pin_init0(void) {
 // }
 // STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_af_obj, pin_af);
 
-// STATIC const mp_rom_map_elem_t pin_locals_dict_table[] = {
+STATIC const mp_rom_map_elem_t pin_locals_dict_table[] = {
 //     // instance methods
 //     { MP_ROM_QSTR(MP_QSTR_init),    MP_ROM_PTR(&pin_init_obj) },
 //     { MP_ROM_QSTR(MP_QSTR_value),   MP_ROM_PTR(&pin_value_obj) },
@@ -546,7 +545,7 @@ void pin_init0(void) {
 //     // { MP_ROM_QSTR(MP_QSTR_names),   MP_ROM_PTR(&pin_names_obj) },
 //     // { MP_ROM_QSTR(MP_QSTR_af_list), MP_ROM_PTR(&pin_af_list_obj) },
 //     // { MP_ROM_QSTR(MP_QSTR_port),    MP_ROM_PTR(&pin_port_obj) },
-//     // { MP_ROM_QSTR(MP_QSTR_pin),     MP_ROM_PTR(&pin_pin_obj) },
+//      { MP_ROM_QSTR(MP_QSTR_pin),     MP_ROM_PTR(&pin_pin_obj) },
 //     // { MP_ROM_QSTR(MP_QSTR_gpio),    MP_ROM_PTR(&pin_gpio_obj) },
 //     // { MP_ROM_QSTR(MP_QSTR_mode),    MP_ROM_PTR(&pin_mode_obj) },
 //     // { MP_ROM_QSTR(MP_QSTR_pull),    MP_ROM_PTR(&pin_pull_obj) },
@@ -581,39 +580,39 @@ void pin_init0(void) {
 //     // { MP_ROM_QSTR(MP_QSTR_PULL_NONE), MP_ROM_INT(GPIO_NOPULL) },
 
 // //#include "genhdr/pins_af_const.h"
-// };
+};
 
-// STATIC MP_DEFINE_CONST_DICT(pin_locals_dict, pin_locals_dict_table);
+STATIC MP_DEFINE_CONST_DICT(pin_locals_dict, pin_locals_dict_table);
 
-// STATIC mp_uint_t pin_ioctl(mp_obj_t self_in, mp_uint_t request, uintptr_t arg, int *errcode) {
-//     // (void)errcode;
-//     // pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
+STATIC mp_uint_t pin_ioctl(mp_obj_t self_in, mp_uint_t request, uintptr_t arg, int *errcode) {
+    (void)errcode;
+    pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
 
-//     // switch (request) {
-//     //     case MP_PIN_READ: {
-//     //         return mp_hal_pin_read(self);
-//     //     }
-//     //     case MP_PIN_WRITE: {
-//     //         mp_hal_pin_write(self, arg);
-//     //         return 0;
-//     //     }
-//     // }
-//     return -1;
-// }
+    switch (request) {
+        case MP_PIN_READ: {
+            return mp_hal_pin_read(self);
+        }
+        case MP_PIN_WRITE: {
+            mp_hal_pin_write(self, arg);
+            return 0;
+        }
+    }
+    return -1;
+}
 
-// STATIC const mp_pin_p_t pin_pin_p = {
-//     .ioctl = pin_ioctl,
-// };
+STATIC const mp_pin_p_t pin_pin_p = {
+     .ioctl = pin_ioctl,
+};
 
-// const mp_obj_type_t pin_type = {
-//     { &mp_type_type },
-//     .name = MP_QSTR_Pin,
-//     .print = pin_print,
-//     .make_new = mp_pin_make_new,
-//     .call = pin_call,
-//     .protocol = &pin_pin_p,
-//     .locals_dict = (mp_obj_dict_t*)&pin_locals_dict,
-// };
+const mp_obj_type_t pin_type = {
+    { &mp_type_type },
+    .name = MP_QSTR_Pin,
+    .print = pin_print,
+    .make_new = mp_pin_make_new,
+    .call = pin_call,
+    .protocol = &pin_pin_p,
+    .locals_dict = (mp_obj_dict_t*)&pin_locals_dict,
+};
 
 // /// \moduleref machine
 // /// \class PinAF - Pin Alternate Functions

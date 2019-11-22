@@ -86,11 +86,11 @@ typedef struct {
 
 // MP_DECLARE_CONST_FUN_OBJ_KW(pin_init_obj);
 
-// void pin_init0(void);
+void pin_init0(void);
 // uint32_t pin_get_mode(const pin_obj_t *pin);
 // uint32_t pin_get_pull(const pin_obj_t *pin);
 // uint32_t pin_get_af(const pin_obj_t *pin);
-// const pin_obj_t *pin_find(mp_obj_t user_obj);
+const pin_obj_t *pin_find(mp_obj_t user_obj);
 // const pin_obj_t *pin_find_named_pin(const mp_obj_dict_t *named_pins, mp_obj_t name);
 // const pin_af_obj_t *pin_find_af(const pin_obj_t *pin, uint8_t fn, uint8_t unit);
 // const pin_af_obj_t *pin_find_af_by_index(const pin_obj_t *pin, mp_uint_t af_idx);

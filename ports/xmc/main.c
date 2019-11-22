@@ -34,17 +34,13 @@
 #include "py/gc.h"
 #include "py/mperrno.h"
 #include "lib/utils/pyexec.h"
-
-
 #include "py/stackctrl.h"
 #include "py/mphal.h"
 #include "lib/mp-readline/readline.h"
-// #include "lib/oofatfs/ff.h"
-// #include "extmod/vfs.h"
-//#include "extmod/vfs_fat.h"
 
 #include "VirtualSerial.h"
 #include "pin.h"
+
 /* Clock configuration */
 /* fPLL = 120MHz */
 /* fSYS = 120MHz */
@@ -143,7 +139,7 @@ soft_reset:
     // #endif
 
     readline_init0();
-    // pin_init0();
+    pin_init0();
     // extint_init0();
     // timer_init0();
     
