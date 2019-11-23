@@ -34,13 +34,17 @@
 #include "py/gc.h"
 #include "py/mperrno.h"
 #include "lib/utils/pyexec.h"
+
+
 #include "py/stackctrl.h"
 #include "py/mphal.h"
 #include "lib/mp-readline/readline.h"
+// #include "lib/oofatfs/ff.h"
+// #include "extmod/vfs.h"
+//#include "extmod/vfs_fat.h"
 
 #include "VirtualSerial.h"
 #include "machine_pin.h"
-
 /* Clock configuration */
 /* fPLL = 120MHz */
 /* fSYS = 120MHz */
@@ -103,82 +107,33 @@ static char heap[2048];
 int main(int argc, char **argv) {
     int stack_dummy;
     stack_top = (char*)&stack_dummy;
-
     USB_Init();
-    // enable systick
-    // machine_init() ->modmachine.c
 soft_reset:
-
-    // led maybe
-    // bootloader
-    // Stack limit should be less than real stack size, so we have a chance
-    // to recover from limit hit.  (Limit is measured in bytes.)
-    // Note: stack control relies on main thread being initialised above
-    //mp_stack_set_top(&_estack);
-    //mp_stack_set_limit((char*)&_estack - (char*)&_sstack - 1024);
-
     #if MICROPY_ENABLE_GC
     gc_init(heap, heap + sizeof(heap));
     #endif
 
-    #if MICROPY_ENABLE_PYSTACK
-    static mp_obj_t pystack[384];
-    mp_pystack_init(pystack, &pystack[384]);
-    #endif
-
-    mp_init();
-    
-     // Initialise low-level sub-systems.  Here we need to very basic things like
-    // zeroing out memory and resetting any of the sub-systems.  Following this
-    // we can run Python scripts (eg boot.py), but anything that is configurable
-    // by boot.py must be set after boot.py is run.
-
-    // #if defined(MICROPY_HW_UART_REPL)
-    // MP_STATE_PORT(pyb_stdio_uart) = &pyb_uart_repl_obj;
-    // #else
-    // MP_STATE_PORT(pyb_stdio_uart) = NULL;
-    // #endif
-
     readline_init0();
     pin_init0();
-    // extint_init0();
-    // timer_init0();
-    
-    // #if MICROPY_HW_ENABLE_CAN
-    // can_init0();
-    // #endif
-
-    // #if MICROPY_HW_ENABLE_USB
-    // pyb_usb_init0();
-    // #endif
-
-
+    mp_init();
     #if MICROPY_ENABLE_COMPILER
-    // Main script is finished, so now go into REPL mode.
-    // The REPL mode can change, or it can request a soft reset.
+    #if MICROPY_REPL_EVENT_DRIVEN
+    pyexec_event_repl_init();
     for (;;) {
-        if (pyexec_mode_kind == PYEXEC_MODE_RAW_REPL) {
-            if (pyexec_raw_repl() != 0) {
-                break;
-            }
-        } else {
-            if (pyexec_friendly_repl() != 0) {
-                break;
-            }
+        int c = mp_hal_stdin_rx_chr();
+        if (pyexec_event_repl_process_char(c)) {
+            break;
         }
     }
     #else
+    pyexec_friendly_repl();
+    #endif
+    //do_str("print('hello world!', list(x+1 for x in range(10)), end='eol\\n')", MP_PARSE_SINGLE_INPUT);
+    //do_str("for i in range(10):\r\n  print(i)", MP_PARSE_FILE_INPUT);
+    #else
     pyexec_frozen_module("frozentest.py");
     #endif
-    // soft_timer_deinit();
-    // timer_deinit();
-    // uart_deinit_all();
-    // #if MICROPY_HW_ENABLE_CAN
-    // can_deinit_all();
-    // #endif
     mp_deinit();
-    //machine_deinit();
-    gc_sweep_all();
     goto soft_reset;
     return 0;
 }

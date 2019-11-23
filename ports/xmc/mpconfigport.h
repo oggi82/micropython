@@ -1,44 +1,17 @@
 #include <stdint.h>
+
 // options to control how Micro Python is built
 
-// memory allocation policies
-#ifndef MICROPY_GC_STACK_ENTRY_TYPE
-#if MICROPY_HW_SDRAM_SIZE
-#define MICROPY_GC_STACK_ENTRY_TYPE uint32_t
-#else
-#define MICROPY_GC_STACK_ENTRY_TYPE uint16_t
-#endif
-#endif
+//#define MICROPY_QSTR_EXTRA_POOL     mp_qstr_frozen_const_pool
 #define MICROPY_ALLOC_PATH_MAX      (128)
-
-// emitters
-#define MICROPY_PERSISTENT_CODE_LOAD (0) // activate when frozen modules are included
-#ifndef MICROPY_EMIT_THUMB
+#define MICROPY_ALLOC_PARSE_CHUNK_INIT (16)
 #define MICROPY_EMIT_THUMB          (1)
-#endif
-#ifndef MICROPY_EMIT_INLINE_THUMB
 #define MICROPY_EMIT_INLINE_THUMB   (1)
-#endif
-
-// compiler configuration
-#define MICROPY_COMP_CONST          (1)
 #define MICROPY_COMP_MODULE_CONST   (1)
+#define MICROPY_COMP_CONST          (1)
 #define MICROPY_COMP_DOUBLE_TUPLE_ASSIGN (1)
 #define MICROPY_COMP_TRIPLE_TUPLE_ASSIGN (1)
-#define MICROPY_COMP_RETURN_IF_EXPR (1)
-
-// optimisations
-#define MICROPY_OPT_COMPUTED_GOTO   (1)
-#define MICROPY_OPT_CACHE_MAP_LOOKUP_IN_BYTECODE (0)
-#define MICROPY_OPT_MPZ_BITWISE     (1)
-#define MICROPY_OPT_MATH_FACTORIAL  (1)
-
-//#define MICROPY_QSTR_EXTRA_POOL     mp_qstr_frozen_const_pool
-#define MICROPY_ALLOC_PARSE_CHUNK_INIT (16)
-
 #define MICROPY_ENABLE_GC           (1)
-#define MICROPY_ENABLE_FINALISER    (1)
-#define MICROPY_STACK_CHECK         (1)
 #define MICROPY_HELPER_REPL         (1)
 #define MICROPY_REPL_EMACS_KEYS     (1)
 #define MICROPY_REPL_AUTO_INDENT    (1)
@@ -72,12 +45,9 @@
 #define MICROPY_PY_STRUCT           (1)
 #define MICROPY_PY_SYS              (1)
 #define MICROPY_PY_SYS_STDFILES     (0)
-//#define MICROPY_MODULE_FROZEN_MPY   (1)
+#define MICROPY_MODULE_FROZEN_MPY   (0)
 #define MICROPY_LONGINT_IMPL        (MICROPY_LONGINT_IMPL_MPZ)
-#define MICROPY_ENABLE_SOURCE_LINE  (1)
-#ifndef MICROPY_FLOAT_IMPL // can be configured by each board via mpconfigboard.mk
 #define MICROPY_FLOAT_IMPL          (MICROPY_FLOAT_IMPL_FLOAT)
-#endif
 
 // type definitions for the specific machine
 // Pin definition header file
@@ -85,20 +55,12 @@
 
 #define BYTES_PER_WORD (4)
 
-
-/**
- * pin_class_mapper and pin_class_map_dict used
- * in pin.c
- * */
-#define MICROPY_PORT_ROOT_POINTERS \
-    const char *readline_hist[8]; \
-    mp_obj_t pin_class_mapper;  \
-    mp_obj_t pin_class_map_dict; \
-
 #define MICROPY_MAKE_POINTER_CALLABLE(p) ((void*)((mp_uint_t)(p) | 1))
 
-#define MP_SSIZE_MAX (0x7fffffff)
-
+// This port is intended to be 32-bit, but unfortunately, int32_t for
+// different targets may be defined in different ways - either as int
+// or as long. This requires different printf formatting specifiers
+// to print such value. So, we avoid int32_t and use int directly.
 #define UINT_FMT "%u"
 #define INT_FMT "%d"
 typedef int mp_int_t; // must be pointer size
@@ -110,9 +72,20 @@ typedef long mp_off_t;
 
 #define MP_PLAT_PRINT_STRN(str, len) mp_hal_stdout_tx_strn_cooked(str, len)
 
+// extra built in modules to add to the list of known ones
+extern const struct _mp_obj_module_t machine_module;
+
+#define MICROPY_PORT_BUILTIN_MODULES \
+    { MP_ROM_QSTR(MP_QSTR_umachine), MP_ROM_PTR(&machine_module) }, \
+
+// extra constants
+#define MICROPY_PORT_CONSTANTS \
+    { MP_ROM_QSTR(MP_QSTR_umachine), MP_ROM_PTR(&machine_module) }, \
+    { MP_ROM_QSTR(MP_QSTR_machine), MP_ROM_PTR(&machine_module) }, \
+
 // extra built in names to add to the global namespace
 #define MICROPY_PORT_BUILTINS \
-    { MP_ROM_QSTR(MP_QSTR_open), MP_ROM_PTR(&mp_builtin_open_obj) },
+    { MP_ROM_QSTR(MP_QSTR_open), MP_ROM_PTR(&mp_builtin_open_obj) }, \
 
 // We have inlined IRQ functions for efficiency (they are generally
 // 1 machine instruction).
@@ -164,10 +137,17 @@ static inline mp_uint_t disable_irq(void) {
 #define MICROPY_THREAD_YIELD()
 #endif
 
+
+
+// We need to provide a declaration/definition of alloca()
+#include <alloca.h>
+
 #define MICROPY_HW_BOARD_NAME "Relax Lite-Kit"
 #define MICROPY_HW_MCU_NAME "XMC4500-1024"
 
 #define MP_STATE_PORT MP_STATE_VM
 
-// We need to provide a declaration/definition of alloca()
-#include <alloca.h>
+#define MICROPY_PORT_ROOT_POINTERS \
+    const char *readline_hist[8]; \
+    mp_obj_t pin_class_mapper; \
+    mp_obj_t pin_class_map_dict;

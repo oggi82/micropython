@@ -240,12 +240,12 @@ STATIC void pin_print(const mp_print_t *print, mp_obj_t self_in, mp_print_kind_t
 //     // }
 }
 
-// STATIC mp_obj_t pin_obj_init_helper(const pin_obj_t *pin, size_t n_args, const mp_obj_t *args, mp_map_t *kw_args);
+STATIC mp_obj_t pin_obj_init_helper(const pin_obj_t *pin, size_t n_args, const mp_obj_t *args, mp_map_t *kw_args);
 
-// /// \classmethod \constructor(id, ...)
-// /// Create a new Pin object associated with the id.  If additional arguments are given,
-// /// they are used to initialise the pin.  See `init`.
-// mp_obj_t mp_pin_make_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args) {
+/// \classmethod \constructor(id, ...)
+/// Create a new Pin object associated with the id.  If additional arguments are given,
+/// they are used to initialise the pin.  See `init`.
+mp_obj_t mp_pin_make_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args) {
 //     // mp_arg_check_num(n_args, n_kw, 1, MP_OBJ_FUN_ARGS_MAX, true);
 
 //     // // Run an argument through the mapper and return the result.
@@ -259,166 +259,167 @@ STATIC void pin_print(const mp_print_t *print, mp_obj_t self_in, mp_print_kind_t
 //     // }
 
 //     // return MP_OBJ_FROM_PTR(pin);
-//     return 0;
-// }
+     return 0;
+}
 
 // fast method for getting/setting pin value
 STATIC mp_obj_t pin_call(mp_obj_t self_in, size_t n_args, size_t n_kw, const mp_obj_t *args) {
-    mp_arg_check_num(n_args, n_kw, 0, 1, false);
-    pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
-    if (n_args == 0) {
-        // get pin
-        return MP_OBJ_NEW_SMALL_INT(mp_hal_pin_read(self));
-    } else {
-        // set pin
-        mp_hal_pin_write(self, mp_obj_is_true(args[0]));
-        return mp_const_none;
-    }
+    // mp_arg_check_num(n_args, n_kw, 0, 1, false);
+    // pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
+    // if (n_args == 0) {
+    //     // get pin
+    //     return MP_OBJ_NEW_SMALL_INT(mp_hal_pin_read(self));
+    // } else {
+    //     // set pin
+    //     mp_hal_pin_write(self, mp_obj_is_true(args[0]));
+    //     return mp_const_none;
+    // }
+    return mp_const_none;
 }
 
-// /// \classmethod mapper([fun])
-// /// Get or set the pin mapper function.
-// STATIC mp_obj_t pin_mapper(size_t n_args, const mp_obj_t *args) {
-//     // if (n_args > 1) {
-//     //     MP_STATE_PORT(pin_class_mapper) = args[1];
-//     //     return mp_const_none;
-//     // }
-//     // return MP_STATE_PORT(pin_class_mapper);
-//     return 0;
-// }
-// STATIC MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(pin_mapper_fun_obj, 1, 2, pin_mapper);
-// STATIC MP_DEFINE_CONST_CLASSMETHOD_OBJ(pin_mapper_obj, MP_ROM_PTR(&pin_mapper_fun_obj));
+/// \classmethod mapper([fun])
+/// Get or set the pin mapper function.
+STATIC mp_obj_t pin_mapper(size_t n_args, const mp_obj_t *args) {
+    // if (n_args > 1) {
+    //     MP_STATE_PORT(pin_class_mapper) = args[1];
+    //     return mp_const_none;
+    // }
+    // return MP_STATE_PORT(pin_class_mapper);
+    return 0;
+}
+STATIC MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(pin_mapper_fun_obj, 1, 2, pin_mapper);
+STATIC MP_DEFINE_CONST_CLASSMETHOD_OBJ(pin_mapper_obj, MP_ROM_PTR(&pin_mapper_fun_obj));
 
-// /// \classmethod dict([dict])
-// /// Get or set the pin mapper dictionary.
-// STATIC mp_obj_t pin_map_dict(size_t n_args, const mp_obj_t *args) {
-//     // if (n_args > 1) {
-//     //     MP_STATE_PORT(pin_class_map_dict) = args[1];
-//     //     return mp_const_none;
-//     // }
-//     // return MP_STATE_PORT(pin_class_map_dict);
-//     return 0;
-// }
-// STATIC MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(pin_map_dict_fun_obj, 1, 2, pin_map_dict);
-// STATIC MP_DEFINE_CONST_CLASSMETHOD_OBJ(pin_map_dict_obj, MP_ROM_PTR(&pin_map_dict_fun_obj));
+/// \classmethod dict([dict])
+/// Get or set the pin mapper dictionary.
+STATIC mp_obj_t pin_map_dict(size_t n_args, const mp_obj_t *args) {
+    // if (n_args > 1) {
+    //     MP_STATE_PORT(pin_class_map_dict) = args[1];
+    //     return mp_const_none;
+    // }
+    // return MP_STATE_PORT(pin_class_map_dict);
+    return 0;
+}
+STATIC MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(pin_map_dict_fun_obj, 1, 2, pin_map_dict);
+STATIC MP_DEFINE_CONST_CLASSMETHOD_OBJ(pin_map_dict_obj, MP_ROM_PTR(&pin_map_dict_fun_obj));
 
-// /// \classmethod af_list()
-// /// Returns an array of alternate functions available for this pin.
-// STATIC mp_obj_t pin_af_list(mp_obj_t self_in) {
-//     // pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
-//     // mp_obj_t result = mp_obj_new_list(0, NULL);
+/// \classmethod af_list()
+/// Returns an array of alternate functions available for this pin.
+//STATIC mp_obj_t pin_af_list(mp_obj_t self_in) {
+    // pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
+    // mp_obj_t result = mp_obj_new_list(0, NULL);
 
-//     // const pin_af_obj_t *af = self->af;
-//     // for (mp_uint_t i = 0; i < self->num_af; i++, af++) {
-//     //     mp_obj_list_append(result, MP_OBJ_FROM_PTR(af));
-//     // }
-//     // return result;
-//     return 0;
-// }
-// STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_af_list_obj, pin_af_list);
+    // const pin_af_obj_t *af = self->af;
+    // for (mp_uint_t i = 0; i < self->num_af; i++, af++) {
+    //     mp_obj_list_append(result, MP_OBJ_FROM_PTR(af));
+    // }
+    // return result;
+//    return 0;
+//}
+//STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_af_list_obj, pin_af_list);
 
-// /// \classmethod debug([state])
-// /// Get or set the debugging state (`True` or `False` for on or off).
-// STATIC mp_obj_t pin_debug(size_t n_args, const mp_obj_t *args) {
-//     // if (n_args > 1) {
-//     //     pin_class_debug = mp_obj_is_true(args[1]);
-//     //     return mp_const_none;
-//     // }
-//     // return mp_obj_new_bool(pin_class_debug);
-//     return 0;
-// }
-// STATIC MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(pin_debug_fun_obj, 1, 2, pin_debug);
-// STATIC MP_DEFINE_CONST_CLASSMETHOD_OBJ(pin_debug_obj, MP_ROM_PTR(&pin_debug_fun_obj));
+/// \classmethod debug([state])
+/// Get or set the debugging state (`True` or `False` for on or off).
+STATIC mp_obj_t pin_debug(size_t n_args, const mp_obj_t *args) {
+    // if (n_args > 1) {
+    //     pin_class_debug = mp_obj_is_true(args[1]);
+    //     return mp_const_none;
+    // }
+    // return mp_obj_new_bool(pin_class_debug);
+    return 0;
+}
+STATIC MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(pin_debug_fun_obj, 1, 2, pin_debug);
+STATIC MP_DEFINE_CONST_CLASSMETHOD_OBJ(pin_debug_obj, MP_ROM_PTR(&pin_debug_fun_obj));
 
-// // init(mode, pull=None, af=-1, *, value, alt)
-// STATIC mp_obj_t pin_obj_init_helper(const pin_obj_t *self, size_t n_args, const mp_obj_t *pos_args, mp_map_t *kw_args) {
-//     // static const mp_arg_t allowed_args[] = {
-//     //     { MP_QSTR_mode, MP_ARG_REQUIRED | MP_ARG_INT },
-//     //     { MP_QSTR_pull, MP_ARG_OBJ, {.u_rom_obj = MP_ROM_PTR(&mp_const_none_obj)}},
-//     //     { MP_QSTR_af, MP_ARG_INT, {.u_int = -1}}, // legacy
-//     //     { MP_QSTR_value, MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_obj = MP_OBJ_NULL}},
-//     //     { MP_QSTR_alt, MP_ARG_KW_ONLY | MP_ARG_INT, {.u_int = -1}},
-//     // };
+// init(mode, pull=None, af=-1, *, value, alt)
+STATIC mp_obj_t pin_obj_init_helper(const pin_obj_t *self, size_t n_args, const mp_obj_t *pos_args, mp_map_t *kw_args) {
+    // static const mp_arg_t allowed_args[] = {
+    //     { MP_QSTR_mode, MP_ARG_REQUIRED | MP_ARG_INT },
+    //     { MP_QSTR_pull, MP_ARG_OBJ, {.u_rom_obj = MP_ROM_PTR(&mp_const_none_obj)}},
+    //     { MP_QSTR_af, MP_ARG_INT, {.u_int = -1}}, // legacy
+    //     { MP_QSTR_value, MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_obj = MP_OBJ_NULL}},
+    //     { MP_QSTR_alt, MP_ARG_KW_ONLY | MP_ARG_INT, {.u_int = -1}},
+    // };
 
-//     // // parse args
-//     // mp_arg_val_t args[MP_ARRAY_SIZE(allowed_args)];
-//     // mp_arg_parse_all(n_args, pos_args, kw_args, MP_ARRAY_SIZE(allowed_args), allowed_args, args);
+    // // parse args
+    // mp_arg_val_t args[MP_ARRAY_SIZE(allowed_args)];
+    // mp_arg_parse_all(n_args, pos_args, kw_args, MP_ARRAY_SIZE(allowed_args), allowed_args, args);
 
-//     // // get io mode
-//     // uint mode = args[0].u_int;
-//     // if (!IS_GPIO_MODE(mode)) {
-//     //     nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, "invalid pin mode: %d", mode));
-//     // }
+    // // get io mode
+    // uint mode = args[0].u_int;
+    // if (!IS_GPIO_MODE(mode)) {
+    //     nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, "invalid pin mode: %d", mode));
+    // }
 
-//     // // get pull mode
-//     // uint pull = GPIO_NOPULL;
-//     // if (args[1].u_obj != mp_const_none) {
-//     //     pull = mp_obj_get_int(args[1].u_obj);
-//     // }
-//     // if (!IS_GPIO_PULL(pull)) {
-//     //     nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, "invalid pin pull: %d", pull));
-//     // }
+    // // get pull mode
+    // uint pull = GPIO_NOPULL;
+    // if (args[1].u_obj != mp_const_none) {
+    //     pull = mp_obj_get_int(args[1].u_obj);
+    // }
+    // if (!IS_GPIO_PULL(pull)) {
+    //     nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, "invalid pin pull: %d", pull));
+    // }
 
-//     // // get af (alternate function); alt-arg overrides af-arg
-//     // mp_int_t af = args[4].u_int;
-//     // if (af == -1) {
-//     //     af = args[2].u_int;
-//     // }
-//     // if ((mode == GPIO_MODE_AF_PP || mode == GPIO_MODE_AF_OD) && !IS_GPIO_AF(af)) {
-//     //     nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, "invalid pin af: %d", af));
-//     // }
+    // // get af (alternate function); alt-arg overrides af-arg
+    // mp_int_t af = args[4].u_int;
+    // if (af == -1) {
+    //     af = args[2].u_int;
+    // }
+    // if ((mode == GPIO_MODE_AF_PP || mode == GPIO_MODE_AF_OD) && !IS_GPIO_AF(af)) {
+    //     nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, "invalid pin af: %d", af));
+    // }
 
-//     // // enable the peripheral clock for the port of this pin
-//     // mp_hal_gpio_clock_enable(self->gpio);
+    // // enable the peripheral clock for the port of this pin
+    // mp_hal_gpio_clock_enable(self->gpio);
 
-//     // // if given, set the pin value before initialising to prevent glitches
-//     // if (args[3].u_obj != MP_OBJ_NULL) {
-//     //     mp_hal_pin_write(self, mp_obj_is_true(args[3].u_obj));
-//     // }
+    // // if given, set the pin value before initialising to prevent glitches
+    // if (args[3].u_obj != MP_OBJ_NULL) {
+    //     mp_hal_pin_write(self, mp_obj_is_true(args[3].u_obj));
+    // }
 
-//     // // configure the GPIO as requested
-//     // GPIO_InitTypeDef GPIO_InitStructure;
-//     // GPIO_InitStructure.Pin = self->pin_mask;
-//     // GPIO_InitStructure.Mode = mode;
-//     // GPIO_InitStructure.Pull = pull;
-//     // GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
-//     // GPIO_InitStructure.Alternate = af;
-//     // HAL_GPIO_Init(self->gpio, &GPIO_InitStructure);
+    // // configure the GPIO as requested
+    // GPIO_InitTypeDef GPIO_InitStructure;
+    // GPIO_InitStructure.Pin = self->pin_mask;
+    // GPIO_InitStructure.Mode = mode;
+    // GPIO_InitStructure.Pull = pull;
+    // GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
+    // GPIO_InitStructure.Alternate = af;
+    // HAL_GPIO_Init(self->gpio, &GPIO_InitStructure);
 
-//     // return mp_const_none;
-//     return 0;
-// }
+    return mp_const_none;
+}
 
-// STATIC mp_obj_t pin_obj_init(size_t n_args, const mp_obj_t *args, mp_map_t *kw_args) {
-//     return pin_obj_init_helper(MP_OBJ_TO_PTR(args[0]), n_args - 1, args + 1, kw_args);
-// }
-// MP_DEFINE_CONST_FUN_OBJ_KW(pin_init_obj, 1, pin_obj_init);
+STATIC mp_obj_t pin_obj_init(size_t n_args, const mp_obj_t *args, mp_map_t *kw_args) {
+    return pin_obj_init_helper(MP_OBJ_TO_PTR(args[0]), n_args - 1, args + 1, kw_args);
+}
+MP_DEFINE_CONST_FUN_OBJ_KW(pin_init_obj, 1, pin_obj_init);
 
-// /// \method value([value])
-// /// Get or set the digital logic level of the pin:
-// ///
-// ///   - With no argument, return 0 or 1 depending on the logic level of the pin.
-// ///   - With `value` given, set the logic level of the pin.  `value` can be
-// ///   anything that converts to a boolean.  If it converts to `True`, the pin
-// ///   is set high, otherwise it is set low.
-// STATIC mp_obj_t pin_value(size_t n_args, const mp_obj_t *args) {
-//     return pin_call(args[0], n_args - 1, 0, args + 1);
-// }
-// STATIC MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(pin_value_obj, 1, 2, pin_value);
+/// \method value([value])
+/// Get or set the digital logic level of the pin:
+///
+///   - With no argument, return 0 or 1 depending on the logic level of the pin.
+///   - With `value` given, set the logic level of the pin.  `value` can be
+///   anything that converts to a boolean.  If it converts to `True`, the pin
+///   is set high, otherwise it is set low.
+STATIC mp_obj_t pin_value(size_t n_args, const mp_obj_t *args) {
+    //return pin_call(args[0], n_args - 1, 0, args + 1);
+    return mp_const_none;
+}
+STATIC MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(pin_value_obj, 1, 2, pin_value);
 
-// STATIC mp_obj_t pin_off(mp_obj_t self_in) {
-//     // pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
-//     // mp_hal_pin_low(self);
-//     // return mp_const_none;
-// }
-// STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_off_obj, pin_off);
+STATIC mp_obj_t pin_off(mp_obj_t self_in) {
+    //pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
+    //mp_hal_pin_low(self);
+    return mp_const_none;
+}
+STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_off_obj, pin_off);
 
-// STATIC mp_obj_t pin_on(mp_obj_t self_in) {
-//     // pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
-//     // mp_hal_pin_high(self);
-//     // return mp_const_none;
-// }
-// STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_on_obj, pin_on);
+STATIC mp_obj_t pin_on(mp_obj_t self_in) {
+    //pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
+    //mp_hal_pin_high(self);
+    return mp_const_none;
+ }
+ STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_on_obj, pin_on);
 
 // // pin.irq(handler=None, trigger=IRQ_FALLING|IRQ_RISING, hard=False)
 // STATIC mp_obj_t pin_irq(size_t n_args, const mp_obj_t *pos_args, mp_map_t *kw_args) {
@@ -532,10 +533,10 @@ STATIC mp_obj_t pin_call(mp_obj_t self_in, size_t n_args, size_t n_kw, const mp_
 
 STATIC const mp_rom_map_elem_t pin_locals_dict_table[] = {
 //     // instance methods
-//     { MP_ROM_QSTR(MP_QSTR_init),    MP_ROM_PTR(&pin_init_obj) },
-//     { MP_ROM_QSTR(MP_QSTR_value),   MP_ROM_PTR(&pin_value_obj) },
-//     { MP_ROM_QSTR(MP_QSTR_off),     MP_ROM_PTR(&pin_off_obj) },
-//     { MP_ROM_QSTR(MP_QSTR_on),      MP_ROM_PTR(&pin_on_obj) },
+     { MP_ROM_QSTR(MP_QSTR_init),    MP_ROM_PTR(&pin_init_obj) },
+     { MP_ROM_QSTR(MP_QSTR_value),   MP_ROM_PTR(&pin_value_obj) },
+     { MP_ROM_QSTR(MP_QSTR_off),     MP_ROM_PTR(&pin_off_obj) },
+     { MP_ROM_QSTR(MP_QSTR_on),      MP_ROM_PTR(&pin_on_obj) },
 //  //   { MP_ROM_QSTR(MP_QSTR_irq),     MP_ROM_PTR(&pin_irq_obj) },
 
 //     // Legacy names as used by machine.Pin
@@ -543,7 +544,7 @@ STATIC const mp_rom_map_elem_t pin_locals_dict_table[] = {
 //     // { MP_ROM_QSTR(MP_QSTR_high),    MP_ROM_PTR(&pin_on_obj) },
 //     // { MP_ROM_QSTR(MP_QSTR_name),    MP_ROM_PTR(&pin_name_obj) },
 //     // { MP_ROM_QSTR(MP_QSTR_names),   MP_ROM_PTR(&pin_names_obj) },
-//     // { MP_ROM_QSTR(MP_QSTR_af_list), MP_ROM_PTR(&pin_af_list_obj) },
+//      { MP_ROM_QSTR(MP_QSTR_af_list), MP_ROM_PTR(&pin_af_list_obj) },
 //     // { MP_ROM_QSTR(MP_QSTR_port),    MP_ROM_PTR(&pin_port_obj) },
 //      { MP_ROM_QSTR(MP_QSTR_pin),     MP_ROM_PTR(&pin_pin_obj) },
 //     // { MP_ROM_QSTR(MP_QSTR_gpio),    MP_ROM_PTR(&pin_gpio_obj) },
@@ -551,10 +552,10 @@ STATIC const mp_rom_map_elem_t pin_locals_dict_table[] = {
 //     // { MP_ROM_QSTR(MP_QSTR_pull),    MP_ROM_PTR(&pin_pull_obj) },
 //     // { MP_ROM_QSTR(MP_QSTR_af),      MP_ROM_PTR(&pin_af_obj) },
 
-//     // // class methods
-//     // { MP_ROM_QSTR(MP_QSTR_mapper),  MP_ROM_PTR(&pin_mapper_obj) },
-//     { MP_ROM_QSTR(MP_QSTR_dict),    MP_ROM_PTR(&pin_map_dict_obj) },
-//     // { MP_ROM_QSTR(MP_QSTR_debug),   MP_ROM_PTR(&pin_debug_obj) },
+     // class methods
+     { MP_ROM_QSTR(MP_QSTR_mapper),  MP_ROM_PTR(&pin_mapper_obj) },
+     { MP_ROM_QSTR(MP_QSTR_dict),    MP_ROM_PTR(&pin_map_dict_obj) },
+     { MP_ROM_QSTR(MP_QSTR_debug),   MP_ROM_PTR(&pin_debug_obj) },
 
 //     // // class attributes
 //     // { MP_ROM_QSTR(MP_QSTR_board),   MP_ROM_PTR(&pin_board_pins_obj_type) },
@@ -585,18 +586,18 @@ STATIC const mp_rom_map_elem_t pin_locals_dict_table[] = {
 STATIC MP_DEFINE_CONST_DICT(pin_locals_dict, pin_locals_dict_table);
 
 STATIC mp_uint_t pin_ioctl(mp_obj_t self_in, mp_uint_t request, uintptr_t arg, int *errcode) {
-    (void)errcode;
-    pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
+    // (void)errcode;
+    // pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
 
-    switch (request) {
-        case MP_PIN_READ: {
-            return mp_hal_pin_read(self);
-        }
-        case MP_PIN_WRITE: {
-            mp_hal_pin_write(self, arg);
-            return 0;
-        }
-    }
+    // switch (request) {
+    //     case MP_PIN_READ: {
+    //         return mp_hal_pin_read(self);
+    //     }
+    //     case MP_PIN_WRITE: {
+    //         mp_hal_pin_write(self, arg);
+    //         return 0;
+    //     }
+    // }
     return -1;
 }
 
