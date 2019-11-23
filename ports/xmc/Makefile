@@ -75,6 +75,7 @@ SRC_C = \
 	modmachine.c \
 	machine_pin.c \
 	pin_defs_xmc.c \
+	pin_named_pins.c \
 
 SRC_HAL = \
 	Libraries/Newlib/syscalls.c \
@@ -119,6 +120,7 @@ OBJ += $(addprefix $(BUILD)/, $(SRC_C:.c=.o))
 OBJ += $(addprefix $(BUILD)/, $(SRC_O))
 OBJ += $(addprefix $(BUILD)/, $(SRC_HAL:.c=.o))
 OBJ += $(addprefix $(BUILD)/, $(SRC_MOD:.c=.o))
+OBJ += $(BOARD_DIR)/pins_$(BOARD).o
 
 # Use a pattern rule here so that make will only call make-pins.py once to make
 # both pins_$(BOARD).c and pins.h

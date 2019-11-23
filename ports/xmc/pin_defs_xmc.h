@@ -27,19 +27,9 @@
 // This file contains pin definitions that are specific to the xmc port.
 // This file should only ever be #included by pin.h and not directly.
 
-// enum {
-//   PORT_A,
-//   PORT_B,
-//   PORT_C,
-//   PORT_D,
-//   PORT_E,
-//   PORT_F,
-//   PORT_G,
-//   PORT_H,
-//   PORT_I,
-//   PORT_J,
-//   PORT_K,
-// };
+enum {
+    PORT_0, // more to add
+};
 
 // // Must have matching entries in SUPPORTED_FN in boards/make-pins.py
 // enum {
@@ -128,5 +118,5 @@
 //   PIN_ADC3  = (1 << 2),
 // };
 
-typedef XMC_GPIO_PORT_t pin_gpio_t;
+typedef PORT0_Type pin_gpio_t;
 
