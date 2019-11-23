@@ -23,8 +23,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#ifndef MICROPY_INCLUDED_XMC_PIN_H
-#define MICROPY_INCLUDED_XMC_PIN_H
+#ifndef MICROPY_INCLUDED_XMC_MACHINE_PIN_H
+#define MICROPY_INCLUDED_XMC_MACHINE_PIN_H
 
 // This file requires pin_defs_xxx.h (which has port specific enums and
 // defines, so we include it here. It should never be included directly
@@ -56,16 +56,16 @@ typedef struct {
   const pin_af_obj_t *af;
 } pin_obj_t;
 
-// extern const mp_obj_type_t pin_type;
+extern const mp_obj_type_t pin_type;
 // extern const mp_obj_type_t pin_af_type;
 
-// // Include all of the individual pin objects
-// #include "genhdr/pins.h"
+// Include all of the individual pin objects
+#include "genhdr/pins.h"
 
-// typedef struct {
-//   const char *name;
-//   const pin_obj_t *pin;
-// } pin_named_pin_t;
+typedef struct {
+  const char *name;
+  const pin_obj_t *pin;
+} pin_named_pin_t;
 
 // extern const pin_named_pin_t pin_board_pins[];
 // extern const pin_named_pin_t pin_cpu_pins[];
@@ -96,4 +96,4 @@ const pin_obj_t *pin_find(mp_obj_t user_obj);
 // const pin_af_obj_t *pin_find_af_by_index(const pin_obj_t *pin, mp_uint_t af_idx);
 // const pin_af_obj_t *pin_find_af_by_name(const pin_obj_t *pin, const char *name);
 
-#endif // MICROPY_INCLUDED_XMC_PIN_H
+#endif // MICROPY_INCLUDED_XMC_MACHINE_PIN_H

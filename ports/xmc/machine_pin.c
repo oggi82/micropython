@@ -31,7 +31,7 @@
 #include "py/runtime.h"
 #include "py/mphal.h"
 #include "extmod/virtpin.h"
-#include "pin.h"
+#include "machine_pin.h"
 
 /// \moduleref machine
 /// \class Pin - control I/O pins
@@ -101,18 +101,18 @@ void pin_init0(void) {
 
 // C API used to convert a user-supplied pin name into an ordinal pin number.
 const pin_obj_t *pin_find(mp_obj_t user_obj) {
-     const pin_obj_t *pin_obj;
+     //const pin_obj_t *pin_obj;
 
      // If a pin was provided, then use it
-     if (mp_obj_is_type(user_obj, &pin_type)) {
-         pin_obj = MP_OBJ_TO_PTR(user_obj);
-         if (pin_class_debug) {
-             printf("Pin map passed pin ");
-             mp_obj_print(MP_OBJ_FROM_PTR(pin_obj), PRINT_STR);
-             printf("\n");
-         }
-         return pin_obj;
-     }
+    //  if (mp_obj_is_type(user_obj, &pin_type)) {
+    //      pin_obj = MP_OBJ_TO_PTR(user_obj);
+    //      if (pin_class_debug) {
+    //          printf("Pin map passed pin ");
+    //          mp_obj_print(MP_OBJ_FROM_PTR(pin_obj), PRINT_STR);
+    //          printf("\n");
+    //      }
+    //      return pin_obj;
+    //  }
 
 //     // if (MP_STATE_PORT(pin_class_mapper) != mp_const_none) {
 //     //     mp_obj_t o = mp_call_function_1(MP_STATE_PORT(pin_class_mapper), user_obj);

@@ -33,25 +33,9 @@
 #include "py/objstr.h"
 #include "py/mperrno.h"
 #include "py/mphal.h"
-#include "extmod/machine_mem.h"
-#include "extmod/machine_signal.h"
-#include "extmod/machine_pulse.h"
-#include "extmod/machine_i2c.h"
-#include "lib/utils/pyexec.h"
-#include "lib/oofatfs/ff.h"
-#include "extmod/vfs.h"
-#include "extmod/vfs_fat.h"
 //#include "gccollect.h"
-#include "pin.h"
-#include "usb.h"
-
-#define RCC_SR          CSR
-#define RCC_SR_IWDGRSTF RCC_CSR_IWDGRSTF
-#define RCC_SR_WWDGRSTF RCC_CSR_WWDGRSTF
-#define RCC_SR_PORRSTF  RCC_CSR_PORRSTF
-#define RCC_SR_BORRSTF  RCC_CSR_BORRSTF
-#define RCC_SR_PINRSTF  RCC_CSR_PINRSTF
-#define RCC_SR_RMVF     RCC_CSR_RMVF
+#include "machine_pin.h"
+//#include "usb.h"
 
 #define PYB_RESET_SOFT      (0)
 #define PYB_RESET_POWER_ON  (1)
@@ -217,8 +201,9 @@ STATIC mp_obj_t machine_reset(void) {
 MP_DEFINE_CONST_FUN_OBJ_0(machine_reset_obj, machine_reset);
 
 STATIC mp_obj_t machine_soft_reset(void) {
-    pyexec_system_exit = PYEXEC_FORCED_EXIT;
-    nlr_raise(mp_obj_new_exception(&mp_type_SystemExit));
+    //pyexec_system_exit = PYEXEC_FORCED_EXIT;
+    //nlr_raise(mp_obj_new_exception(&mp_type_SystemExit));
+    return mp_const_none;
 }
 MP_DEFINE_CONST_FUN_OBJ_0(machine_soft_reset_obj, machine_soft_reset);
 
@@ -304,30 +289,31 @@ STATIC mp_obj_t machine_freq(size_t n_args, const mp_obj_t *args) {
 }
 MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(machine_freq_obj, 0, 4, machine_freq);
 
-STATIC mp_obj_t machine_lightsleep(size_t n_args, const mp_obj_t *args) {
-    // if (n_args != 0) {
-    //     mp_obj_t args2[2] = {MP_OBJ_NULL, args[0]};
-    //     pyb_rtc_wakeup(2, args2);
-    // }
-    // powerctrl_enter_stop_mode();
-    return mp_const_none;
-}
-MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(machine_lightsleep_obj, 0, 1, machine_lightsleep);
+// STATIC mp_obj_t machine_lightsleep(size_t n_args, const mp_obj_t *args) {
+//     // if (n_args != 0) {
+//     //     mp_obj_t args2[2] = {MP_OBJ_NULL, args[0]};
+//     //     pyb_rtc_wakeup(2, args2);
+//     // }
+//     // powerctrl_enter_stop_mode();
+//     return mp_const_none;
+// }
+// MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(machine_lightsleep_obj, 0, 1, machine_lightsleep);
 
-STATIC mp_obj_t machine_deepsleep(size_t n_args, const mp_obj_t *args) {
-    // if (n_args != 0) {
-    //     mp_obj_t args2[2] = {MP_OBJ_NULL, args[0]};
-    //     pyb_rtc_wakeup(2, args2);
-    // }
-    // powerctrl_enter_standby_mode();
-    return mp_const_none;
-}
-MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(machine_deepsleep_obj, 0, 1, machine_deepsleep);
+// STATIC mp_obj_t machine_deepsleep(size_t n_args, const mp_obj_t *args) {
+//     // if (n_args != 0) {
+//     //     mp_obj_t args2[2] = {MP_OBJ_NULL, args[0]};
+//     //     pyb_rtc_wakeup(2, args2);
+//     // }
+//     // powerctrl_enter_standby_mode();
+//     return mp_const_none;
+// }
+// MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(machine_deepsleep_obj, 0, 1, machine_deepsleep);
 
-STATIC mp_obj_t machine_reset_cause(void) {
-    return MP_OBJ_NEW_SMALL_INT(reset_cause);
-}
-STATIC MP_DEFINE_CONST_FUN_OBJ_0(machine_reset_cause_obj, machine_reset_cause);
+// STATIC mp_obj_t machine_reset_cause(void) {
+//     //return MP_OBJ_NEW_SMALL_INT(reset_cause);
+//     return mp_const_none;
+// }
+// STATIC MP_DEFINE_CONST_FUN_OBJ_0(machine_reset_cause_obj, machine_reset_cause);
 
 STATIC const mp_rom_map_elem_t machine_module_globals_table[] = {
     { MP_ROM_QSTR(MP_QSTR___name__),            MP_ROM_QSTR(MP_QSTR_umachine) },
@@ -337,9 +323,9 @@ STATIC const mp_rom_map_elem_t machine_module_globals_table[] = {
     { MP_ROM_QSTR(MP_QSTR_soft_reset),          MP_ROM_PTR(&machine_soft_reset_obj) },
     { MP_ROM_QSTR(MP_QSTR_bootloader),          MP_ROM_PTR(&machine_bootloader_obj) },
     { MP_ROM_QSTR(MP_QSTR_freq),                MP_ROM_PTR(&machine_freq_obj) },
-    { MP_ROM_QSTR(MP_QSTR_mem8),                MP_ROM_PTR(&machine_mem8_obj) },
-    { MP_ROM_QSTR(MP_QSTR_mem16),               MP_ROM_PTR(&machine_mem16_obj) },
-    { MP_ROM_QSTR(MP_QSTR_mem32),               MP_ROM_PTR(&machine_mem32_obj) },
+    //{ MP_ROM_QSTR(MP_QSTR_mem8),                MP_ROM_PTR(&machine_mem8_obj) },
+    //{ MP_ROM_QSTR(MP_QSTR_mem16),               MP_ROM_PTR(&machine_mem16_obj) },
+    //{ MP_ROM_QSTR(MP_QSTR_mem32),               MP_ROM_PTR(&machine_mem32_obj) },
     { MP_ROM_QSTR(MP_QSTR_Pin),                 MP_ROM_PTR(&pin_type) },
 };
 

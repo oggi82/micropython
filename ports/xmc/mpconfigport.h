@@ -12,7 +12,7 @@
 #define MICROPY_ALLOC_PATH_MAX      (128)
 
 // emitters
-#define MICROPY_PERSISTENT_CODE_LOAD (1)
+#define MICROPY_PERSISTENT_CODE_LOAD (0) // activate when frozen modules are included
 #ifndef MICROPY_EMIT_THUMB
 #define MICROPY_EMIT_THUMB          (1)
 #endif
@@ -33,7 +33,7 @@
 #define MICROPY_OPT_MPZ_BITWISE     (1)
 #define MICROPY_OPT_MATH_FACTORIAL  (1)
 
-#define MICROPY_QSTR_EXTRA_POOL     mp_qstr_frozen_const_pool
+//#define MICROPY_QSTR_EXTRA_POOL     mp_qstr_frozen_const_pool
 #define MICROPY_ALLOC_PARSE_CHUNK_INIT (16)
 
 #define MICROPY_ENABLE_GC           (1)
@@ -72,7 +72,7 @@
 #define MICROPY_PY_STRUCT           (1)
 #define MICROPY_PY_SYS              (1)
 #define MICROPY_PY_SYS_STDFILES     (0)
-#define MICROPY_MODULE_FROZEN_MPY   (1)
+//#define MICROPY_MODULE_FROZEN_MPY   (1)
 #define MICROPY_LONGINT_IMPL        (MICROPY_LONGINT_IMPL_MPZ)
 #define MICROPY_ENABLE_SOURCE_LINE  (1)
 #ifndef MICROPY_FLOAT_IMPL // can be configured by each board via mpconfigboard.mk

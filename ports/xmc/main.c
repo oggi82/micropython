@@ -39,7 +39,7 @@
 #include "lib/mp-readline/readline.h"
 
 #include "VirtualSerial.h"
-#include "pin.h"
+#include "machine_pin.h"
 
 /* Clock configuration */
 /* fPLL = 120MHz */
@@ -104,6 +104,7 @@ int main(int argc, char **argv) {
     int stack_dummy;
     stack_top = (char*)&stack_dummy;
 
+    USB_Init();
     // enable systick
     // machine_init() ->modmachine.c
 soft_reset:
@@ -150,6 +151,7 @@ soft_reset:
     // #if MICROPY_HW_ENABLE_USB
     // pyb_usb_init0();
     // #endif
+
 
     #if MICROPY_ENABLE_COMPILER
     // Main script is finished, so now go into REPL mode.

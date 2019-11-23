@@ -15,7 +15,8 @@ include ../../py/mkenv.mk
 include $(BOARD_DIR)/mpconfigboard.mk
 
 # qstr definitions (must come before including py.mk)
-QSTR_DEFS = qstrdefsport.h
+QSTR_DEFS = qstrdefsport.h #$(BUILD)/pins_qstr.h
+QSTR_GLOBAL_DEPENDENCIES = $(BOARD_DIR)/mpconfigboard.h
 
 # include py core make definitions
 include $(TOP)/py/py.mk
@@ -57,6 +58,8 @@ endif
 
 LIBS = 
 
+EXTMOD_SRC_C = \
+
 SRC_MOD = \
 	mod_example.c \
 
@@ -69,7 +72,11 @@ SRC_C = \
 	lib/utils/pyexec.c \
 	lib/libc/string0.c \
 	lib/mp-readline/readline.c \
-	$(BUILD)/_frozen_mpy.c \
+	machine_pin.c \
+	pin_defs_xmc.c \
+	modmachine.c \
+
+SRC_HAL = \
 	Libraries/Newlib/syscalls.c \
 	Libraries/USB/Class/Device/CDCClassDevice.c \
 	Libraries/USB/Common/memcpy.c \
@@ -89,26 +96,45 @@ SRC_C = \
 	Libraries/XMCLib/src/xmc_usic.c \
 	Libraries/XMCLib/src/xmc4_scu.c \
 	Libraries/XMCLib/src/xmc4_gpio.c \
-	pin.c \
-	pin_defs_xmc.c \
-	modmachine.c \
+	
 
 SRC_O = \
 	$(STARTUP_FILE) \
 	$(SYSTEM_FILE) \
 	gchelper.o    
 
+PLLVALUES = boards/pllvalues.py
+MAKE_PINS = boards/make-pins.py
+BOARD_PINS = $(BOARD_DIR)/pins.csv
+GEN_PINS_SRC = $(BUILD)/pins_$(BOARD).c
+GEN_PINS_HDR = $(HEADER_BUILD)/pins.h
+GEN_PINS_QSTR = $(BUILD)/pins_qstr.h
+
+# List of sources for qstr extraction
+SRC_QSTR += $(SRC_C) $(SRC_MOD) $(SRC_LIB) $(EXTMOD_SRC_C)
+
 OBJ = 
 OBJ += $(PY_CORE_O)
 OBJ += $(addprefix $(BUILD)/, $(SRC_C:.c=.o))
 OBJ += $(addprefix $(BUILD)/, $(SRC_O))
+OBJ += $(addprefix $(BUILD)/, $(SRC_HAL:.c=.o))
 OBJ += $(addprefix $(BUILD)/, $(SRC_MOD:.c=.o))
+
+# Use a pattern rule here so that make will only call make-pins.py once to make
+# both pins_$(BOARD).c and pins.h
+$(BUILD)/%_$(BOARD).c $(HEADER_BUILD)/%.h $(HEADER_BUILD)/%_af_const.h $(HEADER_BUILD)/%_af_defs.h $(BUILD)/%_qstr.h: $(BOARD_DIR)/%.csv $(MAKE_PINS) $(AF_FILE) $(PREFIX_FILE) | $(HEADER_BUILD)
+	$(ECHO) "GEN $@"
+	$(Q)$(PYTHON) $(MAKE_PINS) --board $(BOARD_PINS) --af $(AF_FILE) \
+		--prefix $(PREFIX_FILE) --hdr $(GEN_PINS_HDR) --hdr-obj-decls \
+		--qstr $(GEN_PINS_QSTR) --af-const $(GEN_PINS_AF_CONST) \
+		--af-defs $(GEN_PINS_AF_DEFS) --af-defs-cmp-strings \
+		--af-py $(GEN_PINS_AF_PY) > $(GEN_PINS_SRC)
 
 all: $(BUILD)/firmware.dfu
 
-$(BUILD)/_frozen_mpy.c: frozentest.mpy $(BUILD)/genhdr/qstrdefs.generated.h
-	$(ECHO) "MISC freezing bytecode"
-	$(Q)$(TOP)/tools/mpy-tool.py -f -q $(BUILD)/genhdr/qstrdefs.preprocessed.h -mlongint-impl=mpz $< > $@
+#$(BUILD)/_frozen_mpy.c: frozentest.mpy $(BUILD)/genhdr/qstrdefs.generated.h
+#	$(ECHO) "MISC freezing bytecode"
+#	$(Q)$(TOP)/tools/mpy-tool.py -f -q $(BUILD)/genhdr/qstrdefs.preprocessed.h -mlongint-impl=mpz $< > $@
 
 $(BUILD)/firmware.elf: $(OBJ)
 	$(ECHO) "LINK $@"
