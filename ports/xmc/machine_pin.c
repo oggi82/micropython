@@ -101,82 +101,81 @@ void pin_init0(void) {
 
 // C API used to convert a user-supplied pin name into an ordinal pin number.
 const pin_obj_t *pin_find(mp_obj_t user_obj) {
-     //const pin_obj_t *pin_obj;
+    const pin_obj_t *pin_obj;
 
-     // If a pin was provided, then use it
-    //  if (mp_obj_is_type(user_obj, &pin_type)) {
-    //      pin_obj = MP_OBJ_TO_PTR(user_obj);
-    //      if (pin_class_debug) {
-    //          printf("Pin map passed pin ");
-    //          mp_obj_print(MP_OBJ_FROM_PTR(pin_obj), PRINT_STR);
-    //          printf("\n");
-    //      }
-    //      return pin_obj;
-    //  }
+    // If a pin was provided, then use it
+    if (mp_obj_is_type(user_obj, &pin_type)) {
+        pin_obj = MP_OBJ_TO_PTR(user_obj);
+        if (pin_class_debug) {
+            printf("Pin map passed pin ");
+            mp_obj_print(MP_OBJ_FROM_PTR(pin_obj), PRINT_STR);
+            printf("\n");
+        }
+        return pin_obj;
+    }
 
-//     // if (MP_STATE_PORT(pin_class_mapper) != mp_const_none) {
-//     //     mp_obj_t o = mp_call_function_1(MP_STATE_PORT(pin_class_mapper), user_obj);
-//     //     if (o != mp_const_none) {
-//     //         if (!mp_obj_is_type(o, &pin_type)) {
-//     //             mp_raise_ValueError("Pin.mapper didn't return a Pin object");
-//     //         }
-//     //         if (pin_class_debug) {
-//     //             printf("Pin.mapper maps ");
-//     //             mp_obj_print(user_obj, PRINT_REPR);
-//     //             printf(" to ");
-//     //             mp_obj_print(o, PRINT_STR);
-//     //             printf("\n");
-//     //         }
-//     //         return MP_OBJ_TO_PTR(o);
-//     //     }
-//     //     // The pin mapping function returned mp_const_none, fall through to
-//     //     // other lookup methods.
-//     // }
+    if (MP_STATE_PORT(pin_class_mapper) != mp_const_none) {
+        mp_obj_t o = mp_call_function_1(MP_STATE_PORT(pin_class_mapper), user_obj);
+        if (o != mp_const_none) {
+            if (!mp_obj_is_type(o, &pin_type)) {
+                mp_raise_ValueError("Pin.mapper didn't return a Pin object");
+            }
+            if (pin_class_debug) {
+                printf("Pin.mapper maps ");
+                mp_obj_print(user_obj, PRINT_REPR);
+                printf(" to ");
+                mp_obj_print(o, PRINT_STR);
+                printf("\n");
+            }
+            return MP_OBJ_TO_PTR(o);
+        }
+        // The pin mapping function returned mp_const_none, fall through to
+        // other lookup methods.
+    }
 
-//     // if (MP_STATE_PORT(pin_class_map_dict) != mp_const_none) {
-//     //     mp_map_t *pin_map_map = mp_obj_dict_get_map(MP_STATE_PORT(pin_class_map_dict));
-//     //     mp_map_elem_t *elem = mp_map_lookup(pin_map_map, user_obj, MP_MAP_LOOKUP);
-//     //     if (elem != NULL && elem->value != MP_OBJ_NULL) {
-//     //         mp_obj_t o = elem->value;
-//     //         if (pin_class_debug) {
-//     //             printf("Pin.map_dict maps ");
-//     //             mp_obj_print(user_obj, PRINT_REPR);
-//     //             printf(" to ");
-//     //             mp_obj_print(o, PRINT_STR);
-//     //             printf("\n");
-//     //         }
-//     //         return MP_OBJ_TO_PTR(o);
-//     //     }
-//     // }
+    if (MP_STATE_PORT(pin_class_map_dict) != mp_const_none) {
+        mp_map_t *pin_map_map = mp_obj_dict_get_map(MP_STATE_PORT(pin_class_map_dict));
+        mp_map_elem_t *elem = mp_map_lookup(pin_map_map, user_obj, MP_MAP_LOOKUP);
+        if (elem != NULL && elem->value != MP_OBJ_NULL) {
+            mp_obj_t o = elem->value;
+            if (pin_class_debug) {
+                printf("Pin.map_dict maps ");
+                mp_obj_print(user_obj, PRINT_REPR);
+                printf(" to ");
+                mp_obj_print(o, PRINT_STR);
+                printf("\n");
+            }
+            return MP_OBJ_TO_PTR(o);
+        }
+    }
 
-//     // // See if the pin name matches a board pin
-//     // pin_obj = pin_find_named_pin(&pin_board_pins_locals_dict, user_obj);
-//     // if (pin_obj) {
-//     //     if (pin_class_debug) {
-//     //         printf("Pin.board maps ");
-//     //         mp_obj_print(user_obj, PRINT_REPR);
-//     //         printf(" to ");
-//     //         mp_obj_print(MP_OBJ_FROM_PTR(pin_obj), PRINT_STR);
-//     //         printf("\n");
-//     //     }
-//     //     return pin_obj;
-//     // }
+    // See if the pin name matches a board pin
+    pin_obj = pin_find_named_pin(&pin_board_pins_locals_dict, user_obj);
+    if (pin_obj) {
+        if (pin_class_debug) {
+            printf("Pin.board maps ");
+            mp_obj_print(user_obj, PRINT_REPR);
+            printf(" to ");
+            mp_obj_print(MP_OBJ_FROM_PTR(pin_obj), PRINT_STR);
+            printf("\n");
+        }
+        return pin_obj;
+    }
 
-//     // // See if the pin name matches a cpu pin
-//     // pin_obj = pin_find_named_pin(&pin_cpu_pins_locals_dict, user_obj);
-//     // if (pin_obj) {
-//     //     if (pin_class_debug) {
-//     //         printf("Pin.cpu maps ");
-//     //         mp_obj_print(user_obj, PRINT_REPR);
-//     //         printf(" to ");
-//     //         mp_obj_print(MP_OBJ_FROM_PTR(pin_obj), PRINT_STR);
-//     //         printf("\n");
-//     //     }
-//     //     return pin_obj;
-//     // }
+    // See if the pin name matches a cpu pin
+    pin_obj = pin_find_named_pin(&pin_cpu_pins_locals_dict, user_obj);
+    if (pin_obj) {
+        if (pin_class_debug) {
+            printf("Pin.cpu maps ");
+            mp_obj_print(user_obj, PRINT_REPR);
+            printf(" to ");
+            mp_obj_print(MP_OBJ_FROM_PTR(pin_obj), PRINT_STR);
+            printf("\n");
+        }
+        return pin_obj;
+    }
 
-//     // nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, "Pin(%s) doesn't exist", mp_obj_str_get_str(user_obj)));
-     return 0;
+    nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, "Pin(%s) doesn't exist", mp_obj_str_get_str(user_obj)));
 }
 
 /// \method __str__()

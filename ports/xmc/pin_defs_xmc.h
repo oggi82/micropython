@@ -118,5 +118,5 @@ enum {
 //   PIN_ADC3  = (1 << 2),
 // };
 
-typedef PORT0_Type pin_gpio_t;
+typedef PORT0_Type pin_gpio_t; // change to XMC_GPIO_Type_t or something else
 

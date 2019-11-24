@@ -25,8 +25,8 @@ MCU_SERIES_UPPER = $(shell echo $(MCU_SERIES) | tr '[:lower:]' '[:upper:]')
 CMSIS_MCU_LOWER = $(shell echo $(CMSIS_MCU) | tr '[:upper:]' '[:lower:]')
 
 LD_DIR=boards
-STARTUP_FILE ?= lib/xmclib/CMSIS/XMC$(MCU_SERIES_UPPER)xx/Source/Templates/gcc/startup_$(CMSIS_MCU_LOWER).o
-SYSTEM_FILE ?= lib/xmclib/CMSIS/XMC$(MCU_SERIES_UPPER)xx/Source/Templates/system_$(CMSIS_MCU_LOWER).o
+STARTUP_FILE ?= lib/xmclib/CMSIS/XMC$(MCU_SERIES_UPPER)xx/Source/Templates/gcc/startup_$(CMSIS_MCU).o
+SYSTEM_FILE ?= lib/xmclib/CMSIS/XMC$(MCU_SERIES_UPPER)xx/Source/Templates/system_$(CMSIS_MCU).o
 
 CROSS_COMPILE ?= arm-none-eabi-
 
