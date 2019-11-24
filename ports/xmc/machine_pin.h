@@ -28,10 +28,25 @@
 
 // This file requires pin_defs_xxx.h (which has port specific enums and
 // defines, so we include it here. It should never be included directly
-#include <xmc_common.h>
-#include <xmc_gpio.h>
+#include "xmc_common.h
+#include "xmc_gpio.h"
 #include MICROPY_PIN_DEFS_PORT_H
 #include "py/obj.h"
+
+#define  GPIO_MODE_INPUT                       XMC_GPIO_MODE_INPUT_TRISTATE   /*!< Input Floating Mode                   */
+#define  GPIO_MODE_OUTPUT_PP                   XMC_GPIO_MODE_OUTPUT_PUSH_PULL   /*!< Output Push Pull Mode                 */
+#define  GPIO_MODE_OUTPUT_OD                   XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN   /*!< Output Open Drain Mode                */
+#define  GPIO_MODE_AF_PP                        ((uint32_t)0x00000002)   /*!< Alternate Function Push Pull Mode     */
+#define  GPIO_MODE_AF_OD                        ((uint32_t)0x00000012)   /*!< Alternate Function Open Drain Mode    */
+#define  GPIO_MODE_ANALOG                       ((uint32_t)0x00000003)   /*!< Analog Mode  */
+#define  GPIO_MODE_ANALOG_ADC_CONTROL           ((uint32_t)0x0000000B)   /*!< Analog Mode for ADC conversion */
+#define  GPIO_MODE_IT_RISING                    ((uint32_t)0x10110000)   /*!< External Interrupt Mode with Rising edge trigger detection          */
+#define  GPIO_MODE_IT_FALLING                   ((uint32_t)0x10210000)   /*!< External Interrupt Mode with Falling edge trigger detection         */
+#define  GPIO_MODE_IT_RISING_FALLING            ((uint32_t)0x10310000)   /*!< External Interrupt Mode with Rising/Falling edge trigger detection  */
+#define  GPIO_MODE_EVT_RISING                   ((uint32_t)0x10120000)   /*!< External Event Mode with Rising edge trigger detection               */
+#define  GPIO_MODE_EVT_FALLING                  ((uint32_t)0x10220000)   /*!< External Event Mode with Falling edge trigger detection              */
+#define  GPIO_MODE_EVT_RISING_FALLING           ((uint32_t)0x10320000)   /*!< External Event Mode with Rising/Falling edge trigger detection       */
+
 
 typedef struct {
   mp_obj_base_t base;
@@ -87,13 +102,13 @@ extern const mp_obj_dict_t pin_board_pins_locals_dict;
 MP_DECLARE_CONST_FUN_OBJ_KW(pin_init_obj);
 
 void pin_init0(void);
-// uint32_t pin_get_mode(const pin_obj_t *pin);
-// uint32_t pin_get_pull(const pin_obj_t *pin);
-// uint32_t pin_get_af(const pin_obj_t *pin);
+uint32_t pin_get_mode(const pin_obj_t *pin);
+uint32_t pin_get_pull(const pin_obj_t *pin);
+uint32_t pin_get_af(const pin_obj_t *pin);
 const pin_obj_t *pin_find(mp_obj_t user_obj);
 const pin_obj_t *pin_find_named_pin(const mp_obj_dict_t *named_pins, mp_obj_t name);
-// const pin_af_obj_t *pin_find_af(const pin_obj_t *pin, uint8_t fn, uint8_t unit);
-// const pin_af_obj_t *pin_find_af_by_index(const pin_obj_t *pin, mp_uint_t af_idx);
-// const pin_af_obj_t *pin_find_af_by_name(const pin_obj_t *pin, const char *name);
+const pin_af_obj_t *pin_find_af(const pin_obj_t *pin, uint8_t fn, uint8_t unit);
+const pin_af_obj_t *pin_find_af_by_index(const pin_obj_t *pin, mp_uint_t af_idx);
+const pin_af_obj_t *pin_find_af_by_name(const pin_obj_t *pin, const char *name);
 
 #endif // MICROPY_INCLUDED_XMC_MACHINE_PIN_H

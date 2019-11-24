@@ -181,62 +181,62 @@ const pin_obj_t *pin_find(mp_obj_t user_obj) {
 /// \method __str__()
 /// Return a string describing the pin object.
 STATIC void pin_print(const mp_print_t *print, mp_obj_t self_in, mp_print_kind_t kind) {
-    //pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
+    pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
 
-//     // // pin name
-//     // mp_printf(print, "Pin(Pin.cpu.%q, mode=Pin.", self->name);
+    // pin name
+    mp_printf(print, "Pin(Pin.cpu.%q, mode=Pin.", self->name);
 
-//     // uint32_t mode = pin_get_mode(self);
+    uint32_t mode = pin_get_mode(self);
 
-//     // if (mode == GPIO_MODE_ANALOG) {
-//     //     // analog
-//     //     mp_print_str(print, "ANALOG)");
+    if (mode == GPIO_MODE_ANALOG) {
+        // analog
+        mp_print_str(print, "ANALOG)");
 
-//     // } else {
-//     //     // IO mode
-//     //     bool af = false;
-//     //     qstr mode_qst;
-//     //     if (mode == GPIO_MODE_INPUT) {
-//     //         mode_qst = MP_QSTR_IN;
-//     //     } else if (mode == GPIO_MODE_OUTPUT_PP) {
-//     //         mode_qst = MP_QSTR_OUT;
-//     //     } else if (mode == GPIO_MODE_OUTPUT_OD) {
-//     //         mode_qst = MP_QSTR_OPEN_DRAIN;
-//     //     } else {
-//     //         af = true;
-//     //         if (mode == GPIO_MODE_AF_PP) {
-//     //             mode_qst = MP_QSTR_ALT;
-//     //         } else {
-//     //             mode_qst = MP_QSTR_ALT_OPEN_DRAIN;
-//     //         }
-//     //     }
-//     //     mp_print_str(print, qstr_str(mode_qst));
+    } else {
+        // IO mode
+        bool af = false;
+        qstr mode_qst;
+        if (mode == GPIO_MODE_INPUT) {
+            mode_qst = MP_QSTR_IN;
+        } else if (mode == GPIO_MODE_OUTPUT_PP) {
+            mode_qst = MP_QSTR_OUT;
+        } else if (mode == GPIO_MODE_OUTPUT_OD) {
+            mode_qst = MP_QSTR_OPEN_DRAIN;
+        } else {
+            af = true;
+            if (mode == GPIO_MODE_AF_PP) {
+                mode_qst = MP_QSTR_ALT;
+            } else {
+                mode_qst = MP_QSTR_ALT_OPEN_DRAIN;
+            }
+        }
+        mp_print_str(print, qstr_str(mode_qst));
 
-//     //     // pull mode
-//     //     qstr pull_qst = MP_QSTRnull;
-//     //     uint32_t pull = pin_get_pull(self);
-//     //     if (pull == GPIO_PULLUP) {
-//     //         pull_qst = MP_QSTR_PULL_UP;
-//     //     } else if (pull == GPIO_PULLDOWN) {
-//     //         pull_qst = MP_QSTR_PULL_DOWN;
-//     //     }
-//     //     if (pull_qst != MP_QSTRnull) {
-//     //         mp_printf(print, ", pull=Pin.%q", pull_qst);
-//     //     }
+        // pull mode
+        //qstr pull_qst = MP_QSTRnull;
+        // uint32_t pull = pin_get_pull(self);
+        // if (pull == GPIO_PULLUP) { // TODO
+        //     pull_qst = MP_QSTR_PULL_UP;
+        // } else if (pull == GPIO_PULLDOWN) {
+        //     pull_qst = MP_QSTR_PULL_DOWN;
+        // }
+        // if (pull_qst != MP_QSTRnull) {
+        //     mp_printf(print, ", pull=Pin.%q", pull_qst);
+        // }
 
-//     //     // AF mode
-//     //     if (af) {
-//     //         mp_uint_t af_idx = pin_get_af(self);
-//     //         const pin_af_obj_t *af_obj = pin_find_af_by_index(self, af_idx);
-//     //         if (af_obj == NULL) {
-//     //             mp_printf(print, ", af=%d)", af_idx);
-//     //         } else {
-//     //             mp_printf(print, ", af=Pin.%q)", af_obj->name);
-//     //         }
-//     //     } else {
-//     //         mp_print_str(print, ")");
-//     //     }
-//     // }
+        // AF mode
+        if (af) {
+            mp_uint_t af_idx = pin_get_af(self);
+            const pin_af_obj_t *af_obj = pin_find_af_by_index(self, af_idx);
+            if (af_obj == NULL) {
+                mp_printf(print, ", af=%d)", af_idx);
+            } else {
+                mp_printf(print, ", af=Pin.%q)", af_obj->name);
+            }
+        } else {
+            mp_print_str(print, ")");
+        }
+    }
 }
 
 STATIC mp_obj_t pin_obj_init_helper(const pin_obj_t *pin, size_t n_args, const mp_obj_t *args, mp_map_t *kw_args);
@@ -444,14 +444,13 @@ STATIC mp_obj_t pin_on(mp_obj_t self_in) {
 // }
 // STATIC MP_DEFINE_CONST_FUN_OBJ_KW(pin_irq_obj, 1, pin_irq);
 
-// /// \method name()
-// /// Get the pin name.
-// STATIC mp_obj_t pin_name(mp_obj_t self_in) {
-//     // pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
-//     // return MP_OBJ_NEW_QSTR(self->name);
-//     return 0;
-// }
-// STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_name_obj, pin_name);
+/// \method name()
+/// Get the pin name.
+STATIC mp_obj_t pin_name(mp_obj_t self_in) {
+    pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
+    return MP_OBJ_NEW_QSTR(self->name);
+}
+STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_name_obj, pin_name);
 
 // /// \method names()
 // /// Returns the cpu and board names for this pin.
@@ -473,32 +472,29 @@ STATIC mp_obj_t pin_on(mp_obj_t self_in) {
 // }
 // STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_names_obj, pin_names);
 
-// /// \method port()
-// /// Get the pin port.
-// STATIC mp_obj_t pin_port(mp_obj_t self_in) {
-//     // pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
-//     // return MP_OBJ_NEW_SMALL_INT(self->port);
-//     return 0;
-// }
-// STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_port_obj, pin_port);
+/// \method port()
+/// Get the pin port.
+STATIC mp_obj_t pin_port(mp_obj_t self_in) {
+    pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
+    return MP_OBJ_NEW_SMALL_INT(self->port);
+}
+STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_port_obj, pin_port);
 
-// /// \method pin()
-// /// Get the pin number.
-// STATIC mp_obj_t pin_pin(mp_obj_t self_in) {
-//     // pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
-//     // return MP_OBJ_NEW_SMALL_INT(self->pin);
-//     return 0;
-// }
-// STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_pin_obj, pin_pin);
+/// \method pin()
+/// Get the pin number.
+STATIC mp_obj_t pin_pin(mp_obj_t self_in) {
+    pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
+    return MP_OBJ_NEW_SMALL_INT(self->pin);
+}
+STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_pin_obj, pin_pin);
 
-// /// \method gpio()
-// /// Returns the base address of the GPIO block associated with this pin.
-// STATIC mp_obj_t pin_gpio(mp_obj_t self_in) {
-//     // pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
-//     // return MP_OBJ_NEW_SMALL_INT((intptr_t)self->gpio);
-//     return 0;
-// }
-// STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_gpio_obj, pin_gpio);
+/// \method gpio()
+/// Returns the base address of the GPIO block associated with this pin.
+STATIC mp_obj_t pin_gpio(mp_obj_t self_in) {
+    pin_obj_t *self = MP_OBJ_TO_PTR(self_in);
+    return MP_OBJ_NEW_SMALL_INT((intptr_t)self->gpio);
+}
+STATIC MP_DEFINE_CONST_FUN_OBJ_1(pin_gpio_obj, pin_gpio);
 
 // /// \method mode()
 // /// Returns the currently configured mode of the pin. The integer returned
@@ -541,12 +537,12 @@ STATIC const mp_rom_map_elem_t pin_locals_dict_table[] = {
 //     // Legacy names as used by machine.Pin
 //     // { MP_ROM_QSTR(MP_QSTR_low),     MP_ROM_PTR(&pin_off_obj) },
 //     // { MP_ROM_QSTR(MP_QSTR_high),    MP_ROM_PTR(&pin_on_obj) },
-//     // { MP_ROM_QSTR(MP_QSTR_name),    MP_ROM_PTR(&pin_name_obj) },
+    { MP_ROM_QSTR(MP_QSTR_name),    MP_ROM_PTR(&pin_name_obj) },
 //     // { MP_ROM_QSTR(MP_QSTR_names),   MP_ROM_PTR(&pin_names_obj) },
 //      { MP_ROM_QSTR(MP_QSTR_af_list), MP_ROM_PTR(&pin_af_list_obj) },
-//     // { MP_ROM_QSTR(MP_QSTR_port),    MP_ROM_PTR(&pin_port_obj) },
-//      { MP_ROM_QSTR(MP_QSTR_pin),     MP_ROM_PTR(&pin_pin_obj) },
-//     // { MP_ROM_QSTR(MP_QSTR_gpio),    MP_ROM_PTR(&pin_gpio_obj) },
+    { MP_ROM_QSTR(MP_QSTR_port),    MP_ROM_PTR(&pin_port_obj) },
+    { MP_ROM_QSTR(MP_QSTR_pin),     MP_ROM_PTR(&pin_pin_obj) },
+    { MP_ROM_QSTR(MP_QSTR_gpio),    MP_ROM_PTR(&pin_gpio_obj) },
 //     // { MP_ROM_QSTR(MP_QSTR_mode),    MP_ROM_PTR(&pin_mode_obj) },
 //     // { MP_ROM_QSTR(MP_QSTR_pull),    MP_ROM_PTR(&pin_pull_obj) },
 //     // { MP_ROM_QSTR(MP_QSTR_af),      MP_ROM_PTR(&pin_af_obj) },

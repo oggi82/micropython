@@ -23,7 +23,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
+#include "xmc_common.h"
+//#include "xmc4_gpio_map.h"
 // This file contains pin definitions that are specific to the xmc port.
 // This file should only ever be #included by pin.h and not directly.
 
@@ -118,5 +119,5 @@ enum {
 //   PIN_ADC3  = (1 << 2),
 // };
 
-typedef PORT0_Type pin_gpio_t; // change to XMC_GPIO_Type_t or something else
+typedef XMC_GPIO_PORT_t pin_gpio_t;
 

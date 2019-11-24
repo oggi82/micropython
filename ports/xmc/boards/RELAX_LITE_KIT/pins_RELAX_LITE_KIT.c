@@ -31,24 +31,24 @@
     .pin = (p_pin), \
     .num_af = (sizeof(p_af) / sizeof(pin_af_obj_t)), \
     .pin_mask = (1 << ((p_pin) & 0x0f)), \
-    .gpio = PORT ## p_port, \
+    .gpio = XMC_GPIO_PORT ## p_port, \
     .af = p_af, \
     .adc_num = p_adc_num, \
     .adc_channel = p_adc_channel, \
 }
 
-const pin_af_obj_t pin_0_0_af[] = {
+const pin_af_obj_t pin0_0_af[] = {
 };
 
-const pin_obj_t pin_0_0_obj = PIN(0, 0, pin_0_0_af, 0, 0);
+const pin_obj_t pin0_0_obj = PIN(0, 0, pin0_0_af, 0, 0);
 
 STATIC const mp_rom_map_elem_t pin_cpu_pins_locals_dict_table[] = {
-  { MP_ROM_QSTR(MP_QSTR_P0_0), MP_ROM_PTR(&pin_0_0_obj) },
+  { MP_ROM_QSTR(MP_QSTR_P0_0), MP_ROM_PTR(&pin0_0_obj) },
 };
 MP_DEFINE_CONST_DICT(pin_cpu_pins_locals_dict, pin_cpu_pins_locals_dict_table);
 
 STATIC const mp_rom_map_elem_t pin_board_pins_locals_dict_table[] = {
-  { MP_ROM_QSTR(MP_QSTR_P0_0), MP_ROM_PTR(&pin_0_0_obj) },
+  { MP_ROM_QSTR(MP_QSTR_P0_0), MP_ROM_PTR(&pin0_0_obj) },
 };
 
 MP_DEFINE_CONST_DICT(pin_board_pins_locals_dict, pin_board_pins_locals_dict_table);
