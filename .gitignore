@@ -46,3 +46,4 @@ genrst/
 .vscode/settings.json
 ports/xmc/boards/RELAX_LITE_KIT/pins_RELAX_LITE_KIT.o.lst
 ports/xmc/make.exe.stackdump
+mp_xmc_port.code-workspace
