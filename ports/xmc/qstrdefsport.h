@@ -5,6 +5,8 @@ Q(P_0_0)
 // Modes
 Q(IN)
 Q(OUT)
+Q(OUT_PP)
+Q(OUT_OD)
 Q(OPEN_DRAIN)
 Q(ALT)
 Q(ALT_OPEN_DRAIN)

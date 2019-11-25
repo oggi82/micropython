@@ -28,7 +28,7 @@
 
 // This file requires pin_defs_xxx.h (which has port specific enums and
 // defines, so we include it here. It should never be included directly
-#include "xmc_common.h
+#include "xmc_common.h"
 #include "xmc_gpio.h"
 #include MICROPY_PIN_DEFS_PORT_H
 #include "py/obj.h"
