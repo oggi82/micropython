@@ -1,18 +1,14 @@
-#define MICROPY_HW_BOARD_NAME       "RELAXLITE"
+#define MICROPY_HW_BOARD_NAME       "Relax Lite Kit-V1"
 #define MICROPY_HW_MCU_NAME         "XMC4500-1024"
 
-#define MICROPY_HW_HAS_SWITCH       (1)
-#define MICROPY_HW_HAS_FLASH        (1)
-#define MICROPY_HW_ENABLE_RNG       (1)
-#define MICROPY_HW_ENABLE_RTC       (1)
-#define MICROPY_HW_ENABLE_DAC       (1)
-#define MICROPY_HW_ENABLE_USB       (1)
+#define MICROPY_HW_ENABLE_DAC       (0)
+#define MICROPY_HW_ENABLE_USB       (0)
 
 // HSE is 8MHz
-#define MICROPY_HW_CLK_PLLM (8)
-#define MICROPY_HW_CLK_PLLN (336)
-#define MICROPY_HW_CLK_PLLP (RCC_PLLP_DIV2)
-#define MICROPY_HW_CLK_PLLQ (7)
+//#define MICROPY_HW_CLK_PLLM (8)
+//#define MICROPY_HW_CLK_PLLN (336)
+//#define MICROPY_HW_CLK_PLLP (RCC_PLLP_DIV2)
+//#define MICROPY_HW_CLK_PLLQ (7)
 
 // UART config
 // #if 0

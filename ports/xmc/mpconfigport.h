@@ -1,5 +1,5 @@
 #include <stdint.h>
-
+#include "mpconfigboard.h"
 // options to control how Micro Python is built
 
 //#define MICROPY_QSTR_EXTRA_POOL     mp_qstr_frozen_const_pool
@@ -141,9 +141,6 @@ static inline mp_uint_t disable_irq(void) {
 
 // We need to provide a declaration/definition of alloca()
 #include <alloca.h>
-
-#define MICROPY_HW_BOARD_NAME "Relax Lite-Kit"
-#define MICROPY_HW_MCU_NAME "XMC4500-1024"
 
 #define MP_STATE_PORT MP_STATE_VM
 

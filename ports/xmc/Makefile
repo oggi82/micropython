@@ -33,6 +33,7 @@ CROSS_COMPILE ?= arm-none-eabi-
 INC += -I.
 INC += -I$(TOP)
 INC += -I$(BUILD)
+INC += -I$(BOARD_DIR)
 INC += -ILibraries/XMCLib/inc
 INC += -ILibraries
 INC += -ILibraries/VirtualSerial

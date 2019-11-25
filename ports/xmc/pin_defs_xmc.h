@@ -28,6 +28,9 @@
 // This file contains pin definitions that are specific to the xmc port.
 // This file should only ever be #included by pin.h and not directly.
 
+
+#define XMC_ANALOG_MODE 0x1fUL << PORT0_IOCR0_PC0_Pos
+
 enum {
     PORT_0, // more to add
 };
