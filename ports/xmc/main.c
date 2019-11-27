@@ -147,7 +147,10 @@ soft_reset:
     #else
     pyexec_frozen_module("frozentest.py");
     #endif
+soft_reset_exit:
+    printf("MPY: soft reboot\n");
     mp_deinit();
+    gc_sweep_all();
     goto soft_reset;
     return 0;
 }
