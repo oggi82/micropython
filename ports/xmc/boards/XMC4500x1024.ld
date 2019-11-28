@@ -74,6 +74,7 @@ MEMORY
 }
 
 stack_size = DEFINED(stack_size) ? stack_size : 2048;
+heap_size = DEFINED(heap_size) ? heap_size : 16384;
 no_init_size = 64;
 
 SECTIONS
