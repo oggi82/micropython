@@ -28,11 +28,18 @@
 // This file contains pin definitions that are specific to the xmc port.
 // This file should only ever be #included by pin.h and not directly.
 
-
 #define XMC_ANALOG_MODE 0x1fUL << PORT0_IOCR0_PC0_Pos
 
 enum {
-    PORT_0, // more to add
+  PORT_0, // more to add
+  PORT_1,
+  PORT_2,
+  PORT_3,
+  PORT_4,
+  PORT_5,
+  PORT_6,
+  PORT_14,
+  PORT_15,
 };
 
 // // Must have matching entries in SUPPORTED_FN in boards/make-pins.py
@@ -123,4 +130,3 @@ enum {
 // };
 
 typedef XMC_GPIO_PORT_t pin_gpio_t;
-

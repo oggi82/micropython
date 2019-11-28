@@ -12,43 +12,265 @@
 #include "py/mphal.h"
 #include "machine_pin.h"
 
-#define AF(af_idx, af_fn, af_unit, af_type, af_ptr) \
-{ \
-    { &pin_af_type }, \
-    .name = MP_QSTR_AF ## af_idx ## _ ## af_fn ## af_unit, \
-    .idx = (af_idx), \
-    .fn = AF_FN_ ## af_fn, \
-    .unit = (af_unit), \
-    .type = AF_PIN_TYPE_ ## af_fn ## _ ## af_type, \
-    .reg = (af_ptr) \
-}
+#define AF(af_idx, af_fn, af_unit, af_type, af_ptr)    \
+  {                                                    \
+    {&pin_af_type},                                    \
+        .name = MP_QSTR_AF##af_idx##_##af_fn##af_unit, \
+        .idx = (af_idx),                               \
+        .fn = AF_FN_##af_fn,                           \
+        .unit = (af_unit),                             \
+        .type = AF_PIN_TYPE_##af_fn##_##af_type,       \
+        .reg = (af_ptr)                                \
+  }
 
 #define PIN(p_port, p_pin, p_af, p_adc_num, p_adc_channel) \
-{ \
-    { &pin_type }, \
-    .name = MP_QSTR_P ## p_port ## _ ## p_pin, \
-    .port = PORT_ ## p_port, \
-    .pin = (p_pin), \
-    .num_af = (sizeof(p_af) / sizeof(pin_af_obj_t)), \
-    .pin_mask = (1 << ((p_pin) & 0xffff)), \
-    .gpio = XMC_GPIO_PORT ## p_port, \
-    .af = p_af, \
-    .adc_num = p_adc_num, \
-    .adc_channel = p_adc_channel, \
-}
+  {                                                        \
+    {&pin_type},                                           \
+        .name = MP_QSTR_P##p_port##_##p_pin,               \
+        .port = PORT_##p_port,                             \
+        .pin = (p_pin),                                    \
+        .num_af = (sizeof(p_af) / sizeof(pin_af_obj_t)),   \
+        .pin_mask = (1 << ((p_pin)&0xffff)),               \
+        .gpio = XMC_GPIO_PORT##p_port,                     \
+        .af = p_af,                                        \
+        .adc_num = p_adc_num,                              \
+        .adc_channel = p_adc_channel,                      \
+  }
 
-const pin_af_obj_t pin0_0_af[] = {
-};
-
+const pin_af_obj_t pin0_0_af[] = {};
 const pin_obj_t pin0_0_obj = PIN(0, 0, pin0_0_af, 0, 0);
+const pin_af_obj_t pin0_10_af[] = {};
+const pin_obj_t pin0_10_obj = PIN(0, 10, pin0_10_af, 0, 0);
+const pin_af_obj_t pin0_1_af[] = {};
+const pin_obj_t pin0_1_obj = PIN(0, 1, pin0_1_af, 0, 0);
+const pin_af_obj_t pin0_9_af[] = {};
+const pin_obj_t pin0_9_obj = PIN(0, 9, pin0_9_af, 0, 0);
+const pin_af_obj_t pin3_1_af[] = {};
+const pin_obj_t pin3_1_obj = PIN(3, 1, pin3_1_af, 0, 0);
+const pin_af_obj_t pin3_2_af[] = {};
+const pin_obj_t pin3_2_obj = PIN(3, 2, pin3_2_af, 0, 0);
+const pin_af_obj_t pin3_0_af[] = {};
+const pin_obj_t pin3_0_obj = PIN(3, 0, pin3_0_af, 0, 0);
+const pin_af_obj_t pin15_3_af[] = {};
+const pin_obj_t pin15_3_obj = PIN(15, 3, pin15_3_af, 0, 0);
+const pin_af_obj_t pin14_15_af[] = {};
+const pin_obj_t pin14_15_obj = PIN(14, 15, pin14_15_af, 0, 0);
+const pin_af_obj_t pin15_2_af[] = {};
+const pin_obj_t pin15_2_obj = PIN(15, 2, pin15_2_af, 0, 0);
+const pin_af_obj_t pin14_13_af[] = {};
+const pin_obj_t pin14_13_obj = PIN(14, 13, pin14_13_af, 0, 0);
+const pin_af_obj_t pin14_14_af[] = {};
+const pin_obj_t pin14_14_obj = PIN(14, 14, pin14_14_af, 0, 0);
+const pin_af_obj_t pin14_7_af[] = {};
+const pin_obj_t pin14_7_obj = PIN(14, 7, pin14_7_af, 0, 0);
+const pin_af_obj_t pin14_12_af[] = {};
+const pin_obj_t pin14_12_obj = PIN(14, 12, pin14_12_af, 0, 0);
+const pin_af_obj_t pin14_5_af[] = {};
+const pin_obj_t pin14_5_obj = PIN(14, 5, pin14_5_af, 0, 0);
+const pin_af_obj_t pin14_6_af[] = {};
+const pin_obj_t pin14_6_obj = PIN(14, 6, pin14_6_af, 0, 0);
+const pin_af_obj_t pin14_3_af[] = {};
+const pin_obj_t pin14_3_obj = PIN(14, 3, pin14_3_af, 0, 0);
+const pin_af_obj_t pin14_4_af[] = {};
+const pin_obj_t pin14_4_obj = PIN(14, 4, pin14_4_af, 0, 0);
+const pin_af_obj_t pin14_1_af[] = {};
+const pin_obj_t pin14_1_obj = PIN(14, 1, pin14_1_af, 0, 0);
+const pin_af_obj_t pin14_2_af[] = {};
+const pin_obj_t pin14_2_obj = PIN(14, 2, pin14_2_af, 0, 0);
+const pin_af_obj_t pin14_0_af[] = {};
+const pin_obj_t pin14_0_obj = PIN(14, 0, pin14_0_af, 0, 0);
+const pin_af_obj_t pin2_15_af[] = {};
+const pin_obj_t pin2_15_obj = PIN(2, 15, pin2_15_af, 0, 0);
+const pin_af_obj_t pin14_9_af[] = {};
+const pin_obj_t pin14_9_obj = PIN(14, 9, pin14_9_af, 0, 0);
+const pin_af_obj_t pin2_14_af[] = {};
+const pin_obj_t pin2_14_obj = PIN(2, 14, pin2_14_af, 0, 0);
+const pin_af_obj_t pin14_8_af[] = {};
+const pin_obj_t pin14_8_obj = PIN(14, 8, pin14_8_af, 0, 0);
+const pin_af_obj_t pin2_1_af[] = {};
+const pin_obj_t pin2_1_obj = PIN(2, 1, pin2_1_af, 0, 0);
+const pin_af_obj_t pin2_10_af[] = {};
+const pin_obj_t pin2_10_obj = PIN(2, 10, pin2_10_af, 0, 0);
+const pin_af_obj_t pin2_6_af[] = {};
+const pin_obj_t pin2_6_obj = PIN(2, 6, pin2_6_af, 0, 0);
+const pin_af_obj_t pin5_7_af[] = {};
+const pin_obj_t pin5_7_obj = PIN(5, 7, pin5_7_af, 0, 0);
+const pin_af_obj_t pin5_2_af[] = {};
+const pin_obj_t pin5_2_obj = PIN(5, 2, pin5_2_af, 0, 0);
+const pin_af_obj_t pin5_1_af[] = {};
+const pin_obj_t pin5_1_obj = PIN(5, 1, pin5_1_af, 0, 0);
+const pin_af_obj_t pin5_0_af[] = {};
+const pin_obj_t pin5_0_obj = PIN(5, 0, pin5_0_af, 0, 0);
+const pin_af_obj_t pin1_15_af[] = {};
+const pin_obj_t pin1_15_obj = PIN(1, 15, pin1_15_af, 0, 0);
+const pin_af_obj_t pin1_14_af[] = {};
+const pin_obj_t pin1_14_obj = PIN(1, 14, pin1_14_af, 0, 0);
+const pin_af_obj_t pin1_13_af[] = {};
+const pin_obj_t pin1_13_obj = PIN(1, 13, pin1_13_af, 0, 0);
+const pin_af_obj_t pin1_12_af[] = {};
+const pin_obj_t pin1_12_obj = PIN(1, 12, pin1_12_af, 0, 0);
+const pin_af_obj_t pin1_11_af[] = {};
+const pin_obj_t pin1_11_obj = PIN(1, 11, pin1_11_af, 0, 0);
+const pin_af_obj_t pin1_10_af[] = {};
+const pin_obj_t pin1_10_obj = PIN(1, 10, pin1_10_af, 0, 0);
+const pin_af_obj_t pin1_5_af[] = {};
+const pin_obj_t pin1_5_obj = PIN(1, 5, pin1_5_af, 0, 0);
+const pin_af_obj_t pin1_4_af[] = {};
+const pin_obj_t pin1_4_obj = PIN(1, 4, pin1_4_af, 0, 0);
+const pin_af_obj_t pin1_3_af[] = {};
+const pin_obj_t pin1_3_obj = PIN(1, 3, pin1_3_af, 0, 0);
+const pin_af_obj_t pin1_2_af[] = {};
+const pin_obj_t pin1_2_obj = PIN(1, 2, pin1_2_af, 0, 0);
+const pin_af_obj_t pin1_1_af[] = {};
+const pin_obj_t pin1_1_obj = PIN(1, 1, pin1_1_af, 0, 0);
+const pin_af_obj_t pin1_0_af[] = {};
+const pin_obj_t pin1_0_obj = PIN(1, 0, pin1_0_af, 0, 0);
+const pin_af_obj_t pin1_9_af[] = {};
+const pin_obj_t pin1_9_obj = PIN(1, 9, pin1_9_af, 0, 0);
+const pin_af_obj_t pin1_8_af[] = {};
+const pin_obj_t pin1_8_obj = PIN(1, 8, pin1_8_af, 0, 0);
+const pin_af_obj_t pin0_8_af[] = {};
+const pin_obj_t pin0_8_obj = PIN(0, 8, pin0_8_af, 0, 0);
+const pin_af_obj_t pin0_7_af[] = {};
+const pin_obj_t pin0_7_obj = PIN(0, 7, pin0_7_af, 0, 0);
+const pin_af_obj_t pin3_4_af[] = {};
+const pin_obj_t pin3_4_obj = PIN(3, 4, pin3_4_af, 0, 0);
+const pin_af_obj_t pin3_3_af[] = {};
+const pin_obj_t pin3_3_obj = PIN(3, 3, pin3_3_af, 0, 0);
+const pin_af_obj_t pin0_12_af[] = {};
+const pin_obj_t pin0_12_obj = PIN(0, 12, pin0_12_af, 0, 0);
+const pin_af_obj_t pin0_11_af[] = {};
+const pin_obj_t pin0_11_obj = PIN(0, 11, pin0_11_af, 0, 0);
+const pin_af_obj_t pin0_6_af[] = {};
+const pin_obj_t pin0_6_obj = PIN(0, 6, pin0_6_af, 0, 0);
+const pin_af_obj_t pin0_5_af[] = {};
+const pin_obj_t pin0_5_obj = PIN(0, 5, pin0_5_af, 0, 0);
+const pin_af_obj_t pin0_2_af[] = {};
+const pin_obj_t pin0_2_obj = PIN(0, 2, pin0_2_af, 0, 0);
+const pin_af_obj_t pin0_3_af[] = {};
+const pin_obj_t pin0_3_obj = PIN(0, 3, pin0_3_af, 0, 0);
+const pin_af_obj_t pin0_4_af[] = {};
+const pin_obj_t pin0_4_obj = PIN(0, 4, pin0_4_af, 0, 0);
 
 STATIC const mp_rom_map_elem_t pin_cpu_pins_locals_dict_table[] = {
-  { MP_ROM_QSTR(MP_QSTR_P0_0), MP_ROM_PTR(&pin0_0_obj) },
+    {MP_ROM_QSTR(MP_QSTR_P0_0), MP_ROM_PTR(&pin0_0_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_10), MP_ROM_PTR(&pin0_10_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_1), MP_ROM_PTR(&pin0_1_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_9), MP_ROM_PTR(&pin0_9_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P3_1), MP_ROM_PTR(&pin3_1_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P3_2), MP_ROM_PTR(&pin3_2_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P3_0), MP_ROM_PTR(&pin3_0_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P15_3), MP_ROM_PTR(&pin15_3_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_15), MP_ROM_PTR(&pin14_15_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P15_2), MP_ROM_PTR(&pin15_2_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_13), MP_ROM_PTR(&pin14_13_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_14), MP_ROM_PTR(&pin14_14_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_7), MP_ROM_PTR(&pin14_7_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_12), MP_ROM_PTR(&pin14_12_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_5), MP_ROM_PTR(&pin14_5_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_6), MP_ROM_PTR(&pin14_6_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_3), MP_ROM_PTR(&pin14_3_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_4), MP_ROM_PTR(&pin14_4_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_1), MP_ROM_PTR(&pin14_1_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_2), MP_ROM_PTR(&pin14_2_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_0), MP_ROM_PTR(&pin14_0_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P2_15), MP_ROM_PTR(&pin2_15_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_9), MP_ROM_PTR(&pin14_9_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P2_14), MP_ROM_PTR(&pin2_14_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_8), MP_ROM_PTR(&pin14_8_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P2_1), MP_ROM_PTR(&pin2_1_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P2_10), MP_ROM_PTR(&pin2_10_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P2_6), MP_ROM_PTR(&pin2_6_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P5_7), MP_ROM_PTR(&pin5_7_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P5_2), MP_ROM_PTR(&pin5_2_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P5_1), MP_ROM_PTR(&pin5_1_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P5_0), MP_ROM_PTR(&pin5_0_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_15), MP_ROM_PTR(&pin1_15_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_14), MP_ROM_PTR(&pin1_14_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_13), MP_ROM_PTR(&pin1_13_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_12), MP_ROM_PTR(&pin1_12_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_11), MP_ROM_PTR(&pin1_11_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_10), MP_ROM_PTR(&pin1_10_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_5), MP_ROM_PTR(&pin1_5_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_4), MP_ROM_PTR(&pin1_4_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_3), MP_ROM_PTR(&pin1_3_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_2), MP_ROM_PTR(&pin1_2_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_1), MP_ROM_PTR(&pin1_1_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_0), MP_ROM_PTR(&pin1_0_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_9), MP_ROM_PTR(&pin1_9_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_8), MP_ROM_PTR(&pin1_8_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_8), MP_ROM_PTR(&pin0_8_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_7), MP_ROM_PTR(&pin0_7_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P3_4), MP_ROM_PTR(&pin3_4_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P3_3), MP_ROM_PTR(&pin3_3_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_12), MP_ROM_PTR(&pin0_12_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_11), MP_ROM_PTR(&pin0_11_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_6), MP_ROM_PTR(&pin0_6_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_5), MP_ROM_PTR(&pin0_5_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_2), MP_ROM_PTR(&pin0_2_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_3), MP_ROM_PTR(&pin0_3_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_4), MP_ROM_PTR(&pin0_4_obj)},
 };
 MP_DEFINE_CONST_DICT(pin_cpu_pins_locals_dict, pin_cpu_pins_locals_dict_table);
 
 STATIC const mp_rom_map_elem_t pin_board_pins_locals_dict_table[] = {
-  { MP_ROM_QSTR(MP_QSTR_P0_0), MP_ROM_PTR(&pin0_0_obj) },
+    {MP_ROM_QSTR(MP_QSTR_P0_0), MP_ROM_PTR(&pin0_0_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_10), MP_ROM_PTR(&pin0_10_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_1), MP_ROM_PTR(&pin0_1_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_9), MP_ROM_PTR(&pin0_9_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P3_1), MP_ROM_PTR(&pin3_1_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P3_2), MP_ROM_PTR(&pin3_2_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P3_0), MP_ROM_PTR(&pin3_0_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P15_3), MP_ROM_PTR(&pin15_3_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_15), MP_ROM_PTR(&pin14_15_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P15_2), MP_ROM_PTR(&pin15_2_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_13), MP_ROM_PTR(&pin14_13_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_14), MP_ROM_PTR(&pin14_14_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_7), MP_ROM_PTR(&pin14_7_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_12), MP_ROM_PTR(&pin14_12_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_5), MP_ROM_PTR(&pin14_5_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_6), MP_ROM_PTR(&pin14_6_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_3), MP_ROM_PTR(&pin14_3_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_4), MP_ROM_PTR(&pin14_4_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_1), MP_ROM_PTR(&pin14_1_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_2), MP_ROM_PTR(&pin14_2_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_0), MP_ROM_PTR(&pin14_0_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P2_15), MP_ROM_PTR(&pin2_15_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_9), MP_ROM_PTR(&pin14_9_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P2_14), MP_ROM_PTR(&pin2_14_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P14_8), MP_ROM_PTR(&pin14_8_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P2_1), MP_ROM_PTR(&pin2_1_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P2_10), MP_ROM_PTR(&pin2_10_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P2_6), MP_ROM_PTR(&pin2_6_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P5_7), MP_ROM_PTR(&pin5_7_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P5_2), MP_ROM_PTR(&pin5_2_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P5_1), MP_ROM_PTR(&pin5_1_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P5_0), MP_ROM_PTR(&pin5_0_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_15), MP_ROM_PTR(&pin1_15_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_14), MP_ROM_PTR(&pin1_14_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_13), MP_ROM_PTR(&pin1_13_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_12), MP_ROM_PTR(&pin1_12_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_11), MP_ROM_PTR(&pin1_11_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_10), MP_ROM_PTR(&pin1_10_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_5), MP_ROM_PTR(&pin1_5_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_4), MP_ROM_PTR(&pin1_4_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_3), MP_ROM_PTR(&pin1_3_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_2), MP_ROM_PTR(&pin1_2_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_1), MP_ROM_PTR(&pin1_1_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_0), MP_ROM_PTR(&pin1_0_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_9), MP_ROM_PTR(&pin1_9_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P1_8), MP_ROM_PTR(&pin1_8_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_8), MP_ROM_PTR(&pin0_8_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_7), MP_ROM_PTR(&pin0_7_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P3_4), MP_ROM_PTR(&pin3_4_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P3_3), MP_ROM_PTR(&pin3_3_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_12), MP_ROM_PTR(&pin0_12_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_11), MP_ROM_PTR(&pin0_11_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_6), MP_ROM_PTR(&pin0_6_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_5), MP_ROM_PTR(&pin0_5_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_2), MP_ROM_PTR(&pin0_2_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_3), MP_ROM_PTR(&pin0_3_obj)},
+    {MP_ROM_QSTR(MP_QSTR_P0_4), MP_ROM_PTR(&pin0_4_obj)},
 };
 
 MP_DEFINE_CONST_DICT(pin_board_pins_locals_dict, pin_board_pins_locals_dict_table);
