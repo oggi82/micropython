@@ -73,10 +73,14 @@ SRC_C = \
 	lib/utils/pyexec.c \
 	lib/libc/string0.c \
 	lib/mp-readline/readline.c \
+	irq.c \
 	modmachine.c \
 	machine_pin.c \
+	machine_timer.c \
 	pin_defs_xmc.c \
 	pin_named_pins.c \
+	systick.c \
+	xmc_it.c \
 
 SRC_HAL = \
 	Libraries/Newlib/syscalls.c \
