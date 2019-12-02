@@ -14,6 +14,4 @@
 #define mp_hal_pin_read(p)      (((p)->gpio->IN >> (p)->pin) & 1)
 #define mp_hal_pin_write(p, v)  do { if (v) { mp_hal_pin_high(p); } else { mp_hal_pin_low(p); } } while (0)
 
-
-static inline mp_uint_t mp_hal_ticks_ms(void) { return 0; }
 static inline void mp_hal_set_interrupt_char(char c) {}
