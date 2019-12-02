@@ -43,6 +43,8 @@
 //#include "extmod/vfs_fat.h"
 
 #include "VirtualSerial.h"
+#include "irq.h"
+#include "modmachine.h"
 #include "machine_pin.h"
 /* Clock configuration */
 /* fPLL = 120MHz */
@@ -102,7 +104,9 @@ static char heap[16384];
 int main(int argc, char **argv) {
   int stack_dummy;
   stack_top = (char *)&stack_dummy;
+  SysTick_Config(SystemCoreClock / 1000);
   USB_Init();
+  machine_init();
 soft_reset:
 #if MICROPY_ENABLE_GC
   gc_init(heap, heap + sizeof(heap));
@@ -146,6 +150,7 @@ soft_reset:
   // soft_reset_exit:
   printf("MPY: soft reboot\n");
   mp_deinit();
+  machine_deinit();
   gc_sweep_all();
   goto soft_reset;
   return 0;
