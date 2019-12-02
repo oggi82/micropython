@@ -34,59 +34,36 @@
 #include "py/mperrno.h"
 #include "py/mphal.h"
 //#include "gccollect.h"
+#include "irq.h"
 #include "machine_pin.h"
+#include "machine_timer.h"
 //#include "usb.h"
 
-#define PYB_RESET_SOFT      (0)
-#define PYB_RESET_POWER_ON  (1)
-#define PYB_RESET_HARD      (2)
-#define PYB_RESET_WDT       (3)
-#define PYB_RESET_DEEPSLEEP (4)
+#define XMC_RESET_SOFT      (0)
+#define XMC_RESET_POWER_ON  (1)
+#define XMC_RESET_HARD      (2)
+#define XMC_RESET_WDT       (3)
+#define XMC_RESET_DEEPSLEEP (4)
 
 STATIC uint32_t reset_cause;
 
 void machine_init(void) {
-    #if defined(STM32F4)
-    if (PWR->CSR & PWR_CSR_SBF) {
-        // came out of standby
-        reset_cause = PYB_RESET_DEEPSLEEP;
-        PWR->CR |= PWR_CR_CSBF;
-    } else
-    #elif defined(STM32F7)
-    if (PWR->CSR1 & PWR_CSR1_SBF) {
-        // came out of standby
-        reset_cause = PYB_RESET_DEEPSLEEP;
-        PWR->CR1 |= PWR_CR1_CSBF;
-    } else
-    #elif defined(STM32H7)
-    if (PWR->CPUCR & PWR_CPUCR_SBF || PWR->CPUCR & PWR_CPUCR_STOPF) {
-        // came out of standby or stop mode
-        reset_cause = PYB_RESET_DEEPSLEEP;
-        PWR->CPUCR |= PWR_CPUCR_CSSF;
-    } else
-    #elif defined(STM32L4)
-    if (PWR->SR1 & PWR_SR1_SBF) {
-        // came out of standby
-        reset_cause = PYB_RESET_DEEPSLEEP;
-        PWR->SCR |= PWR_SCR_CSBF;
-    } else
-    #endif
-    // {
+     // {
     //     // get reset cause from RCC flags
     //     uint32_t state = RCC->RCC_SR;
     //     if (state & RCC_SR_IWDGRSTF || state & RCC_SR_WWDGRSTF) {
-    //         reset_cause = PYB_RESET_WDT;
+    //         reset_cause = XMC_RESET_WDT;
     //     } else if (state & RCC_SR_PORRSTF
     //         #if !defined(STM32F0)
     //         || state & RCC_SR_BORRSTF
     //         #endif
     //         ) {
-    //         reset_cause = PYB_RESET_POWER_ON;
+    //         reset_cause = XMC_RESET_POWER_ON;
     //     } else if (state & RCC_SR_PINRSTF) {
     //         reset_cause = PYB_RESET_HARD;
     //     } else {
     //         // default is soft reset
-    //         reset_cause = PYB_RESET_SOFT;
+    //         reset_cause = XMC_RESET_SOFT;
     //     }
     // }
     // // clear RCC reset flags
@@ -95,7 +72,7 @@ void machine_init(void) {
 
 void machine_deinit(void) {
     // we are doing a soft-reset so change the reset_cause
-    reset_cause = PYB_RESET_SOFT;
+    reset_cause = XMC_RESET_SOFT;
 }
 
 // machine.info([dump_alloc_table])
@@ -316,7 +293,7 @@ MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(machine_freq_obj, 0, 4, machine_freq);
 // STATIC MP_DEFINE_CONST_FUN_OBJ_0(machine_reset_cause_obj, machine_reset_cause);
 
 STATIC const mp_rom_map_elem_t machine_module_globals_table[] = {
-     { MP_ROM_QSTR(MP_QSTR___name__),            MP_ROM_QSTR(MP_QSTR_umachine) },
+    { MP_ROM_QSTR(MP_QSTR___name__),            MP_ROM_QSTR(MP_QSTR_umachine) },
 //     { MP_ROM_QSTR(MP_QSTR_info),                MP_ROM_PTR(&machine_info_obj) },
 //     //{ MP_ROM_QSTR(MP_QSTR_unique_id),           MP_ROM_PTR(&machine_unique_id_obj) },
 //     { MP_ROM_QSTR(MP_QSTR_reset),               MP_ROM_PTR(&machine_reset_obj) },
@@ -326,7 +303,14 @@ STATIC const mp_rom_map_elem_t machine_module_globals_table[] = {
 //     //{ MP_ROM_QSTR(MP_QSTR_mem8),                MP_ROM_PTR(&machine_mem8_obj) },
 //     //{ MP_ROM_QSTR(MP_QSTR_mem16),               MP_ROM_PTR(&machine_mem16_obj) },
 //     //{ MP_ROM_QSTR(MP_QSTR_mem32),               MP_ROM_PTR(&machine_mem32_obj) },
-     { MP_ROM_QSTR(MP_QSTR_Pin),                 MP_ROM_PTR(&pin_type) },
+    { MP_ROM_QSTR(MP_QSTR_Pin),                 MP_ROM_PTR(&pin_type) },
+    { MP_ROM_QSTR(MP_QSTR_Timer),               MP_ROM_PTR(&machine_timer_type) },
+    { MP_ROM_QSTR(MP_QSTR_wfi),                 MP_ROM_PTR(&pyb_wfi_obj) },
+    { MP_ROM_QSTR(MP_QSTR_disable_irq),         MP_ROM_PTR(&pyb_disable_irq_obj) },
+    { MP_ROM_QSTR(MP_QSTR_enable_irq),          MP_ROM_PTR(&pyb_enable_irq_obj) },
+    #if IRQ_ENABLE_STATS
+    { MP_ROM_QSTR(MP_QSTR_irq_stats),           MP_ROM_PTR(&pyb_irq_stats_obj) },
+    #endif 
 };
 
 STATIC MP_DEFINE_CONST_DICT(machine_module_globals, machine_module_globals_table);
