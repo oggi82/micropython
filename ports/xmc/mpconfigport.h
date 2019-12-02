@@ -143,7 +143,10 @@ static inline mp_uint_t disable_irq(void) {
 
 #define MP_STATE_PORT MP_STATE_VM
 
-#define MICROPY_PORT_ROOT_POINTERS                                             \
-  const char *readline_hist[8];                                                \
-  mp_obj_t pin_class_mapper;                                                   \
-  mp_obj_t pin_class_map_dict;
+#define MICROPY_PORT_ROOT_POINTERS                                            \
+  const char *readline_hist[8];                                               \
+  mp_obj_t pin_class_mapper;                                                  \
+  mp_obj_t pin_class_map_dict;                                                \
+  /* pointers to all Timer objects (if they have been created) */ \
+  struct _machine_timer_obj_t *machine_timer_obj_all[MICROPY_HW_MAX_TIMER];
+
