@@ -66,6 +66,7 @@ SRC_MOD = \
 
 SRC_C = \
 	main.c \
+	system_xmc.c \
 	uart_core.c \
 	help.c \
 	lib/utils/printf.c \
@@ -102,6 +103,8 @@ SRC_HAL = \
 	Libraries/XMCLib/src/xmc_usic.c \
 	Libraries/XMCLib/src/xmc4_scu.c \
 	Libraries/XMCLib/src/xmc4_gpio.c \
+	Libraries/XMCLib/src/xmc_ccu4.c \
+	Libraries/XMCLib/src/xmc_ccu8.c \
 	
 
 SRC_O = \
