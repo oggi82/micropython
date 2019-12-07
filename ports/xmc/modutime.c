@@ -34,7 +34,8 @@
 #include "extmod/utime_mphal.h"
 #include "systick.h"
 #include "portmodules.h"
-#include "rtc.h"
+#include "xmc_rtc.h"
+//#include "rtc.h"
 
 /// \module time - time related functions
 ///
@@ -58,19 +59,17 @@ STATIC mp_obj_t time_localtime(size_t n_args, const mp_obj_t *args) {
         // get current date and time
         // note: need to call get time then get date to correctly access the registers
         rtc_init_finalise();
-        RTC_DateTypeDef date;
-        RTC_TimeTypeDef time;
-        HAL_RTC_GetTime(&RTCHandle, &time, RTC_FORMAT_BIN);
-        HAL_RTC_GetDate(&RTCHandle, &date, RTC_FORMAT_BIN);
+        XMC_RTC_TIME_t _time;
+        XMC_RTC_GetTime(&_time);
         mp_obj_t tuple[8] = {
-            mp_obj_new_int(2000 + date.Year),
-            mp_obj_new_int(date.Month),
-            mp_obj_new_int(date.Date),
-            mp_obj_new_int(time.Hours),
-            mp_obj_new_int(time.Minutes),
-            mp_obj_new_int(time.Seconds),
-            mp_obj_new_int(date.WeekDay - 1),
-            mp_obj_new_int(timeutils_year_day(2000 + date.Year, date.Month, date.Date)),
+            mp_obj_new_int(2000 + _time.year),
+            mp_obj_new_int(_time.month),
+            mp_obj_new_int(_time.days),
+            mp_obj_new_int(_time.hours),
+            mp_obj_new_int(_time.minutes),
+            mp_obj_new_int(_time.seconds),
+            mp_obj_new_int(_time.daysofweek - 1),
+            mp_obj_new_int(timeutils_year_day(2000 + _time.year, _time.month, _time.days)),
         };
         return mp_obj_new_tuple(8, tuple);
     } else {
@@ -121,11 +120,9 @@ STATIC mp_obj_t time_time(void) {
     // get date and time
     // note: need to call get time then get date to correctly access the registers
     rtc_init_finalise();
-    RTC_DateTypeDef date;
-    RTC_TimeTypeDef time;
-    HAL_RTC_GetTime(&RTCHandle, &time, RTC_FORMAT_BIN);
-    HAL_RTC_GetDate(&RTCHandle, &date, RTC_FORMAT_BIN);
-    return mp_obj_new_int(timeutils_seconds_since_2000(2000 + date.Year, date.Month, date.Date, time.Hours, time.Minutes, time.Seconds));
+    XMC_RTC_TIME_t _time;
+    XMC_RTC_GetTime(&time);
+    return mp_obj_new_int(timeutils_year_day(2000 + _time.year, _time.month, _time.days));
 }
 MP_DEFINE_CONST_FUN_OBJ_0(time_time_obj, time_time);
 
