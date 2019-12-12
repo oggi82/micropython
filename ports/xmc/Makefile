@@ -63,6 +63,8 @@ EXTMOD_SRC_C = \
 
 SRC_MOD = \
 	mod_example.c \
+	modmachine.c \
+	modutime.c \
 
 SRC_C = \
 	main.c \
@@ -75,13 +77,13 @@ SRC_C = \
 	lib/libc/string0.c \
 	lib/mp-readline/readline.c \
 	irq.c \
-	modmachine.c \
 	machine_pin.c \
 	machine_timer.c \
 	pin_defs_xmc.c \
 	pin_named_pins.c \
 	systick.c \
 	xmc_it.c \
+	rtc.c \
 
 SRC_HAL = \
 	Libraries/Newlib/syscalls.c \

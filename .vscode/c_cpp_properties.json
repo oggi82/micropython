@@ -27,6 +27,33 @@
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "gcc-x86"
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/ports/xmc/**",
+                "${workspaceFolder}/ports/xmc/Libraries/XMCLib/inc/**",
+                "${workspaceFolder}/ports/xmc/Libraries/CMSIS/Infineon/XMC4500_Series/Include/**",
+                "${workspaceFolder}/py/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "UC_FAMILY=XMC4",
+                "UC_SERIES=XMC45",
+                "UC_DEVICE=XMC4500",
+                "UC_PACKAGE=LQFP144",
+                "UC_FLASH=(1024UL)",
+                "CCU4V1",
+                "CCU8V1",
+                "XMC4500_F144x1024"
+            ],
+            "compilerPath": "arm-none-eabi-g++",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x86"
         }
     ],
     "version": 4

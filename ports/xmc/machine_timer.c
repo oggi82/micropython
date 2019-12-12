@@ -38,30 +38,15 @@
 /// \moduleref machine
 /// \class Timer - periodically call a function
 ///
-/// Timers can be used for a great variety of tasks.  At the moment, only
-/// the simplest case is implemented: that of calling a function periodically.
-///
+/// Timers can be used for a great variety of tasks.  
 /// Each timer consists of a counter that counts up at a certain rate.  The rate
 /// at which it counts is the peripheral clock frequency (in Hz) divided by the
 /// timer prescaler.  When the counter reaches the timer period it triggers an
 /// event, and the counter resets back to zero.  By using the callback method,
 /// the timer event can call a Python function.
 ///
-/// Example usage to toggle an LED at a fixed frequency:
 ///
 ///     tim = machine.Timer(4)          # create a timer object using timer 4
-///     tim.init(freq=2)                # trigger at 2Hz
-///     tim.callback(lambda t:pyb.LED(1).toggle())
-///
-/// Further examples:
-///
-///     tim = machine.Timer(4, freq=100)    # freq in Hz
-///     tim = machine.Timer(4, prescaler=0, period=99)
-///     tim.counter()                       # get counter (can also set)
-///     tim.prescaler(2)                    # set prescaler (can also get)
-///     tim.period(199)                     # set period (can also get)
-///     tim.callback(lambda t: ...)         # set callback for update interrupt (t=tim instance)
-///     tim.callback(None)                  # clear callback
 
 typedef enum
 {
@@ -140,8 +125,7 @@ void timer_init0(void)
 {
     for (uint i = 0; i < machine_TIMER_OBJ_ALL_NUM; i++)
     {
-        MP_STATE_PORT(machine_timer_obj_all)
-        [i] = NULL;
+        MP_STATE_PORT(machine_timer_obj_all)[i] = NULL;
     }
 }
 
@@ -622,13 +606,13 @@ STATIC mp_obj_t machine_timer_channel(size_t n_args, const mp_obj_t *pos_args, m
     // chan->mode = args[0].u_int;
     chan->callback = args[1].u_obj;
 
-    // mp_obj_t pin_obj = args[2].u_obj;
-    // if (pin_obj != mp_const_none) {
-    //     if (!mp_obj_is_type(pin_obj, &pin_type)) {
-    //         mp_raise_ValueError("pin argument needs to be be a Pin type");
-    //     }
-    //     const pin_obj_t *pin = MP_OBJ_TO_PTR(pin_obj);
-    //     const pin_af_obj_t *af = pin_find_af(pin, AF_FN_TIM, self->tim_id);
+    mp_obj_t pin_obj = args[2].u_obj;
+    if (pin_obj != mp_const_none) {
+        if (!mp_obj_is_type(pin_obj, &pin_type)) {
+            mp_raise_ValueError("pin argument needs to be be a Pin type");
+        }
+        const pin_obj_t *pin = MP_OBJ_TO_PTR(pin_obj);
+        const pin_af_obj_t *af = pin_find_af(pin, AF_FN_TIM, self->tim_id);
     //     if (af == NULL) {
     //         nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, "Pin(%q) doesn't have an af for Timer(%d)", pin->name, self->tim_id));
     //     }

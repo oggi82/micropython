@@ -305,11 +305,11 @@ STATIC const mp_rom_map_elem_t machine_module_globals_table[] = {
 //     //{ MP_ROM_QSTR(MP_QSTR_mem32),               MP_ROM_PTR(&machine_mem32_obj) },
     { MP_ROM_QSTR(MP_QSTR_Pin),                 MP_ROM_PTR(&pin_type) },
     { MP_ROM_QSTR(MP_QSTR_Timer),               MP_ROM_PTR(&machine_timer_type) },
-    { MP_ROM_QSTR(MP_QSTR_wfi),                 MP_ROM_PTR(&pyb_wfi_obj) },
-    { MP_ROM_QSTR(MP_QSTR_disable_irq),         MP_ROM_PTR(&pyb_disable_irq_obj) },
-    { MP_ROM_QSTR(MP_QSTR_enable_irq),          MP_ROM_PTR(&pyb_enable_irq_obj) },
+    { MP_ROM_QSTR(MP_QSTR_wfi),                 MP_ROM_PTR(&machine_wfi_obj) },
+    { MP_ROM_QSTR(MP_QSTR_disable_irq),         MP_ROM_PTR(&machine_disable_irq_obj) },
+    { MP_ROM_QSTR(MP_QSTR_enable_irq),          MP_ROM_PTR(&machine_enable_irq_obj) },
     #if IRQ_ENABLE_STATS
-    { MP_ROM_QSTR(MP_QSTR_irq_stats),           MP_ROM_PTR(&pyb_irq_stats_obj) },
+    { MP_ROM_QSTR(MP_QSTR_irq_stats),           MP_ROM_PTR(&machine_irq_stats_obj) },
     #endif 
 };
 

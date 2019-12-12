@@ -23,20 +23,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#ifndef MICROPY_INCLUDED_XMC_PORTMODULES_H
-#define MICROPY_INCLUDED_XMC_PORTMODULES_H
+#ifndef MICROPY_INCLUDED_XMC_RTC_H
+#define MICROPY_INCLUDED_XMC_RTC_H
 
-extern const mp_obj_module_t machine_module;
-//extern const mp_obj_module_t xmc_module;
-extern const mp_obj_module_t mp_module_uos;
-extern const mp_obj_module_t mp_module_utime;
+#include "xmc_rtc.h"
 
-// additional helper functions exported by the modules
+extern XMC_RTC_CONFIG_t RTCHandle;
+extern const mp_obj_type_t machine_rtc_type;
 
-MP_DECLARE_CONST_FUN_OBJ_1(time_sleep_ms_obj);
-MP_DECLARE_CONST_FUN_OBJ_1(time_sleep_us_obj);
+void rtc_init_start(bool force_init);
+void rtc_init_finalise(void);
 
-MP_DECLARE_CONST_FUN_OBJ_0(mod_os_sync_obj);
-MP_DECLARE_CONST_FUN_OBJ_VAR_BETWEEN(mod_os_dupterm_obj);
+mp_obj_t machine_rtc_wakeup(size_t n_args, const mp_obj_t *args);
 
-#endif // MICROPY_INCLUDED_XMC_PORTMODULES_H
+#endif // MICROPY_INCLUDED_XMC_RTC_H

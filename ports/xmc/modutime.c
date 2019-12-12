@@ -35,7 +35,7 @@
 #include "systick.h"
 #include "portmodules.h"
 #include "xmc_rtc.h"
-//#include "rtc.h"
+#include "rtc.h"
 
 /// \module time - time related functions
 ///
@@ -120,8 +120,8 @@ STATIC mp_obj_t time_time(void) {
     // get date and time
     // note: need to call get time then get date to correctly access the registers
     rtc_init_finalise();
-    XMC_RTC_TIME_t _time;
-    XMC_RTC_GetTime(&time);
+    XMC_RTC_TIME_t _time = {0};
+    XMC_RTC_GetTime((XMC_RTC_TIME_t *const)&time);
     return mp_obj_new_int(timeutils_year_day(2000 + _time.year, _time.month, _time.days));
 }
 MP_DEFINE_CONST_FUN_OBJ_0(time_time_obj, time_time);

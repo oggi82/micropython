@@ -46,7 +46,7 @@
 #include "irq.h"
 #include "modmachine.h"
 #include "machine_pin.h"
-
+#include "rtc.h"
 
 #if MICROPY_ENABLE_COMPILER
 void do_str(const char *src, mp_parse_input_kind_t input_kind) {
