@@ -613,9 +613,9 @@ STATIC mp_obj_t machine_timer_channel(size_t n_args, const mp_obj_t *pos_args, m
         }
         const pin_obj_t *pin = MP_OBJ_TO_PTR(pin_obj);
         const pin_af_obj_t *af = pin_find_af(pin, AF_FN_TIM, self->tim_id);
-    //     if (af == NULL) {
-    //         nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, "Pin(%q) doesn't have an af for Timer(%d)", pin->name, self->tim_id));
-    //     }
+        if (af == NULL) {
+            nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, "Pin(%q) doesn't have an af for Timer(%d)", pin->name, self->tim_id));
+        }
     //     // pin.init(mode=AF_PP, af=idx)
     //     const mp_obj_t args2[6] = {
     //         MP_OBJ_FROM_PTR(&pin_init_obj),
@@ -624,7 +624,7 @@ STATIC mp_obj_t machine_timer_channel(size_t n_args, const mp_obj_t *pos_args, m
     //         MP_OBJ_NEW_QSTR(MP_QSTR_af),    MP_OBJ_NEW_SMALL_INT(af->idx)
     //     };
     //     mp_call_method_n_kw(0, 2, args2);
-    // }
+    }
 
     // // Link the channel to the timer before we turn the channel on.
     // // Note that this needs to appear atomic to the IRQ handler (the write

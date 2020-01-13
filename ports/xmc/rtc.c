@@ -31,8 +31,15 @@
 #include "lib/timeutils/timeutils.h"
 #include "rtc.h"
 #include "irq.h"
+#include "xmc_scu.h"
 #include "xmc_rtc.h"
 
+
+XMC_RTC_CONFIG_t rtc_config =
+{
+  .alarm.minutes = 1U,
+  .prescaler = 0x7fffU
+};
 
 /// \moduleref machine
 /// \class RTC - real time clock
@@ -61,15 +68,15 @@ STATIC bool rtc_need_init_finalise = false;
 void rtc_init_start(bool force_init) {
     XMC_RTC_STATUS_t status;
     (void)status;
+    XMC_RTC_Init(&rtc_config);
 }
 
 void rtc_init_finalise() {
     if (!rtc_need_init_finalise) {
         return;
     }
-
     rtc_info = 0;
-    
+    XMC_RTC_Start();
 }
 
 // STATIC void RTC_CalendarConfig(void) {
@@ -128,34 +135,15 @@ MP_DEFINE_CONST_FUN_OBJ_1(machine_rtc_info_obj, machine_rtc_info);
 /// \method datetime([datetimetuple])
 /// Get or set the date and time of the RTC.
 ///
-/// With no arguments, this method returns an 8-tuple with the current
-/// date and time.  With 1 argument (being an 8-tuple) it sets the date
+/// With no arguments, this method returns an 7-tuple with the current
+/// date and time.  With 1 argument (being an 7-tuple) it sets the date
 /// and time.
 ///
-/// The 8-tuple has the following format:
+/// The 7-tuple has the following format:
 ///
-///     (year, month, day, weekday, hours, minutes, seconds, subseconds)
+///     (year, month, day, weekday, hours, minutes, seconds)
 ///
 /// `weekday` is 1-7 for Monday through Sunday.
-///
-/// `subseconds` counts down from 255 to 0
-
-#define MEG_DIV_64 (1000000 / 64)
-#define MEG_DIV_SCALE ((RTC_SYNCH_PREDIV + 1) / 64)
-
-#if defined(MICROPY_HW_RTC_USE_US) && MICROPY_HW_RTC_USE_US
-uint32_t rtc_subsec_to_us(uint32_t ss) {
-    return ((RTC_SYNCH_PREDIV - ss) * MEG_DIV_64) / MEG_DIV_SCALE;
-}
-
-uint32_t rtc_us_to_subsec(uint32_t us) {
-    return RTC_SYNCH_PREDIV - (us * MEG_DIV_SCALE / MEG_DIV_64);
-}
-#else
-#define rtc_us_to_subsec
-#define rtc_subsec_to_us
-#endif
-
 mp_obj_t machine_rtc_datetime(size_t n_args, const mp_obj_t *args) {
     rtc_init_finalise();
     if (n_args == 1) {
@@ -273,48 +261,11 @@ mp_obj_t machine_rtc_wakeup(size_t n_args, const mp_obj_t *args) {
 }
 MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(machine_rtc_wakeup_obj, 2, 4, machine_rtc_wakeup);
 
-// calibration(None)
-// calibration(cal)
-// When an integer argument is provided, check that it falls in the range [-511 to 512]
-// and set the calibration value; otherwise return calibration value
-mp_obj_t machine_rtc_calibration(size_t n_args, const mp_obj_t *args) {
-    rtc_init_finalise();
-    mp_int_t cal;
-    if (n_args == 2) {
-        cal = mp_obj_get_int(args[1]);
-        //mp_uint_t cal_p, cal_m;
-        if (cal < -511 || cal > 512) {
-#if defined(MICROPY_HW_RTC_USE_CALOUT) && MICROPY_HW_RTC_USE_CALOUT
-            if ((cal & 0xfffe) == 0x0ffe) {
-                // turn on/off X18 (PC13) 512Hz output
-                // Note:
-                //      Output will stay active even in VBAT mode (and inrease current)
-                if (cal & 1) {
-                    HAL_RTCEx_SetCalibrationOutPut(&RTCHandle, RTC_CALIBOUTPUT_512HZ);
-                } else {
-                    HAL_RTCEx_DeactivateCalibrationOutPut(&RTCHandle);
-                }
-                return mp_obj_new_int(cal & 1);
-            } else {
-                mp_raise_ValueError("calibration value out of range");
-            }
-#else
-            mp_raise_ValueError("calibration value out of range");
-#endif
-        }
-        return mp_const_none;
-    } else {
-        return mp_obj_new_int(0);
-    }
-}
-MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(machine_rtc_calibration_obj, 1, 2, machine_rtc_calibration);
-
 STATIC const mp_rom_map_elem_t machine_rtc_locals_dict_table[] = {
     { MP_ROM_QSTR(MP_QSTR_init), MP_ROM_PTR(&machine_rtc_init_obj) },
     { MP_ROM_QSTR(MP_QSTR_info), MP_ROM_PTR(&machine_rtc_info_obj) },
     { MP_ROM_QSTR(MP_QSTR_datetime), MP_ROM_PTR(&machine_rtc_datetime_obj) },
     { MP_ROM_QSTR(MP_QSTR_wakeup), MP_ROM_PTR(&machine_rtc_wakeup_obj) },
-    { MP_ROM_QSTR(MP_QSTR_calibration), MP_ROM_PTR(&machine_rtc_calibration_obj) },
 };
 STATIC MP_DEFINE_CONST_DICT(machine_rtc_locals_dict, machine_rtc_locals_dict_table);
 

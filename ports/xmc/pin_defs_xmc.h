@@ -42,9 +42,9 @@ enum {
   PORT_15,
 };
 
-// // Must have matching entries in SUPPORTED_FN in boards/make-pins.py
-// enum {
-//   AF_FN_TIM,
+// Must have matching entries in SUPPORTED_FN in boards/make-pins.py
+enum {
+  AF_FN_TIM,
 //   AF_FN_I2C,
 //   AF_FN_USART,
 //   AF_FN_UART = AF_FN_USART,
@@ -52,7 +52,7 @@ enum {
 //   AF_FN_I2S,
 //   AF_FN_SDMMC,
 //   AF_FN_CAN,
-// };
+};
 
 // enum {
 //   AF_PIN_TYPE_TIM_CH1 = 0,

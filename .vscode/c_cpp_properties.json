@@ -35,7 +35,9 @@
                 "${workspaceFolder}/ports/xmc/**",
                 "${workspaceFolder}/ports/xmc/Libraries/XMCLib/inc/**",
                 "${workspaceFolder}/ports/xmc/Libraries/CMSIS/Infineon/XMC4500_Series/Include/**",
-                "${workspaceFolder}/py/**"
+                "${workspaceFolder}/py/**",
+                "/usr/lib/gcc/arm-none-eabi/9.2.0/include",
+                "/usr/lib/gcc/arm-none-eabi/9.2.0/include-fixed"
             ],
             "defines": [
                 "_DEBUG",
