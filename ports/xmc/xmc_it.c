@@ -36,7 +36,7 @@
 #include "pybthread.h"
 //#include "gccollect.h"
 //#include "extint.h"
-#include "machine_timer.h"
+#include "timer.h"
 //#include "uart.h"
 //#include "storage.h"
 //#include "dma.h"

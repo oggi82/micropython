@@ -77,8 +77,8 @@ SRC_C = \
 	lib/libc/string0.c \
 	lib/mp-readline/readline.c \
 	irq.c \
-	machine_pin.c \
-	machine_timer.c \
+	pin.c \
+	timer.c \
 	pin_defs_xmc.c \
 	pin_named_pins.c \
 	systick.c \

@@ -1,5 +1,5 @@
 #include "py/obj.h"
-#include "machine_pin.h"
+#include "pin.h"
 #include "xmc_scu.h"
 #include "xmc_vadc.h"
 // Returns the pin mode. This value returned by this macro should be one of:

@@ -45,7 +45,7 @@
 #include "VirtualSerial.h"
 #include "irq.h"
 #include "modmachine.h"
-#include "machine_pin.h"
+#include "pin.h"
 #include "rtc.h"
 
 #if MICROPY_ENABLE_COMPILER

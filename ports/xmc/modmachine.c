@@ -35,8 +35,8 @@
 #include "py/mphal.h"
 //#include "gccollect.h"
 #include "irq.h"
-#include "machine_pin.h"
-#include "machine_timer.h"
+#include "pin.h"
+#include "timer.h"
 //#include "usb.h"
 
 #define XMC_RESET_SOFT      (0)

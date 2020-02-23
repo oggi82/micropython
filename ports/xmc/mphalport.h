@@ -1,5 +1,5 @@
 
-#include "machine_pin.h"
+#include "pin.h"
 
 #define mp_hal_pin_obj_t const pin_obj_t*
 #define mp_hal_get_pin_obj(o)   pin_find(o)

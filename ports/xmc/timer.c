@@ -29,9 +29,9 @@
 
 #include "py/runtime.h"
 #include "py/gc.h"
-#include "machine_timer.h"
+#include "timer.h"
 //#include "servo.h"
-#include "machine_pin.h"
+#include "pin.h"
 #include "irq.h"
 #include "xmc_ccu4.h"
 

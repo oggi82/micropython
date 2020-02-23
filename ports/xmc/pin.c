@@ -29,7 +29,7 @@
 #include <string.h>
 
 #include "extmod/virtpin.h"
-#include "machine_pin.h"
+#include "pin.h"
 #include "py/mphal.h"
 #include "py/runtime.h"
 

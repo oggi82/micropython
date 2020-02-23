@@ -29,7 +29,7 @@
 
 #include "py/runtime.h"
 #include "py/mphal.h"
-#include "machine_pin.h"
+#include "pin.h"
 
 const mp_obj_type_t pin_cpu_pins_obj_type = {
     { &mp_type_type },
