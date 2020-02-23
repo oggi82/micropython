@@ -109,7 +109,7 @@ int nimble_hci_uart_configure(uint32_t port) {
 int nimble_hci_uart_activate(void) {
     // Interrupt on RX chunk received (idle)
     // Trigger nimble poll when this happens
-    mp_obj_t uart_irq_fn = mp_load_attr(&bt_hci_uart_obj, MP_QSTR_irq);
+    mp_obj_t uart_irq_fn = mp_load_attr(MP_OBJ_FROM_PTR(&bt_hci_uart_obj), MP_QSTR_irq);
     mp_obj_t uargs[] = {
         MP_OBJ_FROM_PTR(&mp_uart_interrupt_obj),
         MP_OBJ_NEW_SMALL_INT(UART_FLAG_IDLE),
@@ -162,7 +162,9 @@ void nimble_hci_uart_tx_strn(const char *str, uint len) {
     if (mp_hal_pin_read(pyb_pin_BT_DEV_WAKE) == 1) {
         //printf("BT WAKE for TX\n");
         mp_hal_pin_low(pyb_pin_BT_DEV_WAKE); // wake up
-        mp_hal_delay_ms(5); // can't go lower than this
+        // Use delay_us rather than delay_ms to prevent running the scheduler (which
+        // might result in more BLE operations).
+        mp_hal_delay_us(5000); // can't go lower than this
     }
     #endif
 

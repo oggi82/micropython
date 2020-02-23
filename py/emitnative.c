@@ -47,7 +47,7 @@
 #include <assert.h>
 
 #include "py/emit.h"
-#include "py/bc.h"
+#include "py/nativeglue.h"
 #include "py/objstr.h"
 
 #if MICROPY_DEBUG_VERBOSE // print debugging info
@@ -687,7 +687,7 @@ STATIC void emit_native_end_pass(emit_t *emit) {
         #if !MICROPY_DYNAMIC_COMPILER
         // Store mp_fun_table pointer just after qstrs
         // (but in dynamic-compiler mode eliminate dependency on mp_fun_table)
-        emit->const_table[nqstr] = (mp_uint_t)(uintptr_t)mp_fun_table;
+        emit->const_table[nqstr] = (mp_uint_t)(uintptr_t)&mp_fun_table;
         #endif
 
         #if MICROPY_PERSISTENT_CODE_SAVE
@@ -2058,7 +2058,7 @@ STATIC void emit_native_unwind_jump(emit_t *emit, mp_uint_t label, mp_uint_t exc
             ASM_MOV_REG_PCREL(emit->as, REG_RET, label & ~MP_EMIT_BREAK_FROM_FOR);
             ASM_MOV_LOCAL_REG(emit->as, LOCAL_IDX_EXC_HANDLER_UNWIND(emit), REG_RET);
             // Cancel any active exception (see also emit_native_pop_except_jump)
-            emit_native_mov_reg_const(emit, REG_RET, MP_F_CONST_NONE_OBJ);
+            ASM_MOV_REG_IMM(emit->as, REG_RET, (mp_uint_t)MP_OBJ_NULL);
             ASM_MOV_LOCAL_REG(emit->as, LOCAL_IDX_EXC_VAL(emit), REG_RET);
             // Jump to the innermost active finally
             label = first_finally->label;
@@ -2153,9 +2153,8 @@ STATIC void emit_native_with_cleanup(emit_t *emit, mp_uint_t label) {
 
     ASM_MOV_REG_LOCAL(emit->as, REG_ARG_1, LOCAL_IDX_EXC_VAL(emit)); // get exc
 
-    // Check if exc is None and jump to non-exc handler if it is
-    emit_native_mov_reg_const(emit, REG_ARG_2, MP_F_CONST_NONE_OBJ);
-    ASM_JUMP_IF_REG_EQ(emit->as, REG_ARG_1, REG_ARG_2, *emit->label_slot + 2);
+    // Check if exc is MP_OBJ_NULL (i.e. zero) and jump to non-exc handler if it is
+    ASM_JUMP_IF_REG_ZERO(emit->as, REG_ARG_1, *emit->label_slot + 2, false);
 
     ASM_LOAD_REG_REG_OFFSET(emit->as, REG_ARG_2, REG_ARG_1, 0); // get type(exc)
     emit_post_push_reg(emit, VTYPE_PYOBJ, REG_ARG_2); // push type(exc)
@@ -2175,9 +2174,9 @@ STATIC void emit_native_with_cleanup(emit_t *emit, mp_uint_t label) {
     emit_call(emit, MP_F_OBJ_IS_TRUE);
     ASM_JUMP_IF_REG_ZERO(emit->as, REG_RET, *emit->label_slot + 1, true);
 
-    // Replace exception with None
+    // Replace exception with MP_OBJ_NULL.
     emit_native_label_assign(emit, *emit->label_slot);
-    emit_native_mov_reg_const(emit, REG_TEMP0, MP_F_CONST_NONE_OBJ);
+    ASM_MOV_REG_IMM(emit->as, REG_TEMP0, (mp_uint_t)MP_OBJ_NULL);
     ASM_MOV_LOCAL_REG(emit->as, LOCAL_IDX_EXC_VAL(emit), REG_TEMP0);
 
     // end of with cleanup nlr_catch block
@@ -2255,7 +2254,7 @@ STATIC void emit_native_for_iter_end(emit_t *emit) {
 STATIC void emit_native_pop_except_jump(emit_t *emit, mp_uint_t label, bool within_exc_handler) {
     if (within_exc_handler) {
         // Cancel any active exception so subsequent handlers don't see it
-        emit_native_mov_reg_const(emit, REG_TEMP0, MP_F_CONST_NONE_OBJ);
+        ASM_MOV_REG_IMM(emit->as, REG_TEMP0, (mp_uint_t)MP_OBJ_NULL);
         ASM_MOV_LOCAL_REG(emit->as, LOCAL_IDX_EXC_VAL(emit), REG_TEMP0);
     } else {
         emit_native_leave_exc_stack(emit, false);
@@ -2696,7 +2695,7 @@ STATIC void emit_native_return_value(emit_t *emit) {
         }
         if (return_vtype != VTYPE_PYOBJ) {
             emit_call_with_imm_arg(emit, MP_F_CONVERT_NATIVE_TO_OBJ, return_vtype, REG_ARG_2);
-            #if REG_RET != REG_PARENT_ARG_RET
+            #if REG_RET != REG_PARENT_RET
             ASM_MOV_REG_REG(emit->as, REG_PARENT_RET, REG_RET);
             #endif
         }
@@ -2775,6 +2774,7 @@ STATIC void emit_native_yield(emit_t *emit, int kind) {
                 // Found active handler, get its PC
                 ASM_MOV_REG_PCREL(emit->as, REG_RET, e->label);
                 ASM_MOV_LOCAL_REG(emit->as, LOCAL_IDX_EXC_HANDLER_PC(emit), REG_RET);
+                break;
             }
         }
     }
