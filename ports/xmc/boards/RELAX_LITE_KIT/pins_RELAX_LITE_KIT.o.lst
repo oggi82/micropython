@@ -1,0 +1,1439 @@
+   1              	 .cpu cortex-m4
+   2              	 .arch armv7e-m
+   3              	 .fpu fpv4-sp-d16
+   4              	 .eabi_attribute 27,1
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,4
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .file "pins_RELAX_LITE_KIT.c"
+  15              	 .text
+  16              	.Ltext0:
+  17              	 .cfi_sections .debug_frame
+  18              	 .file 1 "boards/RELAX_LITE_KIT/pins_RELAX_LITE_KIT.c"
+  19              	 .global pin_board_pins_locals_dict
+  20              	 .section .rodata.pin_board_pins_locals_dict,"a"
+  21              	 .align 2
+  24              	pin_board_pins_locals_dict:
+  25 0000 00000000 	 .word mp_type_dict
+  26 0004 CF       	 .byte 207
+  27 0005 01       	 .byte 1
+  28 0006 00       	 .byte 0
+  29 0007 00       	 .byte 0
+  30 0008 39000000 	 .word 57
+  31 000c 00000000 	 .word pin_board_pins_locals_dict_table
+  32              	 .section .rodata.pin_board_pins_locals_dict_table,"a"
+  33              	 .align 2
+  36              	pin_board_pins_locals_dict_table:
+  37 0000 8A060000 	 .word 1674
+  38 0004 00000000 	 .word pin0_0_obj
+  39 0008 9A060000 	 .word 1690
+  40 000c 00000000 	 .word pin0_10_obj
+  41 0010 92060000 	 .word 1682
+  42 0014 00000000 	 .word pin0_1_obj
+  43 0018 EA060000 	 .word 1770
+  44 001c 00000000 	 .word pin0_9_obj
+  45 0020 12080000 	 .word 2066
+  46 0024 00000000 	 .word pin3_1_obj
+  47 0028 1A080000 	 .word 2074
+  48 002c 00000000 	 .word pin3_2_obj
+  49 0030 0A080000 	 .word 2058
+  50 0034 00000000 	 .word pin3_0_obj
+  51 0038 6A070000 	 .word 1898
+  52 003c 00000000 	 .word pin15_3_obj
+  53 0040 1A070000 	 .word 1818
+  54 0044 00000000 	 .word pin14_15_obj
+  55 0048 62070000 	 .word 1890
+  56 004c 00000000 	 .word pin15_2_obj
+  57 0050 0A070000 	 .word 1802
+  58 0054 00000000 	 .word pin14_13_obj
+  59 0058 12070000 	 .word 1810
+  60 005c 00000000 	 .word pin14_14_obj
+  61 0060 4A070000 	 .word 1866
+  62 0064 00000000 	 .word pin14_7_obj
+  63 0068 02070000 	 .word 1794
+  64 006c 00000000 	 .word pin14_12_obj
+  65 0070 3A070000 	 .word 1850
+  66 0074 00000000 	 .word pin14_5_obj
+  67 0078 42070000 	 .word 1858
+  68 007c 00000000 	 .word pin14_6_obj
+  69 0080 2A070000 	 .word 1834
+  70 0084 00000000 	 .word pin14_3_obj
+  71 0088 32070000 	 .word 1842
+  72 008c 00000000 	 .word pin14_4_obj
+  73 0090 FA060000 	 .word 1786
+  74 0094 00000000 	 .word pin14_1_obj
+  75 0098 22070000 	 .word 1826
+  76 009c 00000000 	 .word pin14_2_obj
+  77 00a0 F2060000 	 .word 1778
+  78 00a4 00000000 	 .word pin14_0_obj
+  79 00a8 FA070000 	 .word 2042
+  80 00ac 00000000 	 .word pin2_15_obj
+  81 00b0 5A070000 	 .word 1882
+  82 00b4 00000000 	 .word pin14_9_obj
+  83 00b8 F2070000 	 .word 2034
+  84 00bc 00000000 	 .word pin2_14_obj
+  85 00c0 52070000 	 .word 1874
+  86 00c4 00000000 	 .word pin14_8_obj
+  87 00c8 E2070000 	 .word 2018
+  88 00cc 00000000 	 .word pin2_1_obj
+  89 00d0 EA070000 	 .word 2026
+  90 00d4 00000000 	 .word pin2_10_obj
+  91 00d8 02080000 	 .word 2050
+  92 00dc 00000000 	 .word pin2_6_obj
+  93 00e0 4A080000 	 .word 2122
+  94 00e4 00000000 	 .word pin5_7_obj
+  95 00e8 42080000 	 .word 2114
+  96 00ec 00000000 	 .word pin5_2_obj
+  97 00f0 3A080000 	 .word 2106
+  98 00f4 00000000 	 .word pin5_1_obj
+  99 00f8 32080000 	 .word 2098
+ 100 00fc 00000000 	 .word pin5_0_obj
+ 101 0100 AA070000 	 .word 1962
+ 102 0104 00000000 	 .word pin1_15_obj
+ 103 0108 A2070000 	 .word 1954
+ 104 010c 00000000 	 .word pin1_14_obj
+ 105 0110 9A070000 	 .word 1946
+ 106 0114 00000000 	 .word pin1_13_obj
+ 107 0118 92070000 	 .word 1938
+ 108 011c 00000000 	 .word pin1_12_obj
+ 109 0120 8A070000 	 .word 1930
+ 110 0124 00000000 	 .word pin1_11_obj
+ 111 0128 82070000 	 .word 1922
+ 112 012c 00000000 	 .word pin1_10_obj
+ 113 0130 CA070000 	 .word 1994
+ 114 0134 00000000 	 .word pin1_5_obj
+ 115 0138 C2070000 	 .word 1986
+ 116 013c 00000000 	 .word pin1_4_obj
+ 117 0140 BA070000 	 .word 1978
+ 118 0144 00000000 	 .word pin1_3_obj
+ 119 0148 B2070000 	 .word 1970
+ 120 014c 00000000 	 .word pin1_2_obj
+ 121 0150 7A070000 	 .word 1914
+ 122 0154 00000000 	 .word pin1_1_obj
+ 123 0158 72070000 	 .word 1906
+ 124 015c 00000000 	 .word pin1_0_obj
+ 125 0160 DA070000 	 .word 2010
+ 126 0164 00000000 	 .word pin1_9_obj
+ 127 0168 D2070000 	 .word 2002
+ 128 016c 00000000 	 .word pin1_8_obj
+ 129 0170 E2060000 	 .word 1762
+ 130 0174 00000000 	 .word pin0_8_obj
+ 131 0178 DA060000 	 .word 1754
+ 132 017c 00000000 	 .word pin0_7_obj
+ 133 0180 2A080000 	 .word 2090
+ 134 0184 00000000 	 .word pin3_4_obj
+ 135 0188 22080000 	 .word 2082
+ 136 018c 00000000 	 .word pin3_3_obj
+ 137 0190 AA060000 	 .word 1706
+ 138 0194 00000000 	 .word pin0_12_obj
+ 139 0198 A2060000 	 .word 1698
+ 140 019c 00000000 	 .word pin0_11_obj
+ 141 01a0 D2060000 	 .word 1746
+ 142 01a4 00000000 	 .word pin0_6_obj
+ 143 01a8 CA060000 	 .word 1738
+ 144 01ac 00000000 	 .word pin0_5_obj
+ 145 01b0 B2060000 	 .word 1714
+ 146 01b4 00000000 	 .word pin0_2_obj
+ 147 01b8 BA060000 	 .word 1722
+ 148 01bc 00000000 	 .word pin0_3_obj
+ 149 01c0 C2060000 	 .word 1730
+ 150 01c4 00000000 	 .word pin0_4_obj
+ 151              	 .global pin_cpu_pins_locals_dict
+ 152              	 .section .rodata.pin_cpu_pins_locals_dict,"a"
+ 153              	 .align 2
+ 156              	pin_cpu_pins_locals_dict:
+ 157 0000 00000000 	 .word mp_type_dict
+ 158 0004 CF       	 .byte 207
+ 159 0005 01       	 .byte 1
+ 160 0006 00       	 .byte 0
+ 161 0007 00       	 .byte 0
+ 162 0008 39000000 	 .word 57
+ 163 000c 00000000 	 .word pin_cpu_pins_locals_dict_table
+ 164              	 .section .rodata.pin_cpu_pins_locals_dict_table,"a"
+ 165              	 .align 2
+ 168              	pin_cpu_pins_locals_dict_table:
+ 169 0000 8A060000 	 .word 1674
+ 170 0004 00000000 	 .word pin0_0_obj
+ 171 0008 9A060000 	 .word 1690
+ 172 000c 00000000 	 .word pin0_10_obj
+ 173 0010 92060000 	 .word 1682
+ 174 0014 00000000 	 .word pin0_1_obj
+ 175 0018 EA060000 	 .word 1770
+ 176 001c 00000000 	 .word pin0_9_obj
+ 177 0020 12080000 	 .word 2066
+ 178 0024 00000000 	 .word pin3_1_obj
+ 179 0028 1A080000 	 .word 2074
+ 180 002c 00000000 	 .word pin3_2_obj
+ 181 0030 0A080000 	 .word 2058
+ 182 0034 00000000 	 .word pin3_0_obj
+ 183 0038 6A070000 	 .word 1898
+ 184 003c 00000000 	 .word pin15_3_obj
+ 185 0040 1A070000 	 .word 1818
+ 186 0044 00000000 	 .word pin14_15_obj
+ 187 0048 62070000 	 .word 1890
+ 188 004c 00000000 	 .word pin15_2_obj
+ 189 0050 0A070000 	 .word 1802
+ 190 0054 00000000 	 .word pin14_13_obj
+ 191 0058 12070000 	 .word 1810
+ 192 005c 00000000 	 .word pin14_14_obj
+ 193 0060 4A070000 	 .word 1866
+ 194 0064 00000000 	 .word pin14_7_obj
+ 195 0068 02070000 	 .word 1794
+ 196 006c 00000000 	 .word pin14_12_obj
+ 197 0070 3A070000 	 .word 1850
+ 198 0074 00000000 	 .word pin14_5_obj
+ 199 0078 42070000 	 .word 1858
+ 200 007c 00000000 	 .word pin14_6_obj
+ 201 0080 2A070000 	 .word 1834
+ 202 0084 00000000 	 .word pin14_3_obj
+ 203 0088 32070000 	 .word 1842
+ 204 008c 00000000 	 .word pin14_4_obj
+ 205 0090 FA060000 	 .word 1786
+ 206 0094 00000000 	 .word pin14_1_obj
+ 207 0098 22070000 	 .word 1826
+ 208 009c 00000000 	 .word pin14_2_obj
+ 209 00a0 F2060000 	 .word 1778
+ 210 00a4 00000000 	 .word pin14_0_obj
+ 211 00a8 FA070000 	 .word 2042
+ 212 00ac 00000000 	 .word pin2_15_obj
+ 213 00b0 5A070000 	 .word 1882
+ 214 00b4 00000000 	 .word pin14_9_obj
+ 215 00b8 F2070000 	 .word 2034
+ 216 00bc 00000000 	 .word pin2_14_obj
+ 217 00c0 52070000 	 .word 1874
+ 218 00c4 00000000 	 .word pin14_8_obj
+ 219 00c8 E2070000 	 .word 2018
+ 220 00cc 00000000 	 .word pin2_1_obj
+ 221 00d0 EA070000 	 .word 2026
+ 222 00d4 00000000 	 .word pin2_10_obj
+ 223 00d8 02080000 	 .word 2050
+ 224 00dc 00000000 	 .word pin2_6_obj
+ 225 00e0 4A080000 	 .word 2122
+ 226 00e4 00000000 	 .word pin5_7_obj
+ 227 00e8 42080000 	 .word 2114
+ 228 00ec 00000000 	 .word pin5_2_obj
+ 229 00f0 3A080000 	 .word 2106
+ 230 00f4 00000000 	 .word pin5_1_obj
+ 231 00f8 32080000 	 .word 2098
+ 232 00fc 00000000 	 .word pin5_0_obj
+ 233 0100 AA070000 	 .word 1962
+ 234 0104 00000000 	 .word pin1_15_obj
+ 235 0108 A2070000 	 .word 1954
+ 236 010c 00000000 	 .word pin1_14_obj
+ 237 0110 9A070000 	 .word 1946
+ 238 0114 00000000 	 .word pin1_13_obj
+ 239 0118 92070000 	 .word 1938
+ 240 011c 00000000 	 .word pin1_12_obj
+ 241 0120 8A070000 	 .word 1930
+ 242 0124 00000000 	 .word pin1_11_obj
+ 243 0128 82070000 	 .word 1922
+ 244 012c 00000000 	 .word pin1_10_obj
+ 245 0130 CA070000 	 .word 1994
+ 246 0134 00000000 	 .word pin1_5_obj
+ 247 0138 C2070000 	 .word 1986
+ 248 013c 00000000 	 .word pin1_4_obj
+ 249 0140 BA070000 	 .word 1978
+ 250 0144 00000000 	 .word pin1_3_obj
+ 251 0148 B2070000 	 .word 1970
+ 252 014c 00000000 	 .word pin1_2_obj
+ 253 0150 7A070000 	 .word 1914
+ 254 0154 00000000 	 .word pin1_1_obj
+ 255 0158 72070000 	 .word 1906
+ 256 015c 00000000 	 .word pin1_0_obj
+ 257 0160 DA070000 	 .word 2010
+ 258 0164 00000000 	 .word pin1_9_obj
+ 259 0168 D2070000 	 .word 2002
+ 260 016c 00000000 	 .word pin1_8_obj
+ 261 0170 E2060000 	 .word 1762
+ 262 0174 00000000 	 .word pin0_8_obj
+ 263 0178 DA060000 	 .word 1754
+ 264 017c 00000000 	 .word pin0_7_obj
+ 265 0180 2A080000 	 .word 2090
+ 266 0184 00000000 	 .word pin3_4_obj
+ 267 0188 22080000 	 .word 2082
+ 268 018c 00000000 	 .word pin3_3_obj
+ 269 0190 AA060000 	 .word 1706
+ 270 0194 00000000 	 .word pin0_12_obj
+ 271 0198 A2060000 	 .word 1698
+ 272 019c 00000000 	 .word pin0_11_obj
+ 273 01a0 D2060000 	 .word 1746
+ 274 01a4 00000000 	 .word pin0_6_obj
+ 275 01a8 CA060000 	 .word 1738
+ 276 01ac 00000000 	 .word pin0_5_obj
+ 277 01b0 B2060000 	 .word 1714
+ 278 01b4 00000000 	 .word pin0_2_obj
+ 279 01b8 BA060000 	 .word 1722
+ 280 01bc 00000000 	 .word pin0_3_obj
+ 281 01c0 C2060000 	 .word 1730
+ 282 01c4 00000000 	 .word pin0_4_obj
+ 283              	 .global pin0_4_obj
+ 284              	 .section .rodata.pin0_4_obj,"a"
+ 285              	 .align 2
+ 288              	pin0_4_obj:
+ 289 0000 00000000 	 .word pin_type
+ 290 0004 D8000000 	 .word 216
+ 291 0008 40       	 .byte 64
+ 292 0009 00       	 .byte 0
+ 293 000a 00       	 .byte 0
+ 294 000b 00       	 .space 1
+ 295 000c 10000000 	 .word 16
+ 296 0010 00800248 	 .word 1208123392
+ 297 0014 00000000 	 .word pin0_4_af
+ 298              	 .global pin0_4_af
+ 299              	 .section .rodata.pin0_4_af,"a"
+ 300              	 .align 2
+ 303              	pin0_4_af:
+ 304              	 .global pin0_3_obj
+ 305              	 .section .rodata.pin0_3_obj,"a"
+ 306              	 .align 2
+ 309              	pin0_3_obj:
+ 310 0000 00000000 	 .word pin_type
+ 311 0004 D7000000 	 .word 215
+ 312 0008 30       	 .byte 48
+ 313 0009 00       	 .byte 0
+ 314 000a 00       	 .byte 0
+ 315 000b 00       	 .space 1
+ 316 000c 08000000 	 .word 8
+ 317 0010 00800248 	 .word 1208123392
+ 318 0014 00000000 	 .word pin0_3_af
+ 319              	 .global pin0_3_af
+ 320              	 .section .rodata.pin0_3_af,"a"
+ 321              	 .align 2
+ 324              	pin0_3_af:
+ 325              	 .global pin0_2_obj
+ 326              	 .section .rodata.pin0_2_obj,"a"
+ 327              	 .align 2
+ 330              	pin0_2_obj:
+ 331 0000 00000000 	 .word pin_type
+ 332 0004 D6000000 	 .word 214
+ 333 0008 20       	 .byte 32
+ 334 0009 00       	 .byte 0
+ 335 000a 00       	 .byte 0
+ 336 000b 00       	 .space 1
+ 337 000c 04000000 	 .word 4
+ 338 0010 00800248 	 .word 1208123392
+ 339 0014 00000000 	 .word pin0_2_af
+ 340              	 .global pin0_2_af
+ 341              	 .section .rodata.pin0_2_af,"a"
+ 342              	 .align 2
+ 345              	pin0_2_af:
+ 346              	 .global pin0_5_obj
+ 347              	 .section .rodata.pin0_5_obj,"a"
+ 348              	 .align 2
+ 351              	pin0_5_obj:
+ 352 0000 00000000 	 .word pin_type
+ 353 0004 D9000000 	 .word 217
+ 354 0008 50       	 .byte 80
+ 355 0009 00       	 .byte 0
+ 356 000a 00       	 .byte 0
+ 357 000b 00       	 .space 1
+ 358 000c 20000000 	 .word 32
+ 359 0010 00800248 	 .word 1208123392
+ 360 0014 00000000 	 .word pin0_5_af
+ 361              	 .global pin0_5_af
+ 362              	 .section .rodata.pin0_5_af,"a"
+ 363              	 .align 2
+ 366              	pin0_5_af:
+ 367              	 .global pin0_6_obj
+ 368              	 .section .rodata.pin0_6_obj,"a"
+ 369              	 .align 2
+ 372              	pin0_6_obj:
+ 373 0000 00000000 	 .word pin_type
+ 374 0004 DA000000 	 .word 218
+ 375 0008 60       	 .byte 96
+ 376 0009 00       	 .byte 0
+ 377 000a 00       	 .byte 0
+ 378 000b 00       	 .space 1
+ 379 000c 40000000 	 .word 64
+ 380 0010 00800248 	 .word 1208123392
+ 381 0014 00000000 	 .word pin0_6_af
+ 382              	 .global pin0_6_af
+ 383              	 .section .rodata.pin0_6_af,"a"
+ 384              	 .align 2
+ 387              	pin0_6_af:
+ 388              	 .global pin0_11_obj
+ 389              	 .section .rodata.pin0_11_obj,"a"
+ 390              	 .align 2
+ 393              	pin0_11_obj:
+ 394 0000 00000000 	 .word pin_type
+ 395 0004 D4000000 	 .word 212
+ 396 0008 B0       	 .byte 176
+ 397 0009 00       	 .byte 0
+ 398 000a 00       	 .byte 0
+ 399 000b 00       	 .space 1
+ 400 000c 00080000 	 .word 2048
+ 401 0010 00800248 	 .word 1208123392
+ 402 0014 00000000 	 .word pin0_11_af
+ 403              	 .global pin0_11_af
+ 404              	 .section .rodata.pin0_11_af,"a"
+ 405              	 .align 2
+ 408              	pin0_11_af:
+ 409              	 .global pin0_12_obj
+ 410              	 .section .rodata.pin0_12_obj,"a"
+ 411              	 .align 2
+ 414              	pin0_12_obj:
+ 415 0000 00000000 	 .word pin_type
+ 416 0004 D5000000 	 .word 213
+ 417 0008 C0       	 .byte 192
+ 418 0009 00       	 .byte 0
+ 419 000a 00       	 .byte 0
+ 420 000b 00       	 .space 1
+ 421 000c 00100000 	 .word 4096
+ 422 0010 00800248 	 .word 1208123392
+ 423 0014 00000000 	 .word pin0_12_af
+ 424              	 .global pin0_12_af
+ 425              	 .section .rodata.pin0_12_af,"a"
+ 426              	 .align 2
+ 429              	pin0_12_af:
+ 430              	 .global pin3_3_obj
+ 431              	 .section .rodata.pin3_3_obj,"a"
+ 432              	 .align 2
+ 435              	pin3_3_obj:
+ 436 0000 00000000 	 .word pin_type
+ 437 0004 04010000 	 .word 260
+ 438 0008 33       	 .byte 51
+ 439 0009 00       	 .byte 0
+ 440 000a 00       	 .byte 0
+ 441 000b 00       	 .space 1
+ 442 000c 08000000 	 .word 8
+ 443 0010 00830248 	 .word 1208124160
+ 444 0014 00000000 	 .word pin3_3_af
+ 445              	 .global pin3_3_af
+ 446              	 .section .rodata.pin3_3_af,"a"
+ 447              	 .align 2
+ 450              	pin3_3_af:
+ 451              	 .global pin3_4_obj
+ 452              	 .section .rodata.pin3_4_obj,"a"
+ 453              	 .align 2
+ 456              	pin3_4_obj:
+ 457 0000 00000000 	 .word pin_type
+ 458 0004 05010000 	 .word 261
+ 459 0008 43       	 .byte 67
+ 460 0009 00       	 .byte 0
+ 461 000a 00       	 .byte 0
+ 462 000b 00       	 .space 1
+ 463 000c 10000000 	 .word 16
+ 464 0010 00830248 	 .word 1208124160
+ 465 0014 00000000 	 .word pin3_4_af
+ 466              	 .global pin3_4_af
+ 467              	 .section .rodata.pin3_4_af,"a"
+ 468              	 .align 2
+ 471              	pin3_4_af:
+ 472              	 .global pin0_7_obj
+ 473              	 .section .rodata.pin0_7_obj,"a"
+ 474              	 .align 2
+ 477              	pin0_7_obj:
+ 478 0000 00000000 	 .word pin_type
+ 479 0004 DB000000 	 .word 219
+ 480 0008 70       	 .byte 112
+ 481 0009 00       	 .byte 0
+ 482 000a 00       	 .byte 0
+ 483 000b 00       	 .space 1
+ 484 000c 80000000 	 .word 128
+ 485 0010 00800248 	 .word 1208123392
+ 486 0014 00000000 	 .word pin0_7_af
+ 487              	 .global pin0_7_af
+ 488              	 .section .rodata.pin0_7_af,"a"
+ 489              	 .align 2
+ 492              	pin0_7_af:
+ 493              	 .global pin0_8_obj
+ 494              	 .section .rodata.pin0_8_obj,"a"
+ 495              	 .align 2
+ 498              	pin0_8_obj:
+ 499 0000 00000000 	 .word pin_type
+ 500 0004 DC000000 	 .word 220
+ 501 0008 80       	 .byte 128
+ 502 0009 00       	 .byte 0
+ 503 000a 00       	 .byte 0
+ 504 000b 00       	 .space 1
+ 505 000c 00010000 	 .word 256
+ 506 0010 00800248 	 .word 1208123392
+ 507 0014 00000000 	 .word pin0_8_af
+ 508              	 .global pin0_8_af
+ 509              	 .section .rodata.pin0_8_af,"a"
+ 510              	 .align 2
+ 513              	pin0_8_af:
+ 514              	 .global pin1_8_obj
+ 515              	 .section .rodata.pin1_8_obj,"a"
+ 516              	 .align 2
+ 519              	pin1_8_obj:
+ 520 0000 00000000 	 .word pin_type
+ 521 0004 FA000000 	 .word 250
+ 522 0008 81       	 .byte 129
+ 523 0009 00       	 .byte 0
+ 524 000a 00       	 .byte 0
+ 525 000b 00       	 .space 1
+ 526 000c 00010000 	 .word 256
+ 527 0010 00810248 	 .word 1208123648
+ 528 0014 00000000 	 .word pin1_8_af
+ 529              	 .global pin1_8_af
+ 530              	 .section .rodata.pin1_8_af,"a"
+ 531              	 .align 2
+ 534              	pin1_8_af:
+ 535              	 .global pin1_9_obj
+ 536              	 .section .rodata.pin1_9_obj,"a"
+ 537              	 .align 2
+ 540              	pin1_9_obj:
+ 541 0000 00000000 	 .word pin_type
+ 542 0004 FB000000 	 .word 251
+ 543 0008 91       	 .byte 145
+ 544 0009 00       	 .byte 0
+ 545 000a 00       	 .byte 0
+ 546 000b 00       	 .space 1
+ 547 000c 00020000 	 .word 512
+ 548 0010 00810248 	 .word 1208123648
+ 549 0014 00000000 	 .word pin1_9_af
+ 550              	 .global pin1_9_af
+ 551              	 .section .rodata.pin1_9_af,"a"
+ 552              	 .align 2
+ 555              	pin1_9_af:
+ 556              	 .global pin1_0_obj
+ 557              	 .section .rodata.pin1_0_obj,"a"
+ 558              	 .align 2
+ 561              	pin1_0_obj:
+ 562 0000 00000000 	 .word pin_type
+ 563 0004 EE000000 	 .word 238
+ 564 0008 01       	 .byte 1
+ 565 0009 00       	 .byte 0
+ 566 000a 00       	 .byte 0
+ 567 000b 00       	 .space 1
+ 568 000c 01000000 	 .word 1
+ 569 0010 00810248 	 .word 1208123648
+ 570 0014 00000000 	 .word pin1_0_af
+ 571              	 .global pin1_0_af
+ 572              	 .section .rodata.pin1_0_af,"a"
+ 573              	 .align 2
+ 576              	pin1_0_af:
+ 577              	 .global pin1_1_obj
+ 578              	 .section .rodata.pin1_1_obj,"a"
+ 579              	 .align 2
+ 582              	pin1_1_obj:
+ 583 0000 00000000 	 .word pin_type
+ 584 0004 EF000000 	 .word 239
+ 585 0008 11       	 .byte 17
+ 586 0009 00       	 .byte 0
+ 587 000a 00       	 .byte 0
+ 588 000b 00       	 .space 1
+ 589 000c 02000000 	 .word 2
+ 590 0010 00810248 	 .word 1208123648
+ 591 0014 00000000 	 .word pin1_1_af
+ 592              	 .global pin1_1_af
+ 593              	 .section .rodata.pin1_1_af,"a"
+ 594              	 .align 2
+ 597              	pin1_1_af:
+ 598              	 .global pin1_2_obj
+ 599              	 .section .rodata.pin1_2_obj,"a"
+ 600              	 .align 2
+ 603              	pin1_2_obj:
+ 604 0000 00000000 	 .word pin_type
+ 605 0004 F6000000 	 .word 246
+ 606 0008 21       	 .byte 33
+ 607 0009 00       	 .byte 0
+ 608 000a 00       	 .byte 0
+ 609 000b 00       	 .space 1
+ 610 000c 04000000 	 .word 4
+ 611 0010 00810248 	 .word 1208123648
+ 612 0014 00000000 	 .word pin1_2_af
+ 613              	 .global pin1_2_af
+ 614              	 .section .rodata.pin1_2_af,"a"
+ 615              	 .align 2
+ 618              	pin1_2_af:
+ 619              	 .global pin1_3_obj
+ 620              	 .section .rodata.pin1_3_obj,"a"
+ 621              	 .align 2
+ 624              	pin1_3_obj:
+ 625 0000 00000000 	 .word pin_type
+ 626 0004 F7000000 	 .word 247
+ 627 0008 31       	 .byte 49
+ 628 0009 00       	 .byte 0
+ 629 000a 00       	 .byte 0
+ 630 000b 00       	 .space 1
+ 631 000c 08000000 	 .word 8
+ 632 0010 00810248 	 .word 1208123648
+ 633 0014 00000000 	 .word pin1_3_af
+ 634              	 .global pin1_3_af
+ 635              	 .section .rodata.pin1_3_af,"a"
+ 636              	 .align 2
+ 639              	pin1_3_af:
+ 640              	 .global pin1_4_obj
+ 641              	 .section .rodata.pin1_4_obj,"a"
+ 642              	 .align 2
+ 645              	pin1_4_obj:
+ 646 0000 00000000 	 .word pin_type
+ 647 0004 F8000000 	 .word 248
+ 648 0008 41       	 .byte 65
+ 649 0009 00       	 .byte 0
+ 650 000a 00       	 .byte 0
+ 651 000b 00       	 .space 1
+ 652 000c 10000000 	 .word 16
+ 653 0010 00810248 	 .word 1208123648
+ 654 0014 00000000 	 .word pin1_4_af
+ 655              	 .global pin1_4_af
+ 656              	 .section .rodata.pin1_4_af,"a"
+ 657              	 .align 2
+ 660              	pin1_4_af:
+ 661              	 .global pin1_5_obj
+ 662              	 .section .rodata.pin1_5_obj,"a"
+ 663              	 .align 2
+ 666              	pin1_5_obj:
+ 667 0000 00000000 	 .word pin_type
+ 668 0004 F9000000 	 .word 249
+ 669 0008 51       	 .byte 81
+ 670 0009 00       	 .byte 0
+ 671 000a 00       	 .byte 0
+ 672 000b 00       	 .space 1
+ 673 000c 20000000 	 .word 32
+ 674 0010 00810248 	 .word 1208123648
+ 675 0014 00000000 	 .word pin1_5_af
+ 676              	 .global pin1_5_af
+ 677              	 .section .rodata.pin1_5_af,"a"
+ 678              	 .align 2
+ 681              	pin1_5_af:
+ 682              	 .global pin1_10_obj
+ 683              	 .section .rodata.pin1_10_obj,"a"
+ 684              	 .align 2
+ 687              	pin1_10_obj:
+ 688 0000 00000000 	 .word pin_type
+ 689 0004 F0000000 	 .word 240
+ 690 0008 A1       	 .byte 161
+ 691 0009 00       	 .byte 0
+ 692 000a 00       	 .byte 0
+ 693 000b 00       	 .space 1
+ 694 000c 00040000 	 .word 1024
+ 695 0010 00810248 	 .word 1208123648
+ 696 0014 00000000 	 .word pin1_10_af
+ 697              	 .global pin1_10_af
+ 698              	 .section .rodata.pin1_10_af,"a"
+ 699              	 .align 2
+ 702              	pin1_10_af:
+ 703              	 .global pin1_11_obj
+ 704              	 .section .rodata.pin1_11_obj,"a"
+ 705              	 .align 2
+ 708              	pin1_11_obj:
+ 709 0000 00000000 	 .word pin_type
+ 710 0004 F1000000 	 .word 241
+ 711 0008 B1       	 .byte 177
+ 712 0009 00       	 .byte 0
+ 713 000a 00       	 .byte 0
+ 714 000b 00       	 .space 1
+ 715 000c 00080000 	 .word 2048
+ 716 0010 00810248 	 .word 1208123648
+ 717 0014 00000000 	 .word pin1_11_af
+ 718              	 .global pin1_11_af
+ 719              	 .section .rodata.pin1_11_af,"a"
+ 720              	 .align 2
+ 723              	pin1_11_af:
+ 724              	 .global pin1_12_obj
+ 725              	 .section .rodata.pin1_12_obj,"a"
+ 726              	 .align 2
+ 729              	pin1_12_obj:
+ 730 0000 00000000 	 .word pin_type
+ 731 0004 F2000000 	 .word 242
+ 732 0008 C1       	 .byte 193
+ 733 0009 00       	 .byte 0
+ 734 000a 00       	 .byte 0
+ 735 000b 00       	 .space 1
+ 736 000c 00100000 	 .word 4096
+ 737 0010 00810248 	 .word 1208123648
+ 738 0014 00000000 	 .word pin1_12_af
+ 739              	 .global pin1_12_af
+ 740              	 .section .rodata.pin1_12_af,"a"
+ 741              	 .align 2
+ 744              	pin1_12_af:
+ 745              	 .global pin1_13_obj
+ 746              	 .section .rodata.pin1_13_obj,"a"
+ 747              	 .align 2
+ 750              	pin1_13_obj:
+ 751 0000 00000000 	 .word pin_type
+ 752 0004 F3000000 	 .word 243
+ 753 0008 D1       	 .byte 209
+ 754 0009 00       	 .byte 0
+ 755 000a 00       	 .byte 0
+ 756 000b 00       	 .space 1
+ 757 000c 00200000 	 .word 8192
+ 758 0010 00810248 	 .word 1208123648
+ 759 0014 00000000 	 .word pin1_13_af
+ 760              	 .global pin1_13_af
+ 761              	 .section .rodata.pin1_13_af,"a"
+ 762              	 .align 2
+ 765              	pin1_13_af:
+ 766              	 .global pin1_14_obj
+ 767              	 .section .rodata.pin1_14_obj,"a"
+ 768              	 .align 2
+ 771              	pin1_14_obj:
+ 772 0000 00000000 	 .word pin_type
+ 773 0004 F4000000 	 .word 244
+ 774 0008 E1       	 .byte 225
+ 775 0009 00       	 .byte 0
+ 776 000a 00       	 .byte 0
+ 777 000b 00       	 .space 1
+ 778 000c 00400000 	 .word 16384
+ 779 0010 00810248 	 .word 1208123648
+ 780 0014 00000000 	 .word pin1_14_af
+ 781              	 .global pin1_14_af
+ 782              	 .section .rodata.pin1_14_af,"a"
+ 783              	 .align 2
+ 786              	pin1_14_af:
+ 787              	 .global pin1_15_obj
+ 788              	 .section .rodata.pin1_15_obj,"a"
+ 789              	 .align 2
+ 792              	pin1_15_obj:
+ 793 0000 00000000 	 .word pin_type
+ 794 0004 F5000000 	 .word 245
+ 795 0008 F1       	 .byte 241
+ 796 0009 00       	 .byte 0
+ 797 000a 00       	 .byte 0
+ 798 000b 00       	 .space 1
+ 799 000c 00800000 	 .word 32768
+ 800 0010 00810248 	 .word 1208123648
+ 801 0014 00000000 	 .word pin1_15_af
+ 802              	 .global pin1_15_af
+ 803              	 .section .rodata.pin1_15_af,"a"
+ 804              	 .align 2
+ 807              	pin1_15_af:
+ 808              	 .global pin5_0_obj
+ 809              	 .section .rodata.pin5_0_obj,"a"
+ 810              	 .align 2
+ 813              	pin5_0_obj:
+ 814 0000 00000000 	 .word pin_type
+ 815 0004 06010000 	 .word 262
+ 816 0008 05       	 .byte 5
+ 817 0009 00       	 .byte 0
+ 818 000a 00       	 .byte 0
+ 819 000b 00       	 .space 1
+ 820 000c 01000000 	 .word 1
+ 821 0010 00850248 	 .word 1208124672
+ 822 0014 00000000 	 .word pin5_0_af
+ 823              	 .global pin5_0_af
+ 824              	 .section .rodata.pin5_0_af,"a"
+ 825              	 .align 2
+ 828              	pin5_0_af:
+ 829              	 .global pin5_1_obj
+ 830              	 .section .rodata.pin5_1_obj,"a"
+ 831              	 .align 2
+ 834              	pin5_1_obj:
+ 835 0000 00000000 	 .word pin_type
+ 836 0004 07010000 	 .word 263
+ 837 0008 15       	 .byte 21
+ 838 0009 00       	 .byte 0
+ 839 000a 00       	 .byte 0
+ 840 000b 00       	 .space 1
+ 841 000c 02000000 	 .word 2
+ 842 0010 00850248 	 .word 1208124672
+ 843 0014 00000000 	 .word pin5_1_af
+ 844              	 .global pin5_1_af
+ 845              	 .section .rodata.pin5_1_af,"a"
+ 846              	 .align 2
+ 849              	pin5_1_af:
+ 850              	 .global pin5_2_obj
+ 851              	 .section .rodata.pin5_2_obj,"a"
+ 852              	 .align 2
+ 855              	pin5_2_obj:
+ 856 0000 00000000 	 .word pin_type
+ 857 0004 08010000 	 .word 264
+ 858 0008 25       	 .byte 37
+ 859 0009 00       	 .byte 0
+ 860 000a 00       	 .byte 0
+ 861 000b 00       	 .space 1
+ 862 000c 04000000 	 .word 4
+ 863 0010 00850248 	 .word 1208124672
+ 864 0014 00000000 	 .word pin5_2_af
+ 865              	 .global pin5_2_af
+ 866              	 .section .rodata.pin5_2_af,"a"
+ 867              	 .align 2
+ 870              	pin5_2_af:
+ 871              	 .global pin5_7_obj
+ 872              	 .section .rodata.pin5_7_obj,"a"
+ 873              	 .align 2
+ 876              	pin5_7_obj:
+ 877 0000 00000000 	 .word pin_type
+ 878 0004 09010000 	 .word 265
+ 879 0008 75       	 .byte 117
+ 880 0009 00       	 .byte 0
+ 881 000a 00       	 .byte 0
+ 882 000b 00       	 .space 1
+ 883 000c 80000000 	 .word 128
+ 884 0010 00850248 	 .word 1208124672
+ 885 0014 00000000 	 .word pin5_7_af
+ 886              	 .global pin5_7_af
+ 887              	 .section .rodata.pin5_7_af,"a"
+ 888              	 .align 2
+ 891              	pin5_7_af:
+ 892              	 .global pin2_6_obj
+ 893              	 .section .rodata.pin2_6_obj,"a"
+ 894              	 .align 2
+ 897              	pin2_6_obj:
+ 898 0000 00000000 	 .word pin_type
+ 899 0004 00010000 	 .word 256
+ 900 0008 62       	 .byte 98
+ 901 0009 00       	 .byte 0
+ 902 000a 00       	 .byte 0
+ 903 000b 00       	 .space 1
+ 904 000c 40000000 	 .word 64
+ 905 0010 00820248 	 .word 1208123904
+ 906 0014 00000000 	 .word pin2_6_af
+ 907              	 .global pin2_6_af
+ 908              	 .section .rodata.pin2_6_af,"a"
+ 909              	 .align 2
+ 912              	pin2_6_af:
+ 913              	 .global pin2_10_obj
+ 914              	 .section .rodata.pin2_10_obj,"a"
+ 915              	 .align 2
+ 918              	pin2_10_obj:
+ 919 0000 00000000 	 .word pin_type
+ 920 0004 FD000000 	 .word 253
+ 921 0008 A2       	 .byte 162
+ 922 0009 00       	 .byte 0
+ 923 000a 00       	 .byte 0
+ 924 000b 00       	 .space 1
+ 925 000c 00040000 	 .word 1024
+ 926 0010 00820248 	 .word 1208123904
+ 927 0014 00000000 	 .word pin2_10_af
+ 928              	 .global pin2_10_af
+ 929              	 .section .rodata.pin2_10_af,"a"
+ 930              	 .align 2
+ 933              	pin2_10_af:
+ 934              	 .global pin2_1_obj
+ 935              	 .section .rodata.pin2_1_obj,"a"
+ 936              	 .align 2
+ 939              	pin2_1_obj:
+ 940 0000 00000000 	 .word pin_type
+ 941 0004 FC000000 	 .word 252
+ 942 0008 12       	 .byte 18
+ 943 0009 00       	 .byte 0
+ 944 000a 00       	 .byte 0
+ 945 000b 00       	 .space 1
+ 946 000c 02000000 	 .word 2
+ 947 0010 00820248 	 .word 1208123904
+ 948 0014 00000000 	 .word pin2_1_af
+ 949              	 .global pin2_1_af
+ 950              	 .section .rodata.pin2_1_af,"a"
+ 951              	 .align 2
+ 954              	pin2_1_af:
+ 955              	 .global pin14_8_obj
+ 956              	 .section .rodata.pin14_8_obj,"a"
+ 957              	 .align 2
+ 960              	pin14_8_obj:
+ 961 0000 00000000 	 .word pin_type
+ 962 0004 EA000000 	 .word 234
+ 963 0008 87       	 .byte 135
+ 964 0009 00       	 .byte 0
+ 965 000a 00       	 .byte 0
+ 966 000b 00       	 .space 1
+ 967 000c 00010000 	 .word 256
+ 968 0010 008E0248 	 .word 1208126976
+ 969 0014 00000000 	 .word pin14_8_af
+ 970              	 .global pin14_8_af
+ 971              	 .section .rodata.pin14_8_af,"a"
+ 972              	 .align 2
+ 975              	pin14_8_af:
+ 976              	 .global pin2_14_obj
+ 977              	 .section .rodata.pin2_14_obj,"a"
+ 978              	 .align 2
+ 981              	pin2_14_obj:
+ 982 0000 00000000 	 .word pin_type
+ 983 0004 FE000000 	 .word 254
+ 984 0008 E2       	 .byte 226
+ 985 0009 00       	 .byte 0
+ 986 000a 00       	 .byte 0
+ 987 000b 00       	 .space 1
+ 988 000c 00400000 	 .word 16384
+ 989 0010 00820248 	 .word 1208123904
+ 990 0014 00000000 	 .word pin2_14_af
+ 991              	 .global pin2_14_af
+ 992              	 .section .rodata.pin2_14_af,"a"
+ 993              	 .align 2
+ 996              	pin2_14_af:
+ 997              	 .global pin14_9_obj
+ 998              	 .section .rodata.pin14_9_obj,"a"
+ 999              	 .align 2
+ 1002              	pin14_9_obj:
+ 1003 0000 00000000 	 .word pin_type
+ 1004 0004 EB000000 	 .word 235
+ 1005 0008 97       	 .byte 151
+ 1006 0009 00       	 .byte 0
+ 1007 000a 00       	 .byte 0
+ 1008 000b 00       	 .space 1
+ 1009 000c 00020000 	 .word 512
+ 1010 0010 008E0248 	 .word 1208126976
+ 1011 0014 00000000 	 .word pin14_9_af
+ 1012              	 .global pin14_9_af
+ 1013              	 .section .rodata.pin14_9_af,"a"
+ 1014              	 .align 2
+ 1017              	pin14_9_af:
+ 1018              	 .global pin2_15_obj
+ 1019              	 .section .rodata.pin2_15_obj,"a"
+ 1020              	 .align 2
+ 1023              	pin2_15_obj:
+ 1024 0000 00000000 	 .word pin_type
+ 1025 0004 FF000000 	 .word 255
+ 1026 0008 F2       	 .byte 242
+ 1027 0009 00       	 .byte 0
+ 1028 000a 00       	 .byte 0
+ 1029 000b 00       	 .space 1
+ 1030 000c 00800000 	 .word 32768
+ 1031 0010 00820248 	 .word 1208123904
+ 1032 0014 00000000 	 .word pin2_15_af
+ 1033              	 .global pin2_15_af
+ 1034              	 .section .rodata.pin2_15_af,"a"
+ 1035              	 .align 2
+ 1038              	pin2_15_af:
+ 1039              	 .global pin14_0_obj
+ 1040              	 .section .rodata.pin14_0_obj,"a"
+ 1041              	 .align 2
+ 1044              	pin14_0_obj:
+ 1045 0000 00000000 	 .word pin_type
+ 1046 0004 DE000000 	 .word 222
+ 1047 0008 07       	 .byte 7
+ 1048 0009 00       	 .byte 0
+ 1049 000a 00       	 .byte 0
+ 1050 000b 00       	 .space 1
+ 1051 000c 01000000 	 .word 1
+ 1052 0010 008E0248 	 .word 1208126976
+ 1053 0014 00000000 	 .word pin14_0_af
+ 1054              	 .global pin14_0_af
+ 1055              	 .section .rodata.pin14_0_af,"a"
+ 1056              	 .align 2
+ 1059              	pin14_0_af:
+ 1060              	 .global pin14_2_obj
+ 1061              	 .section .rodata.pin14_2_obj,"a"
+ 1062              	 .align 2
+ 1065              	pin14_2_obj:
+ 1066 0000 00000000 	 .word pin_type
+ 1067 0004 E4000000 	 .word 228
+ 1068 0008 27       	 .byte 39
+ 1069 0009 00       	 .byte 0
+ 1070 000a 00       	 .byte 0
+ 1071 000b 00       	 .space 1
+ 1072 000c 04000000 	 .word 4
+ 1073 0010 008E0248 	 .word 1208126976
+ 1074 0014 00000000 	 .word pin14_2_af
+ 1075              	 .global pin14_2_af
+ 1076              	 .section .rodata.pin14_2_af,"a"
+ 1077              	 .align 2
+ 1080              	pin14_2_af:
+ 1081              	 .global pin14_1_obj
+ 1082              	 .section .rodata.pin14_1_obj,"a"
+ 1083              	 .align 2
+ 1086              	pin14_1_obj:
+ 1087 0000 00000000 	 .word pin_type
+ 1088 0004 DF000000 	 .word 223
+ 1089 0008 17       	 .byte 23
+ 1090 0009 00       	 .byte 0
+ 1091 000a 00       	 .byte 0
+ 1092 000b 00       	 .space 1
+ 1093 000c 02000000 	 .word 2
+ 1094 0010 008E0248 	 .word 1208126976
+ 1095 0014 00000000 	 .word pin14_1_af
+ 1096              	 .global pin14_1_af
+ 1097              	 .section .rodata.pin14_1_af,"a"
+ 1098              	 .align 2
+ 1101              	pin14_1_af:
+ 1102              	 .global pin14_4_obj
+ 1103              	 .section .rodata.pin14_4_obj,"a"
+ 1104              	 .align 2
+ 1107              	pin14_4_obj:
+ 1108 0000 00000000 	 .word pin_type
+ 1109 0004 E6000000 	 .word 230
+ 1110 0008 47       	 .byte 71
+ 1111 0009 00       	 .byte 0
+ 1112 000a 00       	 .byte 0
+ 1113 000b 00       	 .space 1
+ 1114 000c 10000000 	 .word 16
+ 1115 0010 008E0248 	 .word 1208126976
+ 1116 0014 00000000 	 .word pin14_4_af
+ 1117              	 .global pin14_4_af
+ 1118              	 .section .rodata.pin14_4_af,"a"
+ 1119              	 .align 2
+ 1122              	pin14_4_af:
+ 1123              	 .global pin14_3_obj
+ 1124              	 .section .rodata.pin14_3_obj,"a"
+ 1125              	 .align 2
+ 1128              	pin14_3_obj:
+ 1129 0000 00000000 	 .word pin_type
+ 1130 0004 E5000000 	 .word 229
+ 1131 0008 37       	 .byte 55
+ 1132 0009 00       	 .byte 0
+ 1133 000a 00       	 .byte 0
+ 1134 000b 00       	 .space 1
+ 1135 000c 08000000 	 .word 8
+ 1136 0010 008E0248 	 .word 1208126976
+ 1137 0014 00000000 	 .word pin14_3_af
+ 1138              	 .global pin14_3_af
+ 1139              	 .section .rodata.pin14_3_af,"a"
+ 1140              	 .align 2
+ 1143              	pin14_3_af:
+ 1144              	 .global pin14_6_obj
+ 1145              	 .section .rodata.pin14_6_obj,"a"
+ 1146              	 .align 2
+ 1149              	pin14_6_obj:
+ 1150 0000 00000000 	 .word pin_type
+ 1151 0004 E8000000 	 .word 232
+ 1152 0008 67       	 .byte 103
+ 1153 0009 00       	 .byte 0
+ 1154 000a 00       	 .byte 0
+ 1155 000b 00       	 .space 1
+ 1156 000c 40000000 	 .word 64
+ 1157 0010 008E0248 	 .word 1208126976
+ 1158 0014 00000000 	 .word pin14_6_af
+ 1159              	 .global pin14_6_af
+ 1160              	 .section .rodata.pin14_6_af,"a"
+ 1161              	 .align 2
+ 1164              	pin14_6_af:
+ 1165              	 .global pin14_5_obj
+ 1166              	 .section .rodata.pin14_5_obj,"a"
+ 1167              	 .align 2
+ 1170              	pin14_5_obj:
+ 1171 0000 00000000 	 .word pin_type
+ 1172 0004 E7000000 	 .word 231
+ 1173 0008 57       	 .byte 87
+ 1174 0009 00       	 .byte 0
+ 1175 000a 00       	 .byte 0
+ 1176 000b 00       	 .space 1
+ 1177 000c 20000000 	 .word 32
+ 1178 0010 008E0248 	 .word 1208126976
+ 1179 0014 00000000 	 .word pin14_5_af
+ 1180              	 .global pin14_5_af
+ 1181              	 .section .rodata.pin14_5_af,"a"
+ 1182              	 .align 2
+ 1185              	pin14_5_af:
+ 1186              	 .global pin14_12_obj
+ 1187              	 .section .rodata.pin14_12_obj,"a"
+ 1188              	 .align 2
+ 1191              	pin14_12_obj:
+ 1192 0000 00000000 	 .word pin_type
+ 1193 0004 E0000000 	 .word 224
+ 1194 0008 C7       	 .byte 199
+ 1195 0009 00       	 .byte 0
+ 1196 000a 00       	 .byte 0
+ 1197 000b 00       	 .space 1
+ 1198 000c 00100000 	 .word 4096
+ 1199 0010 008E0248 	 .word 1208126976
+ 1200 0014 00000000 	 .word pin14_12_af
+ 1201              	 .global pin14_12_af
+ 1202              	 .section .rodata.pin14_12_af,"a"
+ 1203              	 .align 2
+ 1206              	pin14_12_af:
+ 1207              	 .global pin14_7_obj
+ 1208              	 .section .rodata.pin14_7_obj,"a"
+ 1209              	 .align 2
+ 1212              	pin14_7_obj:
+ 1213 0000 00000000 	 .word pin_type
+ 1214 0004 E9000000 	 .word 233
+ 1215 0008 77       	 .byte 119
+ 1216 0009 00       	 .byte 0
+ 1217 000a 00       	 .byte 0
+ 1218 000b 00       	 .space 1
+ 1219 000c 80000000 	 .word 128
+ 1220 0010 008E0248 	 .word 1208126976
+ 1221 0014 00000000 	 .word pin14_7_af
+ 1222              	 .global pin14_7_af
+ 1223              	 .section .rodata.pin14_7_af,"a"
+ 1224              	 .align 2
+ 1227              	pin14_7_af:
+ 1228              	 .global pin14_14_obj
+ 1229              	 .section .rodata.pin14_14_obj,"a"
+ 1230              	 .align 2
+ 1233              	pin14_14_obj:
+ 1234 0000 00000000 	 .word pin_type
+ 1235 0004 E2000000 	 .word 226
+ 1236 0008 E7       	 .byte 231
+ 1237 0009 00       	 .byte 0
+ 1238 000a 00       	 .byte 0
+ 1239 000b 00       	 .space 1
+ 1240 000c 00400000 	 .word 16384
+ 1241 0010 008E0248 	 .word 1208126976
+ 1242 0014 00000000 	 .word pin14_14_af
+ 1243              	 .global pin14_14_af
+ 1244              	 .section .rodata.pin14_14_af,"a"
+ 1245              	 .align 2
+ 1248              	pin14_14_af:
+ 1249              	 .global pin14_13_obj
+ 1250              	 .section .rodata.pin14_13_obj,"a"
+ 1251              	 .align 2
+ 1254              	pin14_13_obj:
+ 1255 0000 00000000 	 .word pin_type
+ 1256 0004 E1000000 	 .word 225
+ 1257 0008 D7       	 .byte 215
+ 1258 0009 00       	 .byte 0
+ 1259 000a 00       	 .byte 0
+ 1260 000b 00       	 .space 1
+ 1261 000c 00200000 	 .word 8192
+ 1262 0010 008E0248 	 .word 1208126976
+ 1263 0014 00000000 	 .word pin14_13_af
+ 1264              	 .global pin14_13_af
+ 1265              	 .section .rodata.pin14_13_af,"a"
+ 1266              	 .align 2
+ 1269              	pin14_13_af:
+ 1270              	 .global pin15_2_obj
+ 1271              	 .section .rodata.pin15_2_obj,"a"
+ 1272              	 .align 2
+ 1275              	pin15_2_obj:
+ 1276 0000 00000000 	 .word pin_type
+ 1277 0004 EC000000 	 .word 236
+ 1278 0008 28       	 .byte 40
+ 1279 0009 00       	 .byte 0
+ 1280 000a 00       	 .byte 0
+ 1281 000b 00       	 .space 1
+ 1282 000c 04000000 	 .word 4
+ 1283 0010 008F0248 	 .word 1208127232
+ 1284 0014 00000000 	 .word pin15_2_af
+ 1285              	 .global pin15_2_af
+ 1286              	 .section .rodata.pin15_2_af,"a"
+ 1287              	 .align 2
+ 1290              	pin15_2_af:
+ 1291              	 .global pin14_15_obj
+ 1292              	 .section .rodata.pin14_15_obj,"a"
+ 1293              	 .align 2
+ 1296              	pin14_15_obj:
+ 1297 0000 00000000 	 .word pin_type
+ 1298 0004 E3000000 	 .word 227
+ 1299 0008 F7       	 .byte 247
+ 1300 0009 00       	 .byte 0
+ 1301 000a 00       	 .byte 0
+ 1302 000b 00       	 .space 1
+ 1303 000c 00800000 	 .word 32768
+ 1304 0010 008E0248 	 .word 1208126976
+ 1305 0014 00000000 	 .word pin14_15_af
+ 1306              	 .global pin14_15_af
+ 1307              	 .section .rodata.pin14_15_af,"a"
+ 1308              	 .align 2
+ 1311              	pin14_15_af:
+ 1312              	 .global pin15_3_obj
+ 1313              	 .section .rodata.pin15_3_obj,"a"
+ 1314              	 .align 2
+ 1317              	pin15_3_obj:
+ 1318 0000 00000000 	 .word pin_type
+ 1319 0004 ED000000 	 .word 237
+ 1320 0008 38       	 .byte 56
+ 1321 0009 00       	 .byte 0
+ 1322 000a 00       	 .byte 0
+ 1323 000b 00       	 .space 1
+ 1324 000c 08000000 	 .word 8
+ 1325 0010 008F0248 	 .word 1208127232
+ 1326 0014 00000000 	 .word pin15_3_af
+ 1327              	 .global pin15_3_af
+ 1328              	 .section .rodata.pin15_3_af,"a"
+ 1329              	 .align 2
+ 1332              	pin15_3_af:
+ 1333              	 .global pin3_0_obj
+ 1334              	 .section .rodata.pin3_0_obj,"a"
+ 1335              	 .align 2
+ 1338              	pin3_0_obj:
+ 1339 0000 00000000 	 .word pin_type
+ 1340 0004 01010000 	 .word 257
+ 1341 0008 03       	 .byte 3
+ 1342 0009 00       	 .byte 0
+ 1343 000a 00       	 .byte 0
+ 1344 000b 00       	 .space 1
+ 1345 000c 01000000 	 .word 1
+ 1346 0010 00830248 	 .word 1208124160
+ 1347 0014 00000000 	 .word pin3_0_af
+ 1348              	 .global pin3_0_af
+ 1349              	 .section .rodata.pin3_0_af,"a"
+ 1350              	 .align 2
+ 1353              	pin3_0_af:
+ 1354              	 .global pin3_2_obj
+ 1355              	 .section .rodata.pin3_2_obj,"a"
+ 1356              	 .align 2
+ 1359              	pin3_2_obj:
+ 1360 0000 00000000 	 .word pin_type
+ 1361 0004 03010000 	 .word 259
+ 1362 0008 23       	 .byte 35
+ 1363 0009 00       	 .byte 0
+ 1364 000a 00       	 .byte 0
+ 1365 000b 00       	 .space 1
+ 1366 000c 04000000 	 .word 4
+ 1367 0010 00830248 	 .word 1208124160
+ 1368 0014 00000000 	 .word pin3_2_af
+ 1369              	 .global pin3_2_af
+ 1370              	 .section .rodata.pin3_2_af,"a"
+ 1371              	 .align 2
+ 1374              	pin3_2_af:
+ 1375              	 .global pin3_1_obj
+ 1376              	 .section .rodata.pin3_1_obj,"a"
+ 1377              	 .align 2
+ 1380              	pin3_1_obj:
+ 1381 0000 00000000 	 .word pin_type
+ 1382 0004 02010000 	 .word 258
+ 1383 0008 13       	 .byte 19
+ 1384 0009 00       	 .byte 0
+ 1385 000a 00       	 .byte 0
+ 1386 000b 00       	 .space 1
+ 1387 000c 02000000 	 .word 2
+ 1388 0010 00830248 	 .word 1208124160
+ 1389 0014 00000000 	 .word pin3_1_af
+ 1390              	 .global pin3_1_af
+ 1391              	 .section .rodata.pin3_1_af,"a"
+ 1392              	 .align 2
+ 1395              	pin3_1_af:
+ 1396              	 .global pin0_9_obj
+ 1397              	 .section .rodata.pin0_9_obj,"a"
+ 1398              	 .align 2
+ 1401              	pin0_9_obj:
+ 1402 0000 00000000 	 .word pin_type
+ 1403 0004 DD000000 	 .word 221
+ 1404 0008 90       	 .byte 144
+ 1405 0009 00       	 .byte 0
+ 1406 000a 00       	 .byte 0
+ 1407 000b 00       	 .space 1
+ 1408 000c 00020000 	 .word 512
+ 1409 0010 00800248 	 .word 1208123392
+ 1410 0014 00000000 	 .word pin0_9_af
+ 1411              	 .global pin0_9_af
+ 1412              	 .section .rodata.pin0_9_af,"a"
+ 1413              	 .align 2
+ 1416              	pin0_9_af:
+ 1417              	 .global pin0_1_obj
+ 1418              	 .section .rodata.pin0_1_obj,"a"
+ 1419              	 .align 2
+ 1422              	pin0_1_obj:
+ 1423 0000 00000000 	 .word pin_type
+ 1424 0004 D2000000 	 .word 210
+ 1425 0008 10       	 .byte 16
+ 1426 0009 00       	 .byte 0
+ 1427 000a 00       	 .byte 0
+ 1428 000b 00       	 .space 1
+ 1429 000c 02000000 	 .word 2
+ 1430 0010 00800248 	 .word 1208123392
+ 1431 0014 00000000 	 .word pin0_1_af
+ 1432              	 .global pin0_1_af
+ 1433              	 .section .rodata.pin0_1_af,"a"
+ 1434              	 .align 2
+ 1437              	pin0_1_af:
+ 1438              	 .global pin0_10_obj
+ 1439              	 .section .rodata.pin0_10_obj,"a"
+ 1440              	 .align 2
+ 1443              	pin0_10_obj:
+ 1444 0000 00000000 	 .word pin_type
+ 1445 0004 D3000000 	 .word 211
+ 1446 0008 A0       	 .byte 160
+ 1447 0009 00       	 .byte 0
+ 1448 000a 00       	 .byte 0
+ 1449 000b 00       	 .space 1
+ 1450 000c 00040000 	 .word 1024
+ 1451 0010 00800248 	 .word 1208123392
+ 1452 0014 00000000 	 .word pin0_10_af
+ 1453              	 .global pin0_10_af
+ 1454              	 .section .rodata.pin0_10_af,"a"
+ 1455              	 .align 2
+ 1458              	pin0_10_af:
+ 1459              	 .global pin0_0_obj
+ 1460              	 .section .rodata.pin0_0_obj,"a"
+ 1461              	 .align 2
+ 1464              	pin0_0_obj:
+ 1465 0000 00000000 	 .word pin_type
+ 1466 0004 D1000000 	 .word 209
+ 1467 0008 00       	 .byte 0
+ 1468 0009 00       	 .byte 0
+ 1469 000a 00       	 .byte 0
+ 1470 000b 00       	 .space 1
+ 1471 000c 01000000 	 .word 1
+ 1472 0010 00800248 	 .word 1208123392
+ 1473 0014 00000000 	 .word pin0_0_af
+ 1474              	 .global pin0_0_af
+ 1475              	 .section .rodata.pin0_0_af,"a"
+ 1476              	 .align 2
+ 1479              	pin0_0_af:
+ 1480              	 .text
+ 1481              	.Letext0:
+ 1482              	 .file 2 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stdint.h"
+ 1483              	 .file 3 "./mpconfigport.h"
+ 1484              	 .file 4 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stddef.h"
+ 1485              	 .file 5 "../../py/qstr.h"
+ 1486              	 .file 6 "../../py/obj.h"
+ 1487              	 .file 7 "Libraries/XMCLib/inc/xmc4_gpio.h"
+ 1488              	 .file 8 "./pin_defs_xmc.h"
+ 1489              	 .file 9 "./pin.h"
+ 1490              	 .file 10 "./genhdr/pins.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 pins_RELAX_LITE_KIT.c
+    {standard input}:24     .rodata.pin_board_pins_locals_dict:00000000 pin_board_pins_locals_dict
+    {standard input}:21     .rodata.pin_board_pins_locals_dict:00000000 $d
+    {standard input}:36     .rodata.pin_board_pins_locals_dict_table:00000000 pin_board_pins_locals_dict_table
+    {standard input}:33     .rodata.pin_board_pins_locals_dict_table:00000000 $d
+    {standard input}:1464   .rodata.pin0_0_obj:00000000 pin0_0_obj
+    {standard input}:1443   .rodata.pin0_10_obj:00000000 pin0_10_obj
+    {standard input}:1422   .rodata.pin0_1_obj:00000000 pin0_1_obj
+    {standard input}:1401   .rodata.pin0_9_obj:00000000 pin0_9_obj
+    {standard input}:1380   .rodata.pin3_1_obj:00000000 pin3_1_obj
+    {standard input}:1359   .rodata.pin3_2_obj:00000000 pin3_2_obj
+    {standard input}:1338   .rodata.pin3_0_obj:00000000 pin3_0_obj
+    {standard input}:1317   .rodata.pin15_3_obj:00000000 pin15_3_obj
+    {standard input}:1296   .rodata.pin14_15_obj:00000000 pin14_15_obj
+    {standard input}:1275   .rodata.pin15_2_obj:00000000 pin15_2_obj
+    {standard input}:1254   .rodata.pin14_13_obj:00000000 pin14_13_obj
+    {standard input}:1233   .rodata.pin14_14_obj:00000000 pin14_14_obj
+    {standard input}:1212   .rodata.pin14_7_obj:00000000 pin14_7_obj
+    {standard input}:1191   .rodata.pin14_12_obj:00000000 pin14_12_obj
+    {standard input}:1170   .rodata.pin14_5_obj:00000000 pin14_5_obj
+    {standard input}:1149   .rodata.pin14_6_obj:00000000 pin14_6_obj
+    {standard input}:1128   .rodata.pin14_3_obj:00000000 pin14_3_obj
+    {standard input}:1107   .rodata.pin14_4_obj:00000000 pin14_4_obj
+    {standard input}:1086   .rodata.pin14_1_obj:00000000 pin14_1_obj
+    {standard input}:1065   .rodata.pin14_2_obj:00000000 pin14_2_obj
+    {standard input}:1044   .rodata.pin14_0_obj:00000000 pin14_0_obj
+    {standard input}:1023   .rodata.pin2_15_obj:00000000 pin2_15_obj
+    {standard input}:1002   .rodata.pin14_9_obj:00000000 pin14_9_obj
+    {standard input}:981    .rodata.pin2_14_obj:00000000 pin2_14_obj
+    {standard input}:960    .rodata.pin14_8_obj:00000000 pin14_8_obj
+    {standard input}:939    .rodata.pin2_1_obj:00000000 pin2_1_obj
+    {standard input}:918    .rodata.pin2_10_obj:00000000 pin2_10_obj
+    {standard input}:897    .rodata.pin2_6_obj:00000000 pin2_6_obj
+    {standard input}:876    .rodata.pin5_7_obj:00000000 pin5_7_obj
+    {standard input}:855    .rodata.pin5_2_obj:00000000 pin5_2_obj
+    {standard input}:834    .rodata.pin5_1_obj:00000000 pin5_1_obj
+    {standard input}:813    .rodata.pin5_0_obj:00000000 pin5_0_obj
+    {standard input}:792    .rodata.pin1_15_obj:00000000 pin1_15_obj
+    {standard input}:771    .rodata.pin1_14_obj:00000000 pin1_14_obj
+    {standard input}:750    .rodata.pin1_13_obj:00000000 pin1_13_obj
+    {standard input}:729    .rodata.pin1_12_obj:00000000 pin1_12_obj
+    {standard input}:708    .rodata.pin1_11_obj:00000000 pin1_11_obj
+    {standard input}:687    .rodata.pin1_10_obj:00000000 pin1_10_obj
+    {standard input}:666    .rodata.pin1_5_obj:00000000 pin1_5_obj
+    {standard input}:645    .rodata.pin1_4_obj:00000000 pin1_4_obj
+    {standard input}:624    .rodata.pin1_3_obj:00000000 pin1_3_obj
+    {standard input}:603    .rodata.pin1_2_obj:00000000 pin1_2_obj
+    {standard input}:582    .rodata.pin1_1_obj:00000000 pin1_1_obj
+    {standard input}:561    .rodata.pin1_0_obj:00000000 pin1_0_obj
+    {standard input}:540    .rodata.pin1_9_obj:00000000 pin1_9_obj
+    {standard input}:519    .rodata.pin1_8_obj:00000000 pin1_8_obj
+    {standard input}:498    .rodata.pin0_8_obj:00000000 pin0_8_obj
+    {standard input}:477    .rodata.pin0_7_obj:00000000 pin0_7_obj
+    {standard input}:456    .rodata.pin3_4_obj:00000000 pin3_4_obj
+    {standard input}:435    .rodata.pin3_3_obj:00000000 pin3_3_obj
+    {standard input}:414    .rodata.pin0_12_obj:00000000 pin0_12_obj
+    {standard input}:393    .rodata.pin0_11_obj:00000000 pin0_11_obj
+    {standard input}:372    .rodata.pin0_6_obj:00000000 pin0_6_obj
+    {standard input}:351    .rodata.pin0_5_obj:00000000 pin0_5_obj
+    {standard input}:330    .rodata.pin0_2_obj:00000000 pin0_2_obj
+    {standard input}:309    .rodata.pin0_3_obj:00000000 pin0_3_obj
+    {standard input}:288    .rodata.pin0_4_obj:00000000 pin0_4_obj
+    {standard input}:156    .rodata.pin_cpu_pins_locals_dict:00000000 pin_cpu_pins_locals_dict
+    {standard input}:153    .rodata.pin_cpu_pins_locals_dict:00000000 $d
+    {standard input}:168    .rodata.pin_cpu_pins_locals_dict_table:00000000 pin_cpu_pins_locals_dict_table
+    {standard input}:165    .rodata.pin_cpu_pins_locals_dict_table:00000000 $d
+    {standard input}:285    .rodata.pin0_4_obj:00000000 $d
+    {standard input}:303    .rodata.pin0_4_af:00000000 pin0_4_af
+    {standard input}:306    .rodata.pin0_3_obj:00000000 $d
+    {standard input}:324    .rodata.pin0_3_af:00000000 pin0_3_af
+    {standard input}:327    .rodata.pin0_2_obj:00000000 $d
+    {standard input}:345    .rodata.pin0_2_af:00000000 pin0_2_af
+    {standard input}:348    .rodata.pin0_5_obj:00000000 $d
+    {standard input}:366    .rodata.pin0_5_af:00000000 pin0_5_af
+    {standard input}:369    .rodata.pin0_6_obj:00000000 $d
+    {standard input}:387    .rodata.pin0_6_af:00000000 pin0_6_af
+    {standard input}:390    .rodata.pin0_11_obj:00000000 $d
+    {standard input}:408    .rodata.pin0_11_af:00000000 pin0_11_af
+    {standard input}:411    .rodata.pin0_12_obj:00000000 $d
+    {standard input}:429    .rodata.pin0_12_af:00000000 pin0_12_af
+    {standard input}:432    .rodata.pin3_3_obj:00000000 $d
+    {standard input}:450    .rodata.pin3_3_af:00000000 pin3_3_af
+    {standard input}:453    .rodata.pin3_4_obj:00000000 $d
+    {standard input}:471    .rodata.pin3_4_af:00000000 pin3_4_af
+    {standard input}:474    .rodata.pin0_7_obj:00000000 $d
+    {standard input}:492    .rodata.pin0_7_af:00000000 pin0_7_af
+    {standard input}:495    .rodata.pin0_8_obj:00000000 $d
+    {standard input}:513    .rodata.pin0_8_af:00000000 pin0_8_af
+    {standard input}:516    .rodata.pin1_8_obj:00000000 $d
+    {standard input}:534    .rodata.pin1_8_af:00000000 pin1_8_af
+    {standard input}:537    .rodata.pin1_9_obj:00000000 $d
+    {standard input}:555    .rodata.pin1_9_af:00000000 pin1_9_af
+    {standard input}:558    .rodata.pin1_0_obj:00000000 $d
+    {standard input}:576    .rodata.pin1_0_af:00000000 pin1_0_af
+    {standard input}:579    .rodata.pin1_1_obj:00000000 $d
+    {standard input}:597    .rodata.pin1_1_af:00000000 pin1_1_af
+    {standard input}:600    .rodata.pin1_2_obj:00000000 $d
+    {standard input}:618    .rodata.pin1_2_af:00000000 pin1_2_af
+    {standard input}:621    .rodata.pin1_3_obj:00000000 $d
+    {standard input}:639    .rodata.pin1_3_af:00000000 pin1_3_af
+    {standard input}:642    .rodata.pin1_4_obj:00000000 $d
+    {standard input}:660    .rodata.pin1_4_af:00000000 pin1_4_af
+    {standard input}:663    .rodata.pin1_5_obj:00000000 $d
+    {standard input}:681    .rodata.pin1_5_af:00000000 pin1_5_af
+    {standard input}:684    .rodata.pin1_10_obj:00000000 $d
+    {standard input}:702    .rodata.pin1_10_af:00000000 pin1_10_af
+    {standard input}:705    .rodata.pin1_11_obj:00000000 $d
+    {standard input}:723    .rodata.pin1_11_af:00000000 pin1_11_af
+    {standard input}:726    .rodata.pin1_12_obj:00000000 $d
+    {standard input}:744    .rodata.pin1_12_af:00000000 pin1_12_af
+    {standard input}:747    .rodata.pin1_13_obj:00000000 $d
+    {standard input}:765    .rodata.pin1_13_af:00000000 pin1_13_af
+    {standard input}:768    .rodata.pin1_14_obj:00000000 $d
+    {standard input}:786    .rodata.pin1_14_af:00000000 pin1_14_af
+    {standard input}:789    .rodata.pin1_15_obj:00000000 $d
+    {standard input}:807    .rodata.pin1_15_af:00000000 pin1_15_af
+    {standard input}:810    .rodata.pin5_0_obj:00000000 $d
+    {standard input}:828    .rodata.pin5_0_af:00000000 pin5_0_af
+    {standard input}:831    .rodata.pin5_1_obj:00000000 $d
+    {standard input}:849    .rodata.pin5_1_af:00000000 pin5_1_af
+    {standard input}:852    .rodata.pin5_2_obj:00000000 $d
+    {standard input}:870    .rodata.pin5_2_af:00000000 pin5_2_af
+    {standard input}:873    .rodata.pin5_7_obj:00000000 $d
+    {standard input}:891    .rodata.pin5_7_af:00000000 pin5_7_af
+    {standard input}:894    .rodata.pin2_6_obj:00000000 $d
+    {standard input}:912    .rodata.pin2_6_af:00000000 pin2_6_af
+    {standard input}:915    .rodata.pin2_10_obj:00000000 $d
+    {standard input}:933    .rodata.pin2_10_af:00000000 pin2_10_af
+    {standard input}:936    .rodata.pin2_1_obj:00000000 $d
+    {standard input}:954    .rodata.pin2_1_af:00000000 pin2_1_af
+    {standard input}:957    .rodata.pin14_8_obj:00000000 $d
+    {standard input}:975    .rodata.pin14_8_af:00000000 pin14_8_af
+    {standard input}:978    .rodata.pin2_14_obj:00000000 $d
+    {standard input}:996    .rodata.pin2_14_af:00000000 pin2_14_af
+    {standard input}:999    .rodata.pin14_9_obj:00000000 $d
+    {standard input}:1017   .rodata.pin14_9_af:00000000 pin14_9_af
+    {standard input}:1020   .rodata.pin2_15_obj:00000000 $d
+    {standard input}:1038   .rodata.pin2_15_af:00000000 pin2_15_af
+    {standard input}:1041   .rodata.pin14_0_obj:00000000 $d
+    {standard input}:1059   .rodata.pin14_0_af:00000000 pin14_0_af
+    {standard input}:1062   .rodata.pin14_2_obj:00000000 $d
+    {standard input}:1080   .rodata.pin14_2_af:00000000 pin14_2_af
+    {standard input}:1083   .rodata.pin14_1_obj:00000000 $d
+    {standard input}:1101   .rodata.pin14_1_af:00000000 pin14_1_af
+    {standard input}:1104   .rodata.pin14_4_obj:00000000 $d
+    {standard input}:1122   .rodata.pin14_4_af:00000000 pin14_4_af
+    {standard input}:1125   .rodata.pin14_3_obj:00000000 $d
+    {standard input}:1143   .rodata.pin14_3_af:00000000 pin14_3_af
+    {standard input}:1146   .rodata.pin14_6_obj:00000000 $d
+    {standard input}:1164   .rodata.pin14_6_af:00000000 pin14_6_af
+    {standard input}:1167   .rodata.pin14_5_obj:00000000 $d
+    {standard input}:1185   .rodata.pin14_5_af:00000000 pin14_5_af
+    {standard input}:1188   .rodata.pin14_12_obj:00000000 $d
+    {standard input}:1206   .rodata.pin14_12_af:00000000 pin14_12_af
+    {standard input}:1209   .rodata.pin14_7_obj:00000000 $d
+    {standard input}:1227   .rodata.pin14_7_af:00000000 pin14_7_af
+    {standard input}:1230   .rodata.pin14_14_obj:00000000 $d
+    {standard input}:1248   .rodata.pin14_14_af:00000000 pin14_14_af
+    {standard input}:1251   .rodata.pin14_13_obj:00000000 $d
+    {standard input}:1269   .rodata.pin14_13_af:00000000 pin14_13_af
+    {standard input}:1272   .rodata.pin15_2_obj:00000000 $d
+    {standard input}:1290   .rodata.pin15_2_af:00000000 pin15_2_af
+    {standard input}:1293   .rodata.pin14_15_obj:00000000 $d
+    {standard input}:1311   .rodata.pin14_15_af:00000000 pin14_15_af
+    {standard input}:1314   .rodata.pin15_3_obj:00000000 $d
+    {standard input}:1332   .rodata.pin15_3_af:00000000 pin15_3_af
+    {standard input}:1335   .rodata.pin3_0_obj:00000000 $d
+    {standard input}:1353   .rodata.pin3_0_af:00000000 pin3_0_af
+    {standard input}:1356   .rodata.pin3_2_obj:00000000 $d
+    {standard input}:1374   .rodata.pin3_2_af:00000000 pin3_2_af
+    {standard input}:1377   .rodata.pin3_1_obj:00000000 $d
+    {standard input}:1395   .rodata.pin3_1_af:00000000 pin3_1_af
+    {standard input}:1398   .rodata.pin0_9_obj:00000000 $d
+    {standard input}:1416   .rodata.pin0_9_af:00000000 pin0_9_af
+    {standard input}:1419   .rodata.pin0_1_obj:00000000 $d
+    {standard input}:1437   .rodata.pin0_1_af:00000000 pin0_1_af
+    {standard input}:1440   .rodata.pin0_10_obj:00000000 $d
+    {standard input}:1458   .rodata.pin0_10_af:00000000 pin0_10_af
+    {standard input}:1461   .rodata.pin0_0_obj:00000000 $d
+    {standard input}:1479   .rodata.pin0_0_af:00000000 pin0_0_af
+
+UNDEFINED SYMBOLS
+mp_type_dict
+pin_type
