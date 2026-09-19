@@ -78,6 +78,11 @@ docker container run -v .:/micropython --rm -it micropython/mpy-qemu-riscv make 
 Also, if you replace `VIRT_RV64` with `VIRT_RV32` you should be able to run
 32-bits tests as well!
 
+### PowerPC 64
+
+For PPC64-based boards the build requires a Linux PowerPC 64 toolchain built for
+little endian output, such as `powerpc64le-linux-gnu-gcc`.
+
 Build instructions
 ------------------
 
@@ -102,6 +107,7 @@ Available boards are:
 | `MPS2_AN385`      | `arm`        | `mps2-an385`             |
 | `MPS2_AN500`      | `arm`        | `mps2-an500`             |
 | `NETDUINO2`       | `arm`        | `netduino2`              |
+| `POWERNV9`        | `ppc64`      | `powernv9`               |
 | `SABRELITE`       | `arm`        | `sabrelite`              |
 | `VIRT_RV32`       | `riscv32`    | `virt`                   |
 | `VIRT_RV64`       | `riscv64`    | `virt`                   |
@@ -166,8 +172,11 @@ The following options can be specified on the `make` command line:
 - `QEMU_DEBUG_ARGS`: defaults to `-s` (gdb on TCP port 1234), but can be overridden
   with different qemu gdb arguments.
 - `QEMU_DEBUG_EXTRA`: extra options to pass to qemu when `QEMU_DEBUG=1` is used.
+- `QEMU_ROMFS_IMG<n>`: pass in romfs image to be loaded by qemu (if enabled by the board).
 - `TEST_NATMODS`: pass an optional list of space-separated names of natmods to test,
   so only the given subset of example natmods will be used by `test_natmod` (for
   example, `make test_natmod TEST_NATMODS="btree heapq re"`).
 - `MICROPY_HEAP_SIZE`: pass in an optional value (in bytes) for overriding the GC
   heap size used by the port.
+- `MICROPY_STACK_SIZE`: pass in an optional value (in bytes) for overriding the interpreter
+  stack size used by the port.

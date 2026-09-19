@@ -29,6 +29,13 @@ PROG ?= micropython
 QSTR_DEFS += ../unix/qstrdefsport.h
 QSTR_GLOBAL_DEPENDENCIES += $(VARIANT_DIR)/mpconfigvariant.h
 
+# Enable building 32-bit code on 64-bit hosts.
+ifeq ($(MICROPY_FORCE_32BIT),1)
+CC += -m32
+CXX += -m32
+LD += -m32
+endif
+
 # include py core make definitions
 include $(TOP)/py/py.mk
 include $(TOP)/extmod/extmod.mk
@@ -86,7 +93,7 @@ SRC_C += shared/readline/readline.c
 SRC_C += shared/runtime/pyexec.c
 endif
 
-LIB += -lws2_32
+LIBS += -lws2_32
 
 # List of sources for qstr extraction
 SRC_QSTR += $(SRC_C) $(SRC_CXX) $(SHARED_SRC_C)
@@ -103,8 +110,6 @@ ifeq ($(shell $(CC) -dumpmachine),i686-w64-mingw32)
 # https://lemire.me/blog/2020/06/26/gcc-not-nearest
 CFLAGS += -msse -mfpmath=sse -march=pentium4
 endif
-
-CXXFLAGS += $(filter-out -std=gnu99,$(CFLAGS))
 
 include $(TOP)/py/mkrules.mk
 

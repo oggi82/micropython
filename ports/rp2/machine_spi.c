@@ -32,6 +32,8 @@
 #include "hardware/spi.h"
 #include "hardware/dma.h"
 
+#if MICROPY_PY_MACHINE_SPI
+
 #define DEFAULT_SPI_BAUDRATE    (1000000)
 #define DEFAULT_SPI_POLARITY    (0)
 #define DEFAULT_SPI_PHASE       (0)
@@ -273,6 +275,7 @@ static void machine_spi_transfer(mp_obj_base_t *self_in, size_t len, const uint8
     bool use_dma = chan_rx >= 0 && chan_tx >= 0;
     // note src is guaranteed to be non-NULL
     bool write_only = dest == NULL;
+    bool success = true;
 
     if (use_dma) {
         uint8_t dev_null;
@@ -297,8 +300,23 @@ static void machine_spi_transfer(mp_obj_base_t *self_in, size_t len, const uint8
             false);
 
         dma_start_channel_mask((1u << chan_rx) | (1u << chan_tx));
-        dma_channel_wait_for_finish_blocking(chan_rx);
         dma_channel_wait_for_finish_blocking(chan_tx);
+
+        // Fix for #18471. Wait for SPI to finish then check for RX overrun
+        while (spi_is_busy(self->spi_inst) || spi_is_readable(self->spi_inst)) {
+        }
+        if (spi_get_const_hw(self->spi_inst)->ris & SPI_SSPRIS_RORRIS_BITS) {
+            // RX overrun occurred. Clear the flag for future transfers
+            spi_get_hw(self->spi_inst)->icr = SPI_SSPICR_RORIC_BITS;
+
+            // RX DMA channel needs to be manually aborted
+            dma_channel_abort(chan_rx);
+
+            // An RX overrun is only a problem if we were actually reading
+            if (!write_only) {
+                success = false;
+            }
+        }
     }
 
     // If we have claimed only one channel successfully, we should release immediately
@@ -316,6 +334,11 @@ static void machine_spi_transfer(mp_obj_base_t *self_in, size_t len, const uint8
         } else {
             spi_write_read_blocking(self->spi_inst, src, dest, len);
         }
+    }
+
+    // Raise OSError if something went wrong
+    if (!success) {
+        mp_raise_OSError(MP_EIO);
     }
 }
 
@@ -360,3 +383,5 @@ mp_obj_base_t *mp_hal_get_spi_obj(mp_obj_t o) {
         mp_raise_TypeError(MP_ERROR_TEXT("expecting an SPI object"));
     }
 }
+
+#endif // MICROPY_PY_MACHINE_SPI

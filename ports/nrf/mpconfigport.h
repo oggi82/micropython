@@ -87,9 +87,7 @@
 #define MICROPY_PY_ARRAY_SLICE_ASSIGN      (CORE_FEAT)
 #endif
 
-#ifndef MICROPY_PY_SYS_PLATFORM
 #define MICROPY_PY_SYS_PLATFORM            "nrf"
-#endif
 
 #ifndef MICROPY_PY_SYS_STDFILES
 #define MICROPY_PY_SYS_STDFILES            (CORE_FEAT)
@@ -97,6 +95,10 @@
 
 #ifndef MICROPY_PY_BINASCII
 #define MICROPY_PY_BINASCII                (CORE_FEAT)
+#endif
+
+#ifndef MICROPY_PY_SELECT
+#define MICROPY_PY_SELECT                  (MICROPY_PY_ASYNCIO)
 #endif
 
 #ifndef MICROPY_PY_NRF
@@ -226,6 +228,16 @@
 #endif
 
 #define MICROPY_PY_MACHINE_PWM      (MICROPY_PY_MACHINE_HW_PWM || MICROPY_PY_MACHINE_SOFT_PWM)
+
+// nrf91 (Cortex-M33 with TrustZone) has POWER->GPREGRET as a 2-element array
+// rather than separate GPREGRET/GPREGRET2 fields, and access requires the
+// secure/non-secure peripheral split. Not supported here.
+#if !defined(NRF91)
+#ifndef MICROPY_PY_MACHINE_MEM_BACKUP
+#define MICROPY_PY_MACHINE_MEM_BACKUP (1)
+#endif
+#define MICROPY_PY_MACHINE_MEM_BACKUP_INCLUDEFILE "ports/nrf/machine_mem_backup.c"
+#endif
 #define MICROPY_PY_MACHINE_PWM_DUTY (1)
 
 #if MICROPY_PY_MACHINE_HW_PWM
@@ -279,6 +291,7 @@
 #define MICROPY_PY_ATTRTUPLE                  (1)
 #define MICROPY_PY_BUILTINS_BYTEARRAY         (1)
 #define MICROPY_PY_BUILTINS_DICT_FROMKEYS     (1)
+#define MICROPY_PY_BUILTINS_DIR               (1)
 #define MICROPY_PY_BUILTINS_ENUMERATE         (1)
 #define MICROPY_PY_BUILTINS_EVAL_EXEC         (1)
 #define MICROPY_PY_BUILTINS_FILTER            (1)

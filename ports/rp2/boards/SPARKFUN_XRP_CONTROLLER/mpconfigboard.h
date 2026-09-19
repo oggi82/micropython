@@ -1,6 +1,5 @@
 // Board and hardware specific configuration
 #define MICROPY_HW_BOARD_NAME          "SparkFun XRP Controller"
-#define MICROPY_HW_FLASH_STORAGE_BYTES (PICO_FLASH_SIZE_BYTES - 1536 * 1024)
 
 // Enable networking.
 #define MICROPY_PY_NETWORK 1
@@ -47,6 +46,3 @@ int mp_hal_is_pin_reserved(int n);
 #define MICROPY_HW_UART1_RX (9)
 #define MICROPY_HW_UART1_CTS (10)
 #define MICROPY_HW_UART1_RTS (11)
-
-#define MICROPY_HW_PSRAM_CS_PIN (47)
-#define MICROPY_HW_ENABLE_PSRAM (1)

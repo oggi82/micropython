@@ -249,7 +249,8 @@ void machine_pin_config(const machine_pin_obj_t *self, uint8_t mode,
         GPIO_PortEnableInterrupts(self->gpio, 1U << self->pin);
         GPIO_PortClearInterruptFlags(self->gpio, ~0);
 
-        NVIC_SetPriority(irq_num, IRQ_PRI_EXTINT);
+        assert(irq_num >= 0); // possible values include NotAvail_IRQn=-128, but in practice that never occurs
+        NVIC_SetPriority(IRQn_NONNEG(irq_num), IRQ_PRI_EXTINT);
         EnableIRQ(irq_num);
     }
 }
@@ -329,7 +330,7 @@ static mp_obj_t machine_pin_obj_init_helper(const machine_pin_obj_t *self, size_
 static void machine_pin_obj_print(const mp_print_t *print, mp_obj_t o, mp_print_kind_t kind) {
     (void)kind;
     const machine_pin_obj_t *self = MP_OBJ_TO_PTR(o);
-    mp_printf(print, "Pin(%s)", qstr_str(self->name));
+    mp_printf(print, "Pin(%q)", (qstr)self->name);
 }
 
 // pin(id, mode, pull, ...)

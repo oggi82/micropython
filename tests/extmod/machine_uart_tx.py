@@ -26,6 +26,8 @@ elif "mimxrt" in sys.platform:
     bit_margin = 1
 elif "nrf" in sys.platform:
     timing_margin_us = 130
+elif "psoc-edge" in sys.platform:
+    timing_margin_us = 190
 elif "pyboard" in sys.platform:
     initial_delay_ms = 50  # UART sends idle frame after init, so wait for that
     bit_margin = 1  # first start-bit must wait to sync with the UART clock
@@ -37,7 +39,7 @@ elif "samd" in sys.platform:
 
 # Test that write+flush takes the expected amount of time to execute.
 for bits_per_s in (2400, 9600, 115200):
-    text = "Hello World"
+    text = "Hello World from MicroPython"
     uart = UART(*uart_loopback_args, baudrate=bits_per_s, **uart_loopback_kwargs)
     time.sleep_ms(initial_delay_ms)
 

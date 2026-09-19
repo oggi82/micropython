@@ -35,7 +35,7 @@
 # Once the API is stabilised, the idea is that mpremote can be used both
 # as a command line tool and a library for interacting with devices.
 
-import ast, io, os, re, struct, sys, time
+import ast, io, os, re, stat, struct, sys, time
 import serial
 import serial.tools.list_ports
 from errno import EPERM, ENOTTY
@@ -105,6 +105,20 @@ class SerialTransport(Transport):
         if delayed:
             print("")
 
+        self.is_pty = self._is_pty_device(device)
+
+    @staticmethod
+    def _is_pty_device(device):
+        """Detect if device is a PTY (pseudo-terminal), e.g. used by QEMU."""
+        if device.startswith("/dev/pts/"):
+            try:
+                st = os.stat(device)
+                if stat.S_ISCHR(st.st_mode) and os.major(st.st_rdev) == 136:
+                    return True
+            except (OSError, AttributeError):
+                pass
+        return False
+
     def close(self):
         # ESP Windows quirk: Prevent target from resetting when Windows clears DTR before RTS
         try:
@@ -140,8 +154,10 @@ class SerialTransport(Transport):
         while True:
             if data.endswith(ending):
                 break
-            elif self.serial.inWaiting() > 0:
+            new_data = None
+            if self.is_pty or self.serial.inWaiting() > 0:
                 new_data = self.serial.read(1)
+            if new_data:
                 if data_consumer:
                     data_consumer(new_data)
                     data = new_data
@@ -536,12 +552,22 @@ class RemoteCommand:
         self.fout.write(self.buf4)
 
     def wr_bytes(self, b):
-        self.wr_s32(len(b))
+        if isinstance(b, str):
+            b = bytes(b, "utf8")
+        self.wr_s32(self.buffer_nbytes(b))
         self.fout.write(b)
 
     # str and bytes act the same in MicroPython
     wr_str = wr_bytes
 
+    def buffer_nbytes(self, obj):
+        if isinstance(obj, (str, bytes, bytearray)):
+            return len(obj)
+        mv = memoryview(obj)
+        if hasattr(mv, "itemsize"):
+            return len(mv) * mv.itemsize
+        # Fallback for uncommon buffer providers.
+        return len(bytes(obj))
 
 class RemoteFile(io.IOBase):
     def __init__(self, cmd, fd, is_text):
@@ -611,7 +637,7 @@ class RemoteFile(io.IOBase):
         c = self.cmd
         c.begin(CMD_READ)
         c.wr_s8(self.fd)
-        c.wr_s32(len(buf))
+        c.wr_s32(c.buffer_nbytes(buf))
         n = c.rd_bytes(buf)
         c.end()
         return n

@@ -25,8 +25,9 @@ Functions
      Note that for mbedtls based ports, ``ssl.CERT_NONE`` and ``ssl.CERT_OPTIONAL`` will not
      validate any certificate, only ``ssl.CERT_REQUIRED`` will.
 
-   - *cadata* is a bytes object containing the CA certificate chain (in DER format) that will
-     validate the peer's certificate.  Currently only a single DER-encoded certificate is supported.
+   - *cadata* is a str or bytes object containing the CA certificate chain that will validate the
+     peer's certificate.  It can be one or more certificates in PEM format, or single DER-encoded
+     certificate.
 
    Depending on the underlying module implementation in a particular
    :term:`MicroPython port`, some or all keyword arguments above may be not supported.
@@ -65,6 +66,31 @@ class SSLContext
 
    Set the available ciphers for sockets created with this context.  *ciphers* should be
    a list of strings in the `IANA cipher suite format <https://wiki.mozilla.org/Security/Cipher_Suites>`_ .
+
+.. attribute:: SSLContext.psk_identity
+               SSLContext.psk_key
+
+   The pre-shared key (PSK) identity and key to authenticate with as a client.
+   Set both to use PSK: *psk_identity* is the identity sent to the server and
+   *psk_key* is the shared key, both as `bytes` objects.
+
+   While PSK is configured the context offers only PSK cipher suites, so the
+   connection cannot fall back to a non-PSK (e.g. certificate-based) suite.
+
+   Availability depends on the port's mbedTLS being built with PSK support.
+
+.. attribute:: SSLContext.server_psk_keys
+
+   A mapping used by a server to look up the key for the identity presented by a
+   connecting client.  Set it to accept PSK clients::
+
+      ctx.server_psk_keys = {b"my-identity": b"my-key"}
+
+   Its ``get()`` method is called with the client's identity (a `bytes` object)
+   and should return the corresponding key as a `bytes` object, or ``None`` to
+   reject an unknown identity.  Any object providing such a ``get()`` method may
+   be used, so keys can be computed or fetched on demand.  As with the client,
+   the context is restricted to PSK cipher suites while this is set.
 
 .. method:: SSLContext.wrap_socket(sock, *, server_side=False, do_handshake_on_connect=True, server_hostname=None, client_id=None)
 

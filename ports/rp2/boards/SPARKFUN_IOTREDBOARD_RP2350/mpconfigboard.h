@@ -1,6 +1,5 @@
 // Board and hardware specific configuration
 #define MICROPY_HW_BOARD_NAME                   "SparkFun IoT RedBoard RP2350"
-#define MICROPY_HW_FLASH_STORAGE_BYTES          (PICO_FLASH_SIZE_BYTES - 1536 * 1024)
 
 // Enable networking.
 #define MICROPY_PY_NETWORK 1
@@ -45,9 +44,7 @@
 #define MICROPY_HW_SPI1_MOSI (11)
 #define MICROPY_HW_SPI1_MISO (8)
 
-// PSRAM
-#define MICROPY_HW_PSRAM_CS_PIN (47)
-#define MICROPY_HW_ENABLE_PSRAM (1)
+// PSRAM enabled in mpconfigboard.cmake
 
 // #include "enable_cyw43.h"
 

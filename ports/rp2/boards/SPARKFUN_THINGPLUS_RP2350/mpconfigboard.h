@@ -1,6 +1,5 @@
 // Board and hardware specific configuration
 #define MICROPY_HW_BOARD_NAME          "SparkFun Thing Plus RP2350"
-#define MICROPY_HW_FLASH_STORAGE_BYTES (14 * 1024 * 1024)
 
 // Enable networking.
 #define MICROPY_PY_NETWORK 1
@@ -43,6 +42,3 @@ int mp_hal_is_pin_reserved(int n);
 #define MICROPY_HW_UART1_RX (5)
 #define MICROPY_HW_UART1_CTS (6)
 #define MICROPY_HW_UART1_RTS (7)
-
-#define MICROPY_HW_PSRAM_CS_PIN (8)
-#define MICROPY_HW_ENABLE_PSRAM (1)

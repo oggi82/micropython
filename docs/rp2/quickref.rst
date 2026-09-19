@@ -207,10 +207,26 @@ See :ref:`machine.UART <machine.UART>`. ::
     uart1.write('hello')  # write 5 bytes
     uart1.read(5)         # read up to 5 bytes
 
-.. note::
+It is possible to access the REPL over UART, but this is disabled by
+default.  To duplicate the REPL stream over UART, use :func:`os.dupterm`.
+This code should be in :ref:`boot.py` or :ref:`main.py` to establish UART on boot.
 
-    REPL over UART is disabled by default. You can see the :ref:`rp2_intro` for
-    details on how to enable REPL over UART.
+.. code-block:: python
+
+    from machine import UART
+    import os
+    uart = UART(0)
+    os.dupterm(uart, 0)
+    uart.irq(os.dupterm_notify, UART.IRQ_RXIDLE) # ensure inputs are handled
+
+To use UART for REPL instead of the standard USB interface (for example if you are
+using :mod:`machine.USBDevice`), you will need to :doc:`build MicroPython from source </develop/gettingstarted>`.
+Modify ``ports/rp2/mpconfigport.h``, and change the ``MICROPY_HW_ENABLE_UART_REPL``
+variable to ``1``:
+
+.. code-block:: c
+
+    #define MICROPY_HW_ENABLE_UART_REPL             (1) // useful if there is no USB
 
 
 PWM (pulse width modulation)
@@ -226,7 +242,7 @@ are at slice 1, and so on. A certain channel can be assigned to
 different GPIO pins (see Pinout). For instance slice 0, channel A can be assigned
 to both GPIO0 and GPIO16.
 
-Use the ``machine.PWM`` class::
+Use the :ref:`machine.PWM <machine.PWM>` class::
 
     from machine import Pin, PWM
 
@@ -336,7 +352,7 @@ has the same methods as software I2C above::
 
     from machine import Pin, I2C
 
-    i2c = I2C(0)   # default assignment: scl=Pin(9), sda=Pin(8)
+    i2c = I2C(0)   # default assignment for Pico: scl=Pin(5), sda=Pin(4)
     i2c = I2C(1, scl=Pin(3), sda=Pin(2), freq=400_000)
 
 I2S bus

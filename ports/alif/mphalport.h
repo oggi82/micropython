@@ -272,6 +272,9 @@ enum {
     MP_HAL_PIN_ALT_UART_TX,
     MP_HAL_PIN_ALT_UT_T0,
     MP_HAL_PIN_ALT_UT_T1,
+    MP_HAL_PIN_ALT_CAN_TXD,
+    MP_HAL_PIN_ALT_CAN_RXD,
+    MP_HAL_PIN_ALT_CAN_STBY,
 };
 
 typedef struct _machine_pin_obj_t {
@@ -312,11 +315,25 @@ static inline void mp_hal_pin_open_drain(mp_hal_pin_obj_t pin) {
     gpio_set_direction_output(pin->gpio, pin->pin);
 }
 
+static inline void mp_hal_pin_config_irq_rising(mp_hal_pin_obj_t pin, bool enable) {
+    if (enable) {
+        gpio_enable_interrupt(pin->gpio, pin->pin);
+        gpio_unmask_interrupt(pin->gpio, pin->pin);
+        gpio_interrupt_set_edge_trigger(pin->gpio, pin->pin);
+        gpio_interrupt_set_polarity_high(pin->gpio, pin->pin);
+        gpio_interrupt_eoi(pin->gpio, pin->pin);
+    } else {
+        gpio_disable_interrupt(pin->gpio, pin->pin);
+    }
+}
+
 static inline void mp_hal_pin_config_irq_falling(mp_hal_pin_obj_t pin, bool enable) {
     if (enable) {
         gpio_enable_interrupt(pin->gpio, pin->pin);
+        gpio_unmask_interrupt(pin->gpio, pin->pin);
         gpio_interrupt_set_edge_trigger(pin->gpio, pin->pin);
         gpio_interrupt_set_polarity_low(pin->gpio, pin->pin);
+        gpio_interrupt_eoi(pin->gpio, pin->pin);
     } else {
         gpio_disable_interrupt(pin->gpio, pin->pin);
     }

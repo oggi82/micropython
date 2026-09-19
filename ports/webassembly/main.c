@@ -47,24 +47,28 @@
 // This counter tracks the current depth of calls into C code that originated
 // externally, ie from JavaScript.  When the counter is 0 that corresponds to
 // the top-level call into C.
+#if MICROPY_GC_SPLIT_HEAP_AUTO
 static size_t external_call_depth = 0;
+#endif
 
 // Emscripten defaults to a 64k C-stack, so our limit should be less than that.
 #define CSTACK_SIZE (32 * 1024)
 
 #if MICROPY_GC_SPLIT_HEAP_AUTO
-static void gc_collect_top_level(void);
+static void gc_collect_top_level(mp_obj_t root_obj);
 #endif
 
 void external_call_depth_inc(void) {
+    #if MICROPY_GC_SPLIT_HEAP_AUTO
     ++external_call_depth;
+    #endif
 }
 
-void external_call_depth_dec(void) {
-    --external_call_depth;
+void external_call_depth_dec(mp_obj_t root_obj) {
     #if MICROPY_GC_SPLIT_HEAP_AUTO
+    --external_call_depth;
     if (external_call_depth == 0) {
-        gc_collect_top_level();
+        gc_collect_top_level(root_obj);
     }
     #endif
 }
@@ -134,11 +138,12 @@ void mp_js_do_import(const char *name, uint32_t *out) {
         }
         nlr_pop();
         proxy_convert_mp_to_js_obj_cside(ret, out);
+        external_call_depth_dec(ret);
     } else {
         // uncaught exception
         proxy_convert_mp_to_js_exc_cside(nlr.ret_val, out);
+        external_call_depth_dec(nlr.ret_val);
     }
-    external_call_depth_dec();
 }
 
 void mp_js_do_exec(const char *src, size_t len, uint32_t *out) {
@@ -153,11 +158,12 @@ void mp_js_do_exec(const char *src, size_t len, uint32_t *out) {
         mp_obj_t ret = mp_call_function_0(module_fun);
         nlr_pop();
         proxy_convert_mp_to_js_obj_cside(ret, out);
+        external_call_depth_dec(ret);
     } else {
         // uncaught exception
         proxy_convert_mp_to_js_exc_cside(nlr.ret_val, out);
+        external_call_depth_dec(nlr.ret_val);
     }
-    external_call_depth_dec();
 }
 
 void mp_js_do_exec_async(const char *src, size_t len, uint32_t *out) {
@@ -173,7 +179,7 @@ void mp_js_repl_init(void) {
 int mp_js_repl_process_char(int c) {
     external_call_depth_inc();
     int ret = pyexec_event_repl_process_char(c);
-    external_call_depth_dec();
+    external_call_depth_dec(MP_OBJ_NULL);
     return ret;
 }
 
@@ -192,10 +198,11 @@ void gc_collect(void) {
 }
 
 // Collect at the top-level, where there are no root pointers from stack/registers.
-static void gc_collect_top_level(void) {
+static void gc_collect_top_level(mp_obj_t root_obj) {
     if (gc_collect_pending) {
         gc_collect_pending = false;
         gc_collect_start();
+        gc_collect_root(&root_obj, 1);
         gc_collect_end();
     }
 }

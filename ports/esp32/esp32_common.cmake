@@ -129,6 +129,7 @@ list(APPEND MICROPY_SOURCE_PORT
     network_lan.c
     network_ppp.c
     network_wlan.c
+    network_wlan_csi.c
     mpnimbleport.c
     modsocket.c
     lwip_patch.c
@@ -169,6 +170,7 @@ list(APPEND IDF_COMPONENTS
     esp_app_format
     esp_mm
     esp_common
+    esp_driver_gptimer
     esp_eth
     esp_event
     esp_hw_support
@@ -277,6 +279,11 @@ target_compile_options(${MICROPY_TARGET} PUBLIC
     -Wno-missing-field-initializers
 )
 
+# User C modules don't pick up certain compile options set by the IDF, most
+# importantly the optimisation level.  So set them here.
+idf_build_get_property(idf_compile_options COMPILE_OPTIONS)
+target_compile_options(usermod INTERFACE ${idf_compile_options})
+
 # Additional include directories needed for private NimBLE headers.
 target_include_directories(${MICROPY_TARGET} PUBLIC
     ${IDF_PATH}/components/bt/host/nimble/nimble
@@ -301,6 +308,7 @@ target_link_options(${MICROPY_TARGET} PUBLIC
   # Enable the panic handler wrapper
   -Wl,--undefined=esp_panic_handler
   -Wl,--wrap=esp_panic_handler
+  -Wl,--wrap=esp_efuse_rtc_calib_get_ver
 )
 
 # Collect all of the include directories and compile definitions for the IDF components,
@@ -309,6 +317,10 @@ foreach(comp ${__COMPONENT_NAMES_RESOLVED})
     micropy_gather_target_properties(__idf_${comp})
     micropy_gather_target_properties(${comp})
 endforeach()
+
+# Explicitly add extra definitions for MicroPython's preprocessing stage
+# (these are not picked up by the above micropy_gather_target_properties).
+list(APPEND MICROPY_CPP_DEF_EXTRA "ESP_PLATFORM")
 
 # Include the main MicroPython cmake rules.
 include(${MICROPY_DIR}/py/mkrules.cmake)

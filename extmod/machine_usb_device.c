@@ -28,7 +28,7 @@
 
 #if MICROPY_HW_ENABLE_USB_RUNTIME_DEVICE
 
-#include "mp_usbd.h"
+#include "shared/tinyusb/mp_usbd.h"
 #include "py/mperrno.h"
 #include "py/objstr.h"
 
@@ -117,7 +117,12 @@ static mp_obj_t usb_device_submit_xfer(mp_obj_t self, mp_obj_t ep, mp_obj_t buff
         mp_raise_OSError(MP_EBUSY);
     }
 
+    #if TUSB_VERSION_NUMBER >= 2001
+    // This submit path runs from the MicroPython scheduler, never an ISR.
+    result = usbd_edpt_xfer(RHPORT, ep_addr, buf_info.buf, buf_info.len, false);
+    #else
     result = usbd_edpt_xfer(RHPORT, ep_addr, buf_info.buf, buf_info.len);
+    #endif
 
     if (result) {
         // Store the buffer object until the transfer completes
@@ -302,6 +307,16 @@ static const mp_rom_map_elem_t usb_device_locals_dict_table[] = {
     { MP_ROM_QSTR(MP_QSTR_BUILTIN_CDC_MSC), MP_ROM_PTR(&mp_type_usb_device_builtin_default) },
     #endif
     #endif // !HAS_BUILTIN_DRIVERS
+
+    // xfer_cb result values
+    // These are a subset of tusb_xfer_result_t
+    { MP_ROM_QSTR(MP_QSTR_XFER_SUCCESS), MP_OBJ_NEW_SMALL_INT(XFER_RESULT_SUCCESS) },
+    { MP_ROM_QSTR(MP_QSTR_XFER_FAILED), MP_OBJ_NEW_SMALL_INT(XFER_RESULT_FAILED) },
+    { MP_ROM_QSTR(MP_QSTR_XFER_STALLED), MP_OBJ_NEW_SMALL_INT(XFER_RESULT_STALLED) },
+    // Some values of tusb_xfer_result_t are not exposed here:
+    // - XFER_RESULT_TIMEOUT only appears if you call the "sync" API subset, or in one
+    //   case from the samd host controller.
+    // - XFER_RESULT_INVALID only appears in the host controller APIs
 };
 static MP_DEFINE_CONST_DICT(usb_device_locals_dict, usb_device_locals_dict_table);
 
