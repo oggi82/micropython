@@ -62,12 +62,23 @@ enum {
   AF_PIN_TYPE_TIM_IN,
 };
 
-// CCU8 (AF_FN_TIM8): same idx convention as above, but against CCU8 slices
-// (XMC_GPIO_MODE_OUTPUT_ALTn for TIM8_OUT, CC8yINS select code for TIM8_IN).
+// CCU8 (AF_FN_TIM8): idx is still the GPIO ALTn for outputs / CC8yINS select
+// code for TIM8_IN. Each CCU8 slice has 4 named output pins OUT0..OUT3: OUT0
+// and OUT1 both carry compare channel 1's status (as a passive-level choice,
+// not two different signals), OUT2 and OUT3 both carry channel 2's. A given
+// board pin is wired to exactly one of these four, so the type itself must
+// carry which one (not just "it's an output") so timer.c knows which
+// compare channel (TIM8_OUT0/1 -> channel 1, TIM8_OUT2/3 -> channel 2) and
+// which XMC_CCU8_SLICE_OUTPUT_t to pass to XMC_CCU8_SLICE_SetPassiveLevel().
 enum {
-  AF_PIN_TYPE_TIM8_OUT = 0,
+  AF_PIN_TYPE_TIM8_OUT0 = 0,
+  AF_PIN_TYPE_TIM8_OUT1,
+  AF_PIN_TYPE_TIM8_OUT2,
+  AF_PIN_TYPE_TIM8_OUT3,
   AF_PIN_TYPE_TIM8_IN,
 };
+#define AF_TIM8_OUT_CHANNEL(af_type) (((af_type) < AF_PIN_TYPE_TIM8_OUT2) ? 1 : 2)
+#define AF_TIM8_OUT_N(af_type)       (af_type)
 
 // Flat timer-id scheme: each machine.Timer id addresses exactly one CCU4/CCU8
 // slice (its own independent counter/period), not a 4-channel STM32-style
