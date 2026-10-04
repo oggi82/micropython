@@ -49,7 +49,6 @@
 
 
 typedef struct {
-  mp_obj_base_t base;
   qstr name;
   uint8_t idx;
   uint8_t fn;

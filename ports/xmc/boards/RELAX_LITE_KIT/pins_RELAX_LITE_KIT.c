@@ -8,15 +8,18 @@
 #include "py/obj.h"
 #include "pin.h"
 
-#define AF(af_idx, af_fn, af_unit, af_type, af_ptr)    \
-  {                                                    \
-    {&pin_af_type},                                    \
-        .name = MP_QSTR_AF##af_idx##_##af_fn##af_unit, \
-        .idx = (af_idx),                               \
-        .fn = AF_FN_##af_fn,                           \
-        .unit = (af_unit),                             \
-        .type = AF_PIN_TYPE_##af_fn##_##af_type,       \
-        .reg = (af_ptr)                                \
+// .name is a fixed qstr (not derived from af_idx/af_fn/af_unit): the lookup
+// logic only ever matches on .fn/.unit/.idx, and generating one fresh qstr
+// per (idx,fn,unit) combination here made the qstr auto-collector merge two
+// unrelated Q(...) markers from adjacent translation units into garbage.
+#define AF(af_idx, af_fn, af_unit, af_type, af_ptr) \
+  {                                                 \
+        .name = MP_QSTR_AF,                         \
+        .idx = (af_idx),                            \
+        .fn = AF_FN_##af_fn,                        \
+        .unit = (af_unit),                          \
+        .type = AF_PIN_TYPE_##af_fn##_##af_type,    \
+        .reg = (af_ptr)                             \
   }
 
 #define PIN(p_port, p_pin, p_af, p_adc_num, p_adc_channel) \
@@ -33,19 +36,35 @@
         .adc_channel = p_adc_channel,                      \
   }
 
-const pin_af_obj_t pin0_0_af[] = {};
+const pin_af_obj_t pin0_0_af[] = {
+    AF(3, TIM8, 18, OUT, NULL),
+};
 const pin_obj_t pin0_0_obj = PIN(0, 0, pin0_0_af, 0, 0);
-const pin_af_obj_t pin0_10_af[] = {};
+const pin_af_obj_t pin0_10_af[] = {
+    AF(3, TIM8, 16, OUT, NULL),
+};
 const pin_obj_t pin0_10_obj = PIN(0, 10, pin0_10_af, 0, 0);
-const pin_af_obj_t pin0_1_af[] = {};
+const pin_af_obj_t pin0_1_af[] = {
+    AF(3, TIM8, 17, OUT, NULL),
+};
 const pin_obj_t pin0_1_obj = PIN(0, 1, pin0_1_af, 0, 0);
-const pin_af_obj_t pin0_9_af[] = {};
+const pin_af_obj_t pin0_9_af[] = {
+    AF(3, TIM8, 17, OUT, NULL),
+};
 const pin_obj_t pin0_9_obj = PIN(0, 9, pin0_9_af, 0, 0);
-const pin_af_obj_t pin3_1_af[] = {};
+const pin_af_obj_t pin3_1_af[] = {
+    AF(2, TIM8, 17, IN, NULL),
+};
 const pin_obj_t pin3_1_obj = PIN(3, 1, pin3_1_af, 0, 0);
-const pin_af_obj_t pin3_2_af[] = {};
+const pin_af_obj_t pin3_2_af[] = {
+    AF(2, TIM8, 16, IN, NULL),
+};
 const pin_obj_t pin3_2_obj = PIN(3, 2, pin3_2_af, 0, 0);
-const pin_af_obj_t pin3_0_af[] = {};
+const pin_af_obj_t pin3_0_af[] = {
+    AF(3, TIM, 8, OUT, NULL),
+    AF(2, TIM8, 18, IN, NULL),
+    AF(2, TIM8, 20, IN, NULL),
+};
 const pin_obj_t pin3_0_obj = PIN(3, 0, pin3_0_af, 0, 0);
 const pin_af_obj_t pin15_3_af[] = {};
 const pin_obj_t pin15_3_obj = PIN(15, 3, pin15_3_af, 0, 0);
@@ -75,77 +94,173 @@ const pin_af_obj_t pin14_2_af[] = {};
 const pin_obj_t pin14_2_obj = PIN(14, 2, pin14_2_af, 0, 0);
 const pin_af_obj_t pin14_0_af[] = {};
 const pin_obj_t pin14_0_obj = PIN(14, 0, pin14_0_af, 0, 0);
-const pin_af_obj_t pin2_15_af[] = {};
+const pin_af_obj_t pin2_15_af[] = {
+    AF(3, TIM8, 17, OUT, NULL),
+    AF(1, TIM, 8, IN, NULL),
+    AF(1, TIM, 9, IN, NULL),
+    AF(1, TIM, 10, IN, NULL),
+    AF(1, TIM, 11, IN, NULL),
+};
 const pin_obj_t pin2_15_obj = PIN(2, 15, pin2_15_af, 0, 0);
 const pin_af_obj_t pin14_9_af[] = {};
 const pin_obj_t pin14_9_obj = PIN(14, 9, pin14_9_af, 0, 0);
-const pin_af_obj_t pin2_14_af[] = {};
+const pin_af_obj_t pin2_14_af[] = {
+    AF(3, TIM8, 18, OUT, NULL),
+    AF(1, TIM, 12, IN, NULL),
+    AF(1, TIM, 13, IN, NULL),
+    AF(1, TIM, 14, IN, NULL),
+    AF(1, TIM, 15, IN, NULL),
+};
 const pin_obj_t pin2_14_obj = PIN(2, 14, pin2_14_af, 0, 0);
 const pin_af_obj_t pin14_8_af[] = {};
 const pin_obj_t pin14_8_obj = PIN(14, 8, pin14_8_af, 0, 0);
-const pin_af_obj_t pin2_1_af[] = {};
+const pin_af_obj_t pin2_1_af[] = {
+    AF(2, TIM8, 21, OUT, NULL),
+    AF(2, TIM, 0, IN, NULL),
+};
 const pin_obj_t pin2_1_obj = PIN(2, 1, pin2_1_af, 0, 0);
 const pin_af_obj_t pin2_10_af[] = {};
 const pin_obj_t pin2_10_obj = PIN(2, 10, pin2_10_af, 0, 0);
-const pin_af_obj_t pin2_6_af[] = {};
+const pin_af_obj_t pin2_6_af[] = {
+    AF(3, TIM8, 17, OUT, NULL),
+    AF(2, TIM, 3, IN, NULL),
+};
 const pin_obj_t pin2_6_obj = PIN(2, 6, pin2_6_af, 0, 0);
-const pin_af_obj_t pin5_7_af[] = {};
+const pin_af_obj_t pin5_7_af[] = {
+    AF(3, TIM8, 20, OUT, NULL),
+};
 const pin_obj_t pin5_7_obj = PIN(5, 7, pin5_7_af, 0, 0);
-const pin_af_obj_t pin5_2_af[] = {};
+const pin_af_obj_t pin5_2_af[] = {
+    AF(3, TIM8, 22, OUT, NULL),
+    AF(1, TIM8, 21, IN, NULL),
+};
 const pin_obj_t pin5_2_obj = PIN(5, 2, pin5_2_af, 0, 0);
-const pin_af_obj_t pin5_1_af[] = {};
+const pin_af_obj_t pin5_1_af[] = {
+    AF(3, TIM8, 23, OUT, NULL),
+    AF(1, TIM8, 20, IN, NULL),
+};
 const pin_obj_t pin5_1_obj = PIN(5, 1, pin5_1_af, 0, 0);
-const pin_af_obj_t pin5_0_af[] = {};
+const pin_af_obj_t pin5_0_af[] = {
+    AF(3, TIM8, 23, OUT, NULL),
+    AF(0, TIM8, 20, IN, NULL),
+    AF(0, TIM8, 21, IN, NULL),
+    AF(0, TIM8, 22, IN, NULL),
+    AF(0, TIM8, 23, IN, NULL),
+};
 const pin_obj_t pin5_0_obj = PIN(5, 0, pin5_0_af, 0, 0);
-const pin_af_obj_t pin1_15_af[] = {};
+const pin_af_obj_t pin1_15_af[] = {
+    AF(3, TIM8, 20, OUT, NULL),
+};
 const pin_obj_t pin1_15_obj = PIN(1, 15, pin1_15_af, 0, 0);
-const pin_af_obj_t pin1_14_af[] = {};
+const pin_af_obj_t pin1_14_af[] = {
+    AF(3, TIM8, 21, OUT, NULL),
+};
 const pin_obj_t pin1_14_obj = PIN(1, 14, pin1_14_af, 0, 0);
-const pin_af_obj_t pin1_13_af[] = {};
+const pin_af_obj_t pin1_13_af[] = {
+    AF(3, TIM8, 22, OUT, NULL),
+};
 const pin_obj_t pin1_13_obj = PIN(1, 13, pin1_13_af, 0, 0);
-const pin_af_obj_t pin1_12_af[] = {};
+const pin_af_obj_t pin1_12_af[] = {
+    AF(3, TIM8, 20, OUT, NULL),
+};
 const pin_obj_t pin1_12_obj = PIN(1, 12, pin1_12_af, 0, 0);
-const pin_af_obj_t pin1_11_af[] = {};
+const pin_af_obj_t pin1_11_af[] = {
+    AF(3, TIM8, 21, OUT, NULL),
+    AF(2, TIM, 7, IN, NULL),
+};
 const pin_obj_t pin1_11_obj = PIN(1, 11, pin1_11_af, 0, 0);
-const pin_af_obj_t pin1_10_af[] = {};
+const pin_af_obj_t pin1_10_af[] = {
+    AF(3, TIM8, 22, OUT, NULL),
+    AF(2, TIM, 6, IN, NULL),
+};
 const pin_obj_t pin1_10_obj = PIN(1, 10, pin1_10_af, 0, 0);
-const pin_af_obj_t pin1_5_af[] = {};
+const pin_af_obj_t pin1_5_af[] = {
+    AF(3, TIM8, 18, OUT, NULL),
+    AF(4, TIM8, 21, OUT, NULL),
+    AF(2, TIM, 5, IN, NULL),
+};
 const pin_obj_t pin1_5_obj = PIN(1, 5, pin1_5_af, 0, 0);
-const pin_af_obj_t pin1_4_af[] = {};
+const pin_af_obj_t pin1_4_af[] = {
+    AF(3, TIM8, 19, OUT, NULL),
+    AF(4, TIM8, 22, OUT, NULL),
+    AF(2, TIM, 4, IN, NULL),
+};
 const pin_obj_t pin1_4_obj = PIN(1, 4, pin1_4_af, 0, 0);
-const pin_af_obj_t pin1_3_af[] = {};
+const pin_af_obj_t pin1_3_af[] = {
+    AF(3, TIM, 0, OUT, NULL),
+    AF(0, TIM, 0, IN, NULL),
+};
 const pin_obj_t pin1_3_obj = PIN(1, 3, pin1_3_af, 0, 0);
-const pin_af_obj_t pin1_2_af[] = {};
+const pin_af_obj_t pin1_2_af[] = {
+    AF(3, TIM, 1, OUT, NULL),
+    AF(0, TIM, 1, IN, NULL),
+};
 const pin_obj_t pin1_2_obj = PIN(1, 2, pin1_2_af, 0, 0);
-const pin_af_obj_t pin1_1_af[] = {};
+const pin_af_obj_t pin1_1_af[] = {
+    AF(3, TIM, 2, OUT, NULL),
+    AF(0, TIM, 2, IN, NULL),
+};
 const pin_obj_t pin1_1_obj = PIN(1, 1, pin1_1_af, 0, 0);
-const pin_af_obj_t pin1_0_af[] = {};
+const pin_af_obj_t pin1_0_af[] = {
+    AF(3, TIM, 3, OUT, NULL),
+    AF(0, TIM, 3, IN, NULL),
+};
 const pin_obj_t pin1_0_obj = PIN(1, 0, pin1_0_af, 0, 0);
 const pin_af_obj_t pin1_9_af[] = {};
 const pin_obj_t pin1_9_obj = PIN(1, 9, pin1_9_af, 0, 0);
 const pin_af_obj_t pin1_8_af[] = {};
 const pin_obj_t pin1_8_obj = PIN(1, 8, pin1_8_af, 0, 0);
-const pin_af_obj_t pin0_8_af[] = {};
+const pin_af_obj_t pin0_8_af[] = {
+    AF(1, TIM8, 17, IN, NULL),
+};
 const pin_obj_t pin0_8_obj = PIN(0, 8, pin0_8_af, 0, 0);
-const pin_af_obj_t pin0_7_af[] = {};
+const pin_af_obj_t pin0_7_af[] = {
+    AF(0, TIM8, 16, IN, NULL),
+    AF(0, TIM8, 17, IN, NULL),
+    AF(0, TIM8, 18, IN, NULL),
+    AF(0, TIM8, 19, IN, NULL),
+};
 const pin_obj_t pin0_7_obj = PIN(0, 7, pin0_7_af, 0, 0);
-const pin_af_obj_t pin3_4_af[] = {};
+const pin_af_obj_t pin3_4_af[] = {
+    AF(3, TIM, 10, OUT, NULL),
+    AF(0, TIM, 10, IN, NULL),
+    AF(1, TIM8, 16, IN, NULL),
+};
 const pin_obj_t pin3_4_obj = PIN(3, 4, pin3_4_af, 0, 0);
-const pin_af_obj_t pin3_3_af[] = {};
+const pin_af_obj_t pin3_3_af[] = {
+    AF(3, TIM, 11, OUT, NULL),
+    AF(0, TIM, 11, IN, NULL),
+    AF(1, TIM8, 19, IN, NULL),
+};
 const pin_obj_t pin3_3_obj = PIN(3, 3, pin3_3_af, 0, 0);
-const pin_af_obj_t pin0_12_af[] = {};
+const pin_af_obj_t pin0_12_af[] = {
+    AF(3, TIM, 3, OUT, NULL),
+};
 const pin_obj_t pin0_12_obj = PIN(0, 12, pin0_12_af, 0, 0);
-const pin_af_obj_t pin0_11_af[] = {};
+const pin_af_obj_t pin0_11_af[] = {
+    AF(3, TIM8, 19, OUT, NULL),
+};
 const pin_obj_t pin0_11_obj = PIN(0, 11, pin0_11_af, 0, 0);
-const pin_af_obj_t pin0_6_af[] = {};
+const pin_af_obj_t pin0_6_af[] = {
+    AF(3, TIM8, 19, OUT, NULL),
+    AF(1, TIM8, 18, IN, NULL),
+};
 const pin_obj_t pin0_6_obj = PIN(0, 6, pin0_6_af, 0, 0);
-const pin_af_obj_t pin0_5_af[] = {};
+const pin_af_obj_t pin0_5_af[] = {
+    AF(3, TIM8, 16, OUT, NULL),
+};
 const pin_obj_t pin0_5_obj = PIN(0, 5, pin0_5_af, 0, 0);
-const pin_af_obj_t pin0_2_af[] = {};
+const pin_af_obj_t pin0_2_af[] = {
+    AF(3, TIM8, 16, OUT, NULL),
+};
 const pin_obj_t pin0_2_obj = PIN(0, 2, pin0_2_af, 0, 0);
-const pin_af_obj_t pin0_3_af[] = {};
+const pin_af_obj_t pin0_3_af[] = {
+    AF(3, TIM8, 18, OUT, NULL),
+};
 const pin_obj_t pin0_3_obj = PIN(0, 3, pin0_3_af, 0, 0);
-const pin_af_obj_t pin0_4_af[] = {};
+const pin_af_obj_t pin0_4_af[] = {
+    AF(3, TIM8, 17, OUT, NULL),
+};
 const pin_obj_t pin0_4_obj = PIN(0, 4, pin0_4_af, 0, 0);
 
 static const mp_rom_map_elem_t pin_cpu_pins_locals_dict_table[] = {

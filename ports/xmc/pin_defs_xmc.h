@@ -44,7 +44,8 @@ enum {
 
 // Must have matching entries in SUPPORTED_FN in boards/make-pins.py
 enum {
-  AF_FN_TIM,
+  AF_FN_TIM,   // CCU4 slice, unit = flat slice id 0..15 (module*4 + slice)
+  AF_FN_TIM8,  // CCU8 slice, unit = flat slice id 16..23 (16 + module*4 + slice)
 //   AF_FN_I2C,
 //   AF_FN_USART,
 //   AF_FN_UART = AF_FN_USART,
@@ -53,6 +54,31 @@ enum {
 //   AF_FN_SDMMC,
 //   AF_FN_CAN,
 };
+
+// CCU4 (AF_FN_TIM): idx is the GPIO alternate-function number (XMC_GPIO_MODE_OUTPUT_ALTn)
+// for TIM_OUT, or the raw CC4yINS input-select code (from xmc4_ccu4_map.h) for TIM_IN.
+enum {
+  AF_PIN_TYPE_TIM_OUT = 0,
+  AF_PIN_TYPE_TIM_IN,
+};
+
+// CCU8 (AF_FN_TIM8): same idx convention as above, but against CCU8 slices
+// (XMC_GPIO_MODE_OUTPUT_ALTn for TIM8_OUT, CC8yINS select code for TIM8_IN).
+enum {
+  AF_PIN_TYPE_TIM8_OUT = 0,
+  AF_PIN_TYPE_TIM8_IN,
+};
+
+// Flat timer-id scheme: each machine.Timer id addresses exactly one CCU4/CCU8
+// slice (its own independent counter/period), not a 4-channel STM32-style
+// timer. Timer(0..15) = CCU40.0..CCU43.3, Timer(16..23) = CCU80.0..CCU81.3.
+#define TIMER_ID_CCU40(slice) (0  + (slice))
+#define TIMER_ID_CCU41(slice) (4  + (slice))
+#define TIMER_ID_CCU42(slice) (8  + (slice))
+#define TIMER_ID_CCU43(slice) (12 + (slice))
+#define TIMER_ID_CCU80(slice) (16 + (slice))
+#define TIMER_ID_CCU81(slice) (20 + (slice))
+#define TIMER_ID_IS_CCU8(id)  ((id) >= 16)
 
 // enum {
 //   AF_PIN_TYPE_TIM_CH1 = 0,
