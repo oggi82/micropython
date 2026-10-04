@@ -268,3 +268,45 @@ void DebugMon_Handler(void) {
 //    IRQ_EXIT(EXTI0_IRQn);
 //}
 
+/**
+  * @brief  CCU4/CCU8 slice interrupts (machine.Timer channel callbacks).
+  *
+  * Each slice has its own dedicated SR line/NVIC vector (SRx == slice x,
+  * see timer_channel_enable_irq() in timer.c), so these map 1:1 onto the
+  * flat Timer id scheme: CCU40.0..CCU43.3 -> tim_id 0..15,
+  * CCU80.0..CCU81.3 -> tim_id 16..23.
+  */
+#define CCU_TIMER_IRQHANDLER(name, irqn, tim_id) \
+    void name(void) {                            \
+        IRQ_ENTER(irqn);                         \
+        timer_irq_handler(tim_id);               \
+        IRQ_EXIT(irqn);                          \
+    }
+
+CCU_TIMER_IRQHANDLER(CCU40_0_IRQHandler, CCU40_0_IRQn, 0)
+CCU_TIMER_IRQHANDLER(CCU40_1_IRQHandler, CCU40_1_IRQn, 1)
+CCU_TIMER_IRQHANDLER(CCU40_2_IRQHandler, CCU40_2_IRQn, 2)
+CCU_TIMER_IRQHANDLER(CCU40_3_IRQHandler, CCU40_3_IRQn, 3)
+CCU_TIMER_IRQHANDLER(CCU41_0_IRQHandler, CCU41_0_IRQn, 4)
+CCU_TIMER_IRQHANDLER(CCU41_1_IRQHandler, CCU41_1_IRQn, 5)
+CCU_TIMER_IRQHANDLER(CCU41_2_IRQHandler, CCU41_2_IRQn, 6)
+CCU_TIMER_IRQHANDLER(CCU41_3_IRQHandler, CCU41_3_IRQn, 7)
+CCU_TIMER_IRQHANDLER(CCU42_0_IRQHandler, CCU42_0_IRQn, 8)
+CCU_TIMER_IRQHANDLER(CCU42_1_IRQHandler, CCU42_1_IRQn, 9)
+CCU_TIMER_IRQHANDLER(CCU42_2_IRQHandler, CCU42_2_IRQn, 10)
+CCU_TIMER_IRQHANDLER(CCU42_3_IRQHandler, CCU42_3_IRQn, 11)
+CCU_TIMER_IRQHANDLER(CCU43_0_IRQHandler, CCU43_0_IRQn, 12)
+CCU_TIMER_IRQHANDLER(CCU43_1_IRQHandler, CCU43_1_IRQn, 13)
+CCU_TIMER_IRQHANDLER(CCU43_2_IRQHandler, CCU43_2_IRQn, 14)
+CCU_TIMER_IRQHANDLER(CCU43_3_IRQHandler, CCU43_3_IRQn, 15)
+CCU_TIMER_IRQHANDLER(CCU80_0_IRQHandler, CCU80_0_IRQn, 16)
+CCU_TIMER_IRQHANDLER(CCU80_1_IRQHandler, CCU80_1_IRQn, 17)
+CCU_TIMER_IRQHANDLER(CCU80_2_IRQHandler, CCU80_2_IRQn, 18)
+CCU_TIMER_IRQHANDLER(CCU80_3_IRQHandler, CCU80_3_IRQn, 19)
+CCU_TIMER_IRQHANDLER(CCU81_0_IRQHandler, CCU81_0_IRQn, 20)
+CCU_TIMER_IRQHANDLER(CCU81_1_IRQHandler, CCU81_1_IRQn, 21)
+CCU_TIMER_IRQHANDLER(CCU81_2_IRQHandler, CCU81_2_IRQn, 22)
+CCU_TIMER_IRQHANDLER(CCU81_3_IRQHandler, CCU81_3_IRQn, 23)
+
+#undef CCU_TIMER_IRQHANDLER
+

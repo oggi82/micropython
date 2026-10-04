@@ -12,6 +12,9 @@
 #define MICROPY_COMP_DOUBLE_TUPLE_ASSIGN (1)
 #define MICROPY_COMP_TRIPLE_TUPLE_ASSIGN (1)
 #define MICROPY_ENABLE_GC (1)
+// Needed to safely run Timer channel callbacks from IRQ context (deferred
+// via mp_sched_schedule()) instead of calling straight into the VM there.
+#define MICROPY_ENABLE_SCHEDULER (1)
 #define MICROPY_HELPER_REPL (1)
 #define MICROPY_REPL_EMACS_KEYS (1)
 #define MICROPY_REPL_AUTO_INDENT (1)
@@ -146,7 +149,5 @@ static inline mp_uint_t disable_irq(void) {
 #define MICROPY_PORT_ROOT_POINTERS                                            \
   const char *readline_hist[8];                                               \
   mp_obj_t pin_class_mapper;                                                  \
-  mp_obj_t pin_class_map_dict;                                                \
-  /* pointers to all Timer objects (if they have been created) */ \
-  struct _machine_timer_obj_t *machine_timer_obj_all[MICROPY_HW_MAX_TIMER];
+  mp_obj_t pin_class_map_dict;
 

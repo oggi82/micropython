@@ -1,7 +1,8 @@
 #define MICROPY_HW_BOARD_NAME       "Relax Lite Kit-V1"
 #define MICROPY_HW_MCU_NAME         "XMC4500-1024"
 
-#define MICROPY_HW_MAX_TIMER        (4)
+// One Timer id per CCU4/CCU8 slice: 0..15 = CCU40.0..CCU43.3, 16..23 = CCU80.0..CCU81.3.
+#define MICROPY_HW_MAX_TIMER        (24)
 #define MICROPY_HW_ENABLE_DAC       (0)
 #define MICROPY_HW_ENABLE_USB       (0)
 #define MICROPY_HW_ENABLE_RTC       (1)
