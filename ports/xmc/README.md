@@ -3,30 +3,24 @@
 This port is intended to be a MicroPython port that actually runs on XMC controller.
 For so long the XMC4500 and the Relax Lite-Kit is supported-
 
-## Building and running Linux version
+## Building
 
-By default the port will be built for the host machine:
+The port is built with CMake and the GNU Arm Embedded toolchain
+(`arm-none-eabi-gcc`) and needs `cmake` (3.13 or newer) and optionally `ninja`:
 
-    $ make
+    $ cmake -S . -B build-RELAX_LITE_KIT -G Ninja
+    $ cmake --build build-RELAX_LITE_KIT
 
-To run the executable and get a basic working REPL do:
+The board is selected with `-DMICROPY_BOARD=<name>` (default `RELAX_LITE_KIT`,
+see `boards/`); a different toolchain prefix can be given with
+`-DCROSS_COMPILE=<prefix>`. Use `-DCMAKE_BUILD_TYPE=Debug` for an unoptimised build.
 
-    $ make run
+Building produces `firmware.elf`, `firmware.bin` and `firmware.dfu` in the build
+directory. The DFU image can be programmed to the MCU using:
 
-## Building for an XMC MCU
+    $ cmake --build build-RELAX_LITE_KIT --target deploy
 
-The Makefile has the ability to build for a Cortex-M CPU, and by default
-includes some start-up code for an XMC45xx MCU and also enables a UART
-for communication.  To build:
-
-    $ make
-
-Building will produce the build/firmware.dfu file which can be programmed
-to an MCU using:
-
-    $ make deploy
-
-This version of the build will work out-of-the-box on a Relax Lite-Kit, 
+This version of the build will work out-of-the-box on a Relax Lite-Kit,
 and will give you a MicroPython REPL on USB VCOM at 115200
 baud.
 

@@ -148,7 +148,7 @@ const pin_obj_t pin0_3_obj = PIN(0, 3, pin0_3_af, 0, 0);
 const pin_af_obj_t pin0_4_af[] = {};
 const pin_obj_t pin0_4_obj = PIN(0, 4, pin0_4_af, 0, 0);
 
-STATIC const mp_rom_map_elem_t pin_cpu_pins_locals_dict_table[] = {
+static const mp_rom_map_elem_t pin_cpu_pins_locals_dict_table[] = {
     {MP_ROM_QSTR(MP_QSTR_P0_0), MP_ROM_PTR(&pin0_0_obj)},
     {MP_ROM_QSTR(MP_QSTR_P0_10), MP_ROM_PTR(&pin0_10_obj)},
     {MP_ROM_QSTR(MP_QSTR_P0_1), MP_ROM_PTR(&pin0_1_obj)},
@@ -209,7 +209,7 @@ STATIC const mp_rom_map_elem_t pin_cpu_pins_locals_dict_table[] = {
 };
 MP_DEFINE_CONST_DICT(pin_cpu_pins_locals_dict, pin_cpu_pins_locals_dict_table);
 
-STATIC const mp_rom_map_elem_t pin_board_pins_locals_dict_table[] = {
+static const mp_rom_map_elem_t pin_board_pins_locals_dict_table[] = {
     {MP_ROM_QSTR(MP_QSTR_P0_0), MP_ROM_PTR(&pin0_0_obj)},
     {MP_ROM_QSTR(MP_QSTR_P0_10), MP_ROM_PTR(&pin0_10_obj)},
     {MP_ROM_QSTR(MP_QSTR_P0_1), MP_ROM_PTR(&pin0_1_obj)},
